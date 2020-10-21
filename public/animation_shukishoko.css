@@ -1,0 +1,807 @@
+/*
+The CSS export should solely be used as a reference.
+For a more detailed animation export the JSON file should be used.
+*/
+#hoko {
+    transform: translateX(-50%) translateY(-50%);
+    animation: hoko__x__1 500ms 0ms ease-in-out forwards, hoko__x__2 500ms 500ms ease-in-out forwards, hoko__x__3 500ms 1000ms ease-in-out forwards, hoko__x__4 500ms 1500ms ease-in-out forwards, hoko__x__5 500ms 2000ms ease-in-out forwards, hoko__x__6 500ms 2500ms ease-in-out forwards, hoko__x__7 500ms 3000ms ease-in-out forwards, hoko__x__8 500ms 3500ms ease-in-out forwards, hoko__y__1 500ms 0ms ease-in-out forwards, hoko__y__2 500ms 500ms ease-in-out forwards, hoko__y__3 500ms 1000ms ease-in-out forwards, hoko__y__4 500ms 1500ms ease-in-out forwards, hoko__y__5 500ms 2000ms ease-in-out forwards, hoko__y__6 500ms 2500ms ease-in-out forwards, hoko__y__7 500ms 3000ms ease-in-out forwards, hoko__y__8 500ms 3500ms ease-in-out forwards;
+}
+
+@keyframes hoko__x__1 {
+    from {
+        left: 802.786px;
+    }
+
+    to {
+        left: 640.786px;
+    }
+}
+@keyframes hoko__x__2 {
+    from {
+        left: 640.786px;
+    }
+
+    to {
+        left: 640.786px;
+    }
+}
+@keyframes hoko__x__3 {
+    from {
+        left: 640.786px;
+    }
+
+    to {
+        left: 727.786px;
+    }
+}
+@keyframes hoko__x__4 {
+    from {
+        left: 727.786px;
+    }
+
+    to {
+        left: 727.786px;
+    }
+}
+@keyframes hoko__x__5 {
+    from {
+        left: 727.786px;
+    }
+
+    to {
+        left: 640.786px;
+    }
+}
+@keyframes hoko__x__6 {
+    from {
+        left: 640.786px;
+    }
+
+    to {
+        left: 640.786px;
+    }
+}
+@keyframes hoko__x__7 {
+    from {
+        left: 640.786px;
+    }
+
+    to {
+        left: 802.786px;
+    }
+}
+@keyframes hoko__x__8 {
+    from {
+        left: 802.786px;
+    }
+
+    to {
+        left: 802.786px;
+    }
+}
+@keyframes hoko__y__1 {
+    from {
+        top: 368.17px;
+    }
+
+    to {
+        top: 368.17px;
+    }
+}
+@keyframes hoko__y__2 {
+    from {
+        top: 368.17px;
+    }
+
+    to {
+        top: 368.17px;
+    }
+}
+@keyframes hoko__y__3 {
+    from {
+        top: 368.17px;
+    }
+
+    to {
+        top: 381.17px;
+    }
+}
+@keyframes hoko__y__4 {
+    from {
+        top: 381.17px;
+    }
+
+    to {
+        top: 381.17px;
+    }
+}
+@keyframes hoko__y__5 {
+    from {
+        top: 381.17px;
+    }
+
+    to {
+        top: 368.17px;
+    }
+}
+@keyframes hoko__y__6 {
+    from {
+        top: 368.17px;
+    }
+
+    to {
+        top: 368.17px;
+    }
+}
+@keyframes hoko__y__7 {
+    from {
+        top: 368.17px;
+    }
+
+    to {
+        top: 368.17px;
+    }
+}
+@keyframes hoko__y__8 {
+    from {
+        top: 368.17px;
+    }
+
+    to {
+        top: 368.17px;
+    }
+}
+
+#huki {
+    transform: translateX(-50%) translateY(-50%);
+    animation: huki__x__1 500ms 0ms ease-in-out forwards, huki__x__2 500ms 500ms ease-in-out forwards, huki__x__3 500ms 1000ms ease-in-out forwards, huki__x__4 500ms 1500ms ease-in-out forwards, huki__x__5 500ms 2000ms ease-in-out forwards, huki__x__6 500ms 2500ms ease-in-out forwards, huki__x__7 500ms 3000ms ease-in-out forwards, huki__x__8 500ms 3500ms ease-in-out forwards, huki__y__1 500ms 0ms ease-in-out forwards, huki__y__2 500ms 500ms ease-in-out forwards, huki__y__3 500ms 1000ms ease-in-out forwards, huki__y__4 500ms 1500ms ease-in-out forwards, huki__y__5 500ms 2000ms ease-in-out forwards, huki__y__6 500ms 2500ms ease-in-out forwards, huki__y__7 500ms 3000ms ease-in-out forwards, huki__y__8 500ms 3500ms ease-in-out forwards;
+}
+
+@keyframes huki__x__1 {
+    from {
+        left: 641.086px;
+    }
+
+    to {
+        left: 800.516px;
+    }
+}
+@keyframes huki__x__2 {
+    from {
+        left: 800.516px;
+    }
+
+    to {
+        left: 800.516px;
+    }
+}
+@keyframes huki__x__3 {
+    from {
+        left: 800.516px;
+    }
+
+    to {
+        left: 721.516px;
+    }
+}
+@keyframes huki__x__4 {
+    from {
+        left: 721.516px;
+    }
+
+    to {
+        left: 721.516px;
+    }
+}
+@keyframes huki__x__5 {
+    from {
+        left: 721.516px;
+    }
+
+    to {
+        left: 800.516px;
+    }
+}
+@keyframes huki__x__6 {
+    from {
+        left: 800.516px;
+    }
+
+    to {
+        left: 800.516px;
+    }
+}
+@keyframes huki__x__7 {
+    from {
+        left: 800.516px;
+    }
+
+    to {
+        left: 641.086px;
+    }
+}
+@keyframes huki__x__8 {
+    from {
+        left: 641.086px;
+    }
+
+    to {
+        left: 641.086px;
+    }
+}
+@keyframes huki__y__1 {
+    from {
+        top: 368.25px;
+    }
+
+    to {
+        top: 368.25px;
+    }
+}
+@keyframes huki__y__2 {
+    from {
+        top: 368.25px;
+    }
+
+    to {
+        top: 368.25px;
+    }
+}
+@keyframes huki__y__3 {
+    from {
+        top: 368.25px;
+    }
+
+    to {
+        top: 337.17px;
+    }
+}
+@keyframes huki__y__4 {
+    from {
+        top: 337.17px;
+    }
+
+    to {
+        top: 337.17px;
+    }
+}
+@keyframes huki__y__5 {
+    from {
+        top: 337.17px;
+    }
+
+    to {
+        top: 368.25px;
+    }
+}
+@keyframes huki__y__6 {
+    from {
+        top: 368.25px;
+    }
+
+    to {
+        top: 368.25px;
+    }
+}
+@keyframes huki__y__7 {
+    from {
+        top: 368.25px;
+    }
+
+    to {
+        top: 368.25px;
+    }
+}
+@keyframes huki__y__8 {
+    from {
+        top: 368.25px;
+    }
+
+    to {
+        top: 368.25px;
+    }
+}
+
+#S-low {
+    transform: translateX(-50%) translateY(-50%);
+    animation: S-low__x__1 500ms 0ms ease-in-out forwards, S-low__x__2 500ms 500ms ease-in-out forwards, S-low__x__3 500ms 1000ms ease-in-out forwards, S-low__x__4 500ms 1500ms ease-in-out forwards, S-low__x__5 500ms 2000ms ease-in-out forwards, S-low__x__6 500ms 2500ms ease-in-out forwards, S-low__x__7 500ms 3000ms ease-in-out forwards, S-low__x__8 500ms 3500ms ease-in-out forwards, S-low__y__1 500ms 0ms ease-in-out forwards, S-low__y__2 500ms 500ms ease-in-out forwards, S-low__y__3 500ms 1000ms ease-in-out forwards, S-low__y__4 500ms 1500ms ease-in-out forwards, S-low__y__5 500ms 2000ms ease-in-out forwards, S-low__y__6 500ms 2500ms ease-in-out forwards, S-low__y__7 500ms 3000ms ease-in-out forwards, S-low__y__8 500ms 3500ms ease-in-out forwards, S-low__rotation__1 500ms 0ms ease-in-out forwards, S-low__rotation__2 1500ms 500ms ease-in-out forwards, S-low__rotation__3 1000ms 2000ms ease-in-out forwards, S-low__rotation__4 500ms 3000ms ease-in-out forwards, S-low__rotation__5 500ms 3500ms ease-in-out forwards;
+}
+
+@keyframes S-low__x__1 {
+    from {
+        left: 720px;
+    }
+
+    to {
+        left: 560px;
+    }
+}
+@keyframes S-low__x__2 {
+    from {
+        left: 560px;
+    }
+
+    to {
+        left: 560px;
+    }
+}
+@keyframes S-low__x__3 {
+    from {
+        left: 560px;
+    }
+
+    to {
+        left: 645.4999px;
+    }
+}
+@keyframes S-low__x__4 {
+    from {
+        left: 645.4999px;
+    }
+
+    to {
+        left: 645.4999px;
+    }
+}
+@keyframes S-low__x__5 {
+    from {
+        left: 645.4999px;
+    }
+
+    to {
+        left: 560px;
+    }
+}
+@keyframes S-low__x__6 {
+    from {
+        left: 560px;
+    }
+
+    to {
+        left: 560px;
+    }
+}
+@keyframes S-low__x__7 {
+    from {
+        left: 560px;
+    }
+
+    to {
+        left: 720px;
+    }
+}
+@keyframes S-low__x__8 {
+    from {
+        left: 720px;
+    }
+
+    to {
+        left: 720px;
+    }
+}
+@keyframes S-low__y__1 {
+    from {
+        top: 343px;
+    }
+
+    to {
+        top: 343px;
+    }
+}
+@keyframes S-low__y__2 {
+    from {
+        top: 343px;
+    }
+
+    to {
+        top: 343px;
+    }
+}
+@keyframes S-low__y__3 {
+    from {
+        top: 343px;
+    }
+
+    to {
+        top: 378px;
+    }
+}
+@keyframes S-low__y__4 {
+    from {
+        top: 378px;
+    }
+
+    to {
+        top: 378px;
+    }
+}
+@keyframes S-low__y__5 {
+    from {
+        top: 378px;
+    }
+
+    to {
+        top: 343px;
+    }
+}
+@keyframes S-low__y__6 {
+    from {
+        top: 343px;
+    }
+
+    to {
+        top: 343px;
+    }
+}
+@keyframes S-low__y__7 {
+    from {
+        top: 343px;
+    }
+
+    to {
+        top: 343px;
+    }
+}
+@keyframes S-low__y__8 {
+    from {
+        top: 343px;
+    }
+
+    to {
+        top: 343px;
+    }
+}
+@keyframes S-low__rotation__1 {
+    from {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+
+    to {
+        transform: translateX(-50%) translateY(-50%) rotate(180deg);
+    }
+}
+@keyframes S-low__rotation__2 {
+    from {
+        transform: translateX(-50%) translateY(-50%) rotate(180deg);
+    }
+
+    to {
+        transform: translateX(-50%) translateY(-50%) rotate(180deg);
+    }
+}
+@keyframes S-low__rotation__3 {
+    from {
+        transform: translateX(-50%) translateY(-50%) rotate(180deg);
+    }
+
+    to {
+        transform: translateX(-50%) translateY(-50%) rotate(180deg);
+    }
+}
+@keyframes S-low__rotation__4 {
+    from {
+        transform: translateX(-50%) translateY(-50%) rotate(180deg);
+    }
+
+    to {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+}
+@keyframes S-low__rotation__5 {
+    from {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+
+    to {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+}
+
+#S-up {
+    transform: translateX(-50%) translateY(-50%);
+    animation: S-up__x__1 500ms 0ms ease-in-out forwards, S-up__x__2 500ms 500ms ease-in-out forwards, S-up__x__3 500ms 1000ms ease-in-out forwards, S-up__x__4 500ms 1500ms ease-in-out forwards, S-up__x__5 500ms 2000ms ease-in-out forwards, S-up__x__6 500ms 2500ms ease-in-out forwards, S-up__x__7 500ms 3000ms ease-in-out forwards, S-up__x__8 500ms 3500ms ease-in-out forwards, S-up__y__1 500ms 0ms ease-in-out forwards, S-up__y__2 500ms 500ms ease-in-out forwards, S-up__y__3 500ms 1000ms ease-in-out forwards, S-up__y__4 500ms 1500ms ease-in-out forwards, S-up__y__5 1000ms 2000ms ease-in-out forwards, S-up__y__6 0ms 3000ms ease-in-out forwards, S-up__y__7 500ms 3000ms ease-in-out forwards, S-up__y__8 500ms 3500ms ease-in-out forwards;
+}
+
+@keyframes S-up__x__1 {
+    from {
+        left: 564.56px;
+    }
+
+    to {
+        left: 725.2px;
+    }
+}
+@keyframes S-up__x__2 {
+    from {
+        left: 725.2px;
+    }
+
+    to {
+        left: 725.2px;
+    }
+}
+@keyframes S-up__x__3 {
+    from {
+        left: 725.2px;
+    }
+
+    to {
+        left: 644.2px;
+    }
+}
+@keyframes S-up__x__4 {
+    from {
+        left: 644.2px;
+    }
+
+    to {
+        left: 644.2px;
+    }
+}
+@keyframes S-up__x__5 {
+    from {
+        left: 644.2px;
+    }
+
+    to {
+        left: 725.2px;
+    }
+}
+@keyframes S-up__x__6 {
+    from {
+        left: 725.2px;
+    }
+
+    to {
+        left: 725.2px;
+    }
+}
+@keyframes S-up__x__7 {
+    from {
+        left: 725.2px;
+    }
+
+    to {
+        left: 564.56px;
+    }
+}
+@keyframes S-up__x__8 {
+    from {
+        left: 564.56px;
+    }
+
+    to {
+        left: 564.56px;
+    }
+}
+@keyframes S-up__y__1 {
+    from {
+        top: 343.88px;
+    }
+
+    to {
+        top: 343.88px;
+    }
+}
+@keyframes S-up__y__2 {
+    from {
+        top: 343.88px;
+    }
+
+    to {
+        top: 343.88px;
+    }
+}
+@keyframes S-up__y__3 {
+    from {
+        top: 343.88px;
+    }
+
+    to {
+        top: 343.88px;
+    }
+}
+@keyframes S-up__y__4 {
+    from {
+        top: 343.88px;
+    }
+
+    to {
+        top: 343.88px;
+    }
+}
+@keyframes S-up__y__5 {
+    from {
+        top: 343.88px;
+    }
+
+    to {
+        top: 343.88px;
+    }
+}
+@keyframes S-up__y__6 {
+    from {
+        top: 343.88px;
+    }
+
+    to {
+        top: 343.88px;
+    }
+}
+@keyframes S-up__y__7 {
+    from {
+        top: 343.88px;
+    }
+
+    to {
+        top: 343.88px;
+    }
+}
+@keyframes S-up__y__8 {
+    from {
+        top: 343.88px;
+    }
+
+    to {
+        top: 343.88px;
+    }
+}
+
+#S-low2-Group {
+    transform: translateX(-50%) translateY(-50%);
+    animation: S-low2-Group__x__1 1000ms 0ms ease-in-out forwards, S-low2-Group__x__2 500ms 1000ms ease-in-out forwards, S-low2-Group__x__3 500ms 1500ms ease-in-out forwards, S-low2-Group__x__4 500ms 2000ms ease-in-out forwards, S-low2-Group__x__5 1500ms 2500ms ease-in-out forwards, S-low2-Group__y__1 1000ms 0ms ease-in-out forwards, S-low2-Group__y__2 500ms 1000ms ease-in-out forwards, S-low2-Group__y__3 500ms 1500ms ease-in-out forwards, S-low2-Group__y__4 500ms 2000ms ease-in-out forwards, S-low2-Group__y__5 1500ms 2500ms ease-in-out forwards, S-low2-Group__opacity__1 1000ms 0ms ease-in-out forwards, S-low2-Group__opacity__2 100ms 1000ms ease-in-out forwards, S-low2-Group__opacity__3 400ms 1100ms ease-in-out forwards, S-low2-Group__opacity__4 500ms 1500ms ease-in-out forwards, S-low2-Group__opacity__5 400ms 2000ms ease-in-out forwards, S-low2-Group__opacity__6 100ms 2400ms ease-in-out forwards, S-low2-Group__opacity__7 1500ms 2500ms ease-in-out forwards;
+}
+
+@keyframes S-low2-Group__x__1 {
+    from {
+        left: 560.5px;
+    }
+
+    to {
+        left: 560.5px;
+    }
+}
+@keyframes S-low2-Group__x__2 {
+    from {
+        left: 560.5px;
+    }
+
+    to {
+        left: 646.5px;
+    }
+}
+@keyframes S-low2-Group__x__3 {
+    from {
+        left: 646.5px;
+    }
+
+    to {
+        left: 646.5px;
+    }
+}
+@keyframes S-low2-Group__x__4 {
+    from {
+        left: 646.5px;
+    }
+
+    to {
+        left: 560.5px;
+    }
+}
+@keyframes S-low2-Group__x__5 {
+    from {
+        left: 560.5px;
+    }
+
+    to {
+        left: 560.5px;
+    }
+}
+@keyframes S-low2-Group__y__1 {
+    from {
+        top: 339.92px;
+    }
+
+    to {
+        top: 339.92px;
+    }
+}
+@keyframes S-low2-Group__y__2 {
+    from {
+        top: 339.92px;
+    }
+
+    to {
+        top: 376.92px;
+    }
+}
+@keyframes S-low2-Group__y__3 {
+    from {
+        top: 376.92px;
+    }
+
+    to {
+        top: 376.92px;
+    }
+}
+@keyframes S-low2-Group__y__4 {
+    from {
+        top: 376.92px;
+    }
+
+    to {
+        top: 339.92px;
+    }
+}
+@keyframes S-low2-Group__y__5 {
+    from {
+        top: 339.92px;
+    }
+
+    to {
+        top: 339.92px;
+    }
+}
+@keyframes S-low2-Group__opacity__1 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+@keyframes S-low2-Group__opacity__2 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+@keyframes S-low2-Group__opacity__3 {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+@keyframes S-low2-Group__opacity__4 {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+@keyframes S-low2-Group__opacity__5 {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+@keyframes S-low2-Group__opacity__6 {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+@keyframes S-low2-Group__opacity__7 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
