@@ -64,48 +64,6 @@ const dateTimePickerstyle = {
 };
 const useDateTimePickerStyles = makeStyles(dateTimePickerstyle);
 
-// /**
-//  * 静的パス取得関数
-//  *
-//  * @export
-//  * @return {*}
-//  */
-// export async function getStaticPaths() {
-//   const paths = [];
-//   return { paths, fallback: true };
-// }
-
-// /**
-//  * 静的パラメータ取得関数
-//  *
-//  * @export
-//  * @param {*} { params }
-//  * @return {*}
-//  */
-// export async function getStaticProps({ params }) {
-//   // ユーザ名からユーザデータを取得
-//   const { userData } = await getUserDataFromUserName(params.userName);
-
-//   // 該当ユーザ名のデータが存在しない場合はデータ部をNullで返す;
-//   if (!userData) {
-//     console.log('異常終了 該当ユーザ名のデータが存在しない');
-//     return {
-//       props: {
-//         userName: params.userName,
-//         userData: null,
-//       },
-//     };
-//   }
-
-//   return {
-//     props: {
-//       userName: params.userName,
-//       // Next.jsはDate型を返してほしくないようなのでこのような対処をしている
-//       userData: JSON.parse(JSON.stringify(userData)),
-//     },
-//   };
-// }
-
 /**
  * 手記作成ページ
  *
@@ -121,17 +79,6 @@ export default function BookCreatePage() {
   const router = useRouter();
 
   const [userName, setUserName] = useState('');
-
-  const [isPublic, setIsPublic] = useState('');
-  const [bookName, setBookName] = useState('');
-  const [bookDisplayName, setBookDisplayName] = useState('');
-  const [authorDisplayName, setAuthorDisplayName] = useState('');
-  const [authorBirthday, setAuthorBirthday] = useState('');
-  const [bookIconImageUrl, setBookIconImageUrl] = useState('');
-  const [bookCoverImageUrl, setBookCoverImageUrl] = useState('');
-  const [bookIntroduction, setBookIntroduction] = useState('');
-  const [chapterName, setChapterName] = useState('');
-  const [chapterStartDate, setChapterStartDate] = useState('');
 
   const handleAuthorBirthdayChange = (date) => {
     setAuthorBirthday(date);
@@ -155,120 +102,6 @@ export default function BookCreatePage() {
       return;
     }
   }
-
-  // Firestoreにデータを送信する関数
-  const postDataToFirestore = async (
-    userCollectionName,
-    userId,
-    bookCollectionName,
-    bookId,
-    postData,
-  ) => {
-    const addedData = await firebase
-      .firestore()
-      .collection(userCollectionName)
-      .doc(userId)
-      .collection(bookCollectionName)
-      .doc(bookId)
-      .set(postData);
-    return addedData;
-  };
-
-  // submitボタンクリック時の処理
-  const submitData = async () => {
-    if (
-      isPublic === '' ||
-      bookName === '' ||
-      bookDisplayName === '' ||
-      authorDisplayName === '' ||
-      authorBirthday === '' ||
-      chapterName === '' ||
-      chapterStartDate === ''
-    ) {
-      console.log('いまのところ全部埋めてください');
-      return false;
-    }
-    // bookIdを事前に取得
-    const bookId = firebase
-      .firestore()
-      .collection(VALIDUSERS)
-      .doc(userData.uid)
-      .collection(VALIDBOOKS)
-      .doc().id;
-
-    const postData = {
-      isPublic,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-
-      uid: userData.uid,
-      userName: userData.userName,
-      userDocRef: `/${VALIDUSERS}/${userData.uid}`,
-      bookId,
-      bookDocRef: `/${VALIDUSERS}/${userData.uid}/${VALIDBOOKS}/${bookId}`,
-
-      bookName,
-      bookDisplayName,
-
-      authorDisplayName,
-      authorBirthday: new Date(authorBirthday),
-      authorNowAge: '',
-
-      bookIconImageUrl: '',
-      bookCoverImageUrl: '',
-      bookIntroduction: '',
-      bookFavoritedCount: '',
-      chapterName,
-      chapterStartDate: new Date(chapterStartDate),
-    };
-    await postDataToFirestore(
-      VALIDUSERS,
-      userData.uid,
-      VALIDBOOKS,
-      bookId,
-      postData,
-    );
-
-    setIsPublic('');
-    setBookName('');
-    setBookDisplayName('');
-    setAuthorDisplayName('');
-    setAuthorBirthday('');
-    setChapterName('');
-    setChapterStartDate('');
-
-    // getTodosFromFirestore();
-  };
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setError(null);
-  //   setPending(true);
-
-  //   console.log('ブック作成Try');
-  //   await firebase
-  //     .auth()
-  //     .signInWithEmailAndPassword(email, pass)
-  //     .then(() => {})
-  //     .catch((e) => {
-  //       errText = firebaseErrToTxt(e, 'signin');
-  //       console.log(e.message, mounted);
-  //       console.log(errText);
-
-  //       if (mounted.current) {
-  //         setError(e);
-  //         setUserName('');
-  //         setMoveUserPage('false');
-  //         console.log('ログイン失敗2');
-  //         setPending(false);
-  //       }
-  //     })
-  //     .finally(() => {
-  //       if (mounted.current) {
-  //         setPending(false);
-  //       }
-  //     });
-  // };
 
   // スタイル読み出し
   const classes = useStyles();
@@ -311,10 +144,12 @@ export default function BookCreatePage() {
                     以下のフォームに情報を入力
                   </p>
                   <CardBody signup>
+                    <BookCreateInputForm userData={userData} />
+
                     {/************************/}
                     {/* 手記公開設定           */}
                     {/************************/}
-                    <CustomInput
+                    {/* <CustomInput
                       id="isPublic"
                       formControlProps={{
                         fullWidth: true,
@@ -332,11 +167,11 @@ export default function BookCreatePage() {
                         value: isPublic,
                         onChange: (e) => setIsPublic(e.target.value),
                       }}
-                    />
+                    /> */}
+                    {/* **********************/}
+                    {/* 手記管理名称（URL）     */}
                     {/************************/}
-                    {/* 手記管理名称（URL）    */}
-                    {/************************/}
-                    <CustomInput
+                    {/* <CustomInput
                       id="bookName"
                       formControlProps={{
                         fullWidth: true,
@@ -355,11 +190,11 @@ export default function BookCreatePage() {
                         value: bookName,
                         onChange: (e) => setBookName(e.target.value),
                       }}
-                    />
+                    /> */}
                     {/************************/}
                     {/* 手記表示名称           */}
                     {/************************/}
-                    <CustomInput
+                    {/* <CustomInput
                       id="bookDisplayName"
                       formControlProps={{
                         fullWidth: true,
@@ -378,11 +213,11 @@ export default function BookCreatePage() {
                         value: bookDisplayName,
                         onChange: (e) => setBookDisplayName(e.target.value),
                       }}
-                    />
+                    /> */}
                     {/************************/}
                     {/* 主人公名称           */}
                     {/************************/}
-                    <CustomInput
+                    {/* <CustomInput
                       id="authorDisplayName"
                       formControlProps={{
                         fullWidth: true,
@@ -401,7 +236,7 @@ export default function BookCreatePage() {
                         value: authorDisplayName,
                         onChange: (e) => setAuthorDisplayName(e.target.value),
                       }}
-                    />
+                    /> */}
                     {/************************/}
                     {/* 主人公の誕生日         */}
                     {/************************/}
@@ -425,7 +260,7 @@ export default function BookCreatePage() {
                         onChange: (e) => setAuthorBirthday(e.target.value),
                       }}
                     /> */}
-                    <div>
+                    {/* <div>
                       <InputLabel className={classes.label}>
                         主人公の誕生日
                       </InputLabel>
@@ -441,11 +276,11 @@ export default function BookCreatePage() {
                           onChange={handleAuthorBirthdayChange}
                         />
                       </FormControl>
-                    </div>
+                    </div> */}
                     {/************************/}
                     {/* 手記アイコン絵文字      */}
                     {/************************/}
-                    <CustomInput
+                    {/* <CustomInput
                       id="bookIconImageUrl"
                       formControlProps={{
                         fullWidth: true,
@@ -464,11 +299,11 @@ export default function BookCreatePage() {
                         value: bookIconImageUrl,
                         onChange: (e) => setBookIconImageUrl(e.target.value),
                       }}
-                    />
+                    /> */}
                     {/************************/}
                     {/* 手記カバー画像      */}
                     {/************************/}
-                    <CustomInput
+                    {/* <CustomInput
                       id="bookCoverImageUrl"
                       formControlProps={{
                         fullWidth: true,
@@ -487,11 +322,11 @@ export default function BookCreatePage() {
                         value: bookCoverImageUrl,
                         onChange: (e) => setBookCoverImageUrl(e.target.value),
                       }}
-                    />
+                    /> */}
                     {/************************/}
                     {/* イントロダクション     */}
                     {/************************/}
-                    <CustomInput
+                    {/* <CustomInput
                       id="bookIntroduction"
                       formControlProps={{
                         fullWidth: true,
@@ -510,11 +345,11 @@ export default function BookCreatePage() {
                         value: bookIntroduction,
                         onChange: (e) => setBookIntroduction(e.target.value),
                       }}
-                    />
+                    /> */}
                     {/************************/}
                     {/* チャプター名称         */}
                     {/************************/}
-                    <CustomInput
+                    {/* <CustomInput
                       id="chapterName"
                       formControlProps={{
                         fullWidth: true,
@@ -533,7 +368,7 @@ export default function BookCreatePage() {
                         value: chapterName,
                         onChange: (e) => setChapterName(e.target.value),
                       }}
-                    />
+                    /> */}
                     {/************************/}
                     {/* チャプター開始日        */}
                     {/************************/}
@@ -557,7 +392,7 @@ export default function BookCreatePage() {
                         onChange: (e) => setChapterStartDate(e.target.value),
                       }}
                     /> */}
-                    <div>
+                    {/* <div>
                       <InputLabel className={classes.label}>
                         チャプター開始日
                       </InputLabel>
@@ -573,12 +408,12 @@ export default function BookCreatePage() {
                           onChange={handleDateChange}
                         />
                       </FormControl>
-                    </div>
+                    </div> */}
                   </CardBody>
                   {/***********************/}
                   {/* 手記作成ボタン         */}
                   {/***********************/}
-                  <div className={classes.textCenter}>
+                  {/* <div className={classes.textCenter}>
                     <Button
                       simple
                       color="primary"
@@ -588,7 +423,7 @@ export default function BookCreatePage() {
                     >
                       新しい手記を作成する
                     </Button>
-                  </div>
+                  </div> */}
                 </form>
               </Card>
             </GridItem>
@@ -607,14 +442,10 @@ export default function BookCreatePage() {
         )} */}
       </div>
 
-      <h1>Welcome to 手記作成 ページ</h1>
-
       <p>
         ユーザー:
         {userData.userName}
       </p>
-
-      <BookCreateInputForm userData={userData} />
 
       <Link href={`/users/${userData.userName}`}>
         <a>ユーザページへ戻る</a>
