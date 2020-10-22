@@ -25,9 +25,9 @@
                 //手記ドキュメント 使用するbookIdはfirestore自動払い出しID
                 "<bookId>": {
                     //ドキュメントID
+                    "isPublic": "手記公開設定", //真偽値,True:自分以外に手記を見せない False:自分以外に手記を見せる(上位のisPublic設定に従う)
                     "createdAt": "手記作成日", // タイムスタンプ,firestoreのタイムスタンプ機能を使用
                     "updatedAt": "手記更新日", // タイムスタンプ,firestoreのタイムスタンプ機能を使用
-                    "isPublic": "手記公開設定", //真偽値,True:自分以外に手記を見せない False:自分以外に手記を見せる(上位のisPublic設定に従う)
 
                     "uid": "ユーザドキュメントID", //文字列 collectionGroupクエリで使うかも
                     "userName": "管理上のユーザ名", //文字列
@@ -37,15 +37,15 @@
 
                     "bookName": "管理上の手記名", //文字列  ユーザの単位で一意であること
                     "bookDisplayName": "画面上に見せる手記名", //文字列
-
-                    "authorDisplayName": "画面上に見せる著者名", //文字列,ユーザ名と別で良い
-                    "authorBirthday": "著者誕生日", //タイムスタンプ,年齢の算出に使う
-                    "authorNowAge": "著者の現在の年齢", //著者誕生日から算出する
-
+                    "bookIconEmoji": "手記アイコン絵文字",
                     "bookIconImageUrl": "手記アイコン画像URL", //文字列,Null許容
                     "bookCoverImageUrl": "手記カバー画像URL", //文字列,Null許容
                     "bookIntroduction": "手記はじめに", //文字列,Null許容
                     "bookFavoritedCount": "手記がお気に入りに入れられている数", //数値
+                    
+                    "authorDisplayName": "主人公名", //文字列,ユーザ名と別で良い
+                    "authorBirthday": "主人公誕生日", //タイムスタンプ,年齢の算出に使う
+
                     // "chapter": {
                     //     "A時代": "A時代の開始年月日", //タイムスタンプ
                     //     "B時代": "B時代の開始年月日", //タイムスタンプ
@@ -60,7 +60,8 @@
                         "<chapterId>": {
                             //ドキュメントID
                             "chapterName": "時代名称", //文字列
-                            "chapterStartDate": "時代の開始年月日" //タイムスタンプ
+                            "chapterStartDate": "時代の開始年月日", //タイムスタンプ
+                            "chapterEndDate": "時代の終了年月日" //タイムスタンプ
                         }
                     },
                     //****************************************

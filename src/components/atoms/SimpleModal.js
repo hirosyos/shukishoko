@@ -39,16 +39,6 @@ export default function SimpleModal(props) {
   console.log({ modalTitle });
   console.log({ modalText });
 
-  // なんとかして子コンポーネントから親コンポーネントの状態を変えたい
-  // useEffect(() => {
-  //   // if (error) {
-  //   //   resetState(null);
-  //   // }
-  //   resetState(null);
-  // }, [error]);
-
-  // resetState(null);
-
   return (
     <div>
       <Dialog
@@ -61,7 +51,7 @@ export default function SimpleModal(props) {
         keepMounted
         onClose={() => {
           setLiveDemo(false);
-          callBack('close');
+          callBack && callBack('close');
         }}
         aria-labelledby="classic-modal-slide-title"
         aria-describedby="classic-modal-slide-description"
@@ -78,7 +68,7 @@ export default function SimpleModal(props) {
             aria-label="Close"
             onClick={() => {
               setLiveDemo(false);
-              callBack('close');
+              callBack && callBack('close');
             }}
           >
             {' '}
@@ -99,7 +89,7 @@ export default function SimpleModal(props) {
             <Button
               onClick={() => {
                 setLiveDemo(false);
-                callBack('close');
+                callBack && callBack('close');
               }}
               color="primary"
             >
@@ -111,7 +101,7 @@ export default function SimpleModal(props) {
             <Button
               onClick={() => {
                 setLiveDemo(false);
-                callBack('yes');
+                callBack && callBack('yes');
               }}
               color="primary"
             >
@@ -123,7 +113,7 @@ export default function SimpleModal(props) {
             <Button
               onClick={() => {
                 setLiveDemo(false);
-                callBack('no');
+                callBack && callBack('no');
               }}
               color="primary"
             >
