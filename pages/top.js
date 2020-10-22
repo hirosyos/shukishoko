@@ -53,13 +53,6 @@ export default function TopPage({
 }) {
   return (
     <>
-      <AppHead
-        pageTitle={`トップ`}
-        description="ディスクリプション"
-        keyword="キーワード"
-        image="http://shukishoko.com/logo_shukishoko_fullscreen.png"
-        url="http://shukishoko.com/top/"
-      />
       <AppLayout>
         <TopPageMain
           userDataList={userDataList}

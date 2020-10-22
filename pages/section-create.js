@@ -6,6 +6,8 @@ import {
 } from 'src/common/common';
 import SectionCreateInputForm from 'src/components/molecules/Section';
 import { AppLayout } from 'src/components/organisms/AppLayout';
+import { RSC } from 'src/common/resource';
+import { AppHead } from 'src/components/organisms/AppHead';
 
 // /**
 //  * 静的パス取得
@@ -85,34 +87,44 @@ import { AppLayout } from 'src/components/organisms/AppLayout';
  */
 export default function SectionCreate(props) {
   return (
-    <AppLayout>
-      {/* <Layout> */}
-      <h1>セクション作成</h1>
-      <p>
-        {' '}
-        ユーザー:
-        {props.userName}
-      </p>
-      <p>
-        {' '}
-        手記:
-        {props.bookName}
-      </p>
-
-      <SectionCreateInputForm
-        userData={props.userData}
-        bookData={props.bookData}
-        bookId={props.bookId}
+    <>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/section-create`}
       />
+      <AppLayout>
+        {/* <Layout> */}
+        <h1>セクション作成</h1>
+        <p>
+          {' '}
+          ユーザー:
+          {props.userName}
+        </p>
+        <p>
+          {' '}
+          手記:
+          {props.bookName}
+        </p>
 
-      <Link href={`/users/${props.userName}`}>
-        <a>ユーザページへ戻る</a>
-      </Link>
-      <Link href={`/users/${props.userName}/${props.bookName}`}>
-        <a>手記ページへ戻る</a>
-      </Link>
+        <SectionCreateInputForm
+          userData={props.userData}
+          bookData={props.bookData}
+          bookId={props.bookId}
+        />
 
-      {/* </Layout> */}
-    </AppLayout>
+        <Link href={`/users/${props.userName}`}>
+          <a>ユーザページへ戻る</a>
+        </Link>
+        <Link href={`/users/${props.userName}/${props.bookName}`}>
+          <a>手記ページへ戻る</a>
+        </Link>
+
+        {/* </Layout> */}
+      </AppLayout>
+    </>
   );
 }

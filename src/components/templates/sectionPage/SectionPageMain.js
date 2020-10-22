@@ -34,6 +34,8 @@ import BookCard from 'src/components/molecules/BookCard';
 
 import { AuthContext } from 'pages/_app';
 import UserCard from 'src/components/molecules/UserCard';
+import { AppHead } from 'src/components/organisms/AppHead';
+import { RSC } from 'src/common/resource';
 
 import shukishoko from 'public/logo_shukishoko_circle.svg';
 
@@ -86,6 +88,16 @@ const SectionPageMain = ({
 
   return (
     <>
+      {/********************/}
+      {/* ヘッダ設定         */}
+      {/********************/}
+      <AppHead
+        pageTitle={`§ ${convertFromTimestampToDatetime(
+          sectionData.date.seconds,
+        )} の思い出 『${sectionData.title}』`}
+        description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんが主人公『${bookData.authorDisplayName}』を綴った手記『${bookData.bookName}』より〜`}
+        url={`${RSC.domain}/users/${userName}/${bookName}/${sectionId}`}
+      />
       {/********************/}
       {/* セクションカバー画像 */}
       {/********************/}

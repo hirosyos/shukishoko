@@ -7,6 +7,7 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 
 import { AppLayout } from 'src/components/organisms/AppLayout';
+import { RSC } from 'src/common/resource';
 import { AppHead } from 'src/components/organisms/AppHead';
 
 import errorPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/errorPageStyles.js';
@@ -23,6 +24,14 @@ export default function ErrorPage({ ...rest }) {
   const classes = useStyles();
   return (
     <div>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/404`}
+      />
       <AppHead pageTitle={`404 ページが見つかりません`} />
       <AppLayout>
         <div

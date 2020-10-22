@@ -14,6 +14,7 @@ import aboutUsStyle from 'assets/jss/nextjs-material-kit-pro/pages/aboutUsStyle.
 /* MyApp */
 import { AppLayout } from 'src/components/organisms/AppLayout';
 import { AppHead } from 'src/components/organisms/AppHead';
+import { RSC } from 'src/common/resource';
 
 const useStyles = makeStyles(aboutUsStyle);
 
@@ -21,7 +22,14 @@ export default function AboutUsPage() {
   const classes = useStyles();
   return (
     <div>
-      <AppHead pageTitle={`私達について`} />
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/about-us`}
+      />
       <AppLayout>
         <Parallax image={require('public/cat_01.jpg')} filter="dark" small>
           <div className={classes.container}>

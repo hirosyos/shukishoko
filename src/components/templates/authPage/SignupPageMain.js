@@ -46,6 +46,7 @@ import firebase from 'src/common/firebase';
 import SimpleModal from 'src/components/atoms/SimpleModal';
 import { AppMain } from 'src/components/organisms/AppMain';
 import { AuthContext } from 'pages/_app';
+import { AppHead } from 'src/components/organisms/AppHead';
 
 // スタイル設定
 const useStyles = makeStyles(signupPageStyle);
@@ -216,224 +217,237 @@ export function SignupPageMain({ ...rest }) {
   const classes = useStyles();
 
   return (
-    // <AppMain>
-    <div
-      className={classes.pageHeader}
-      style={{
-        backgroundImage: 'url(' + image + ')',
-        backgroundSize: 'cover',
-        backgroundPosition: 'top center',
-      }}
-    >
-      <div className={classes.container}>
-        <GridContainer justify="center">
-          <GridItem xs={12} sm={10} md={10}>
-            {/*******************/}
-            {/* サインアップカード */}
-            {/*******************/}
-            <Card className={classes.cardSignup}>
-              <h2 className={classes.cardTitle}>{RSC.signupPrint}</h2>
-              <CardBody>
-                <GridContainer justify="center">
-                  {/*******************/}
-                  {/* Appの説明文      */}
-                  {/*******************/}
-                  <GridItem xs={12} sm={5} md={5}>
-                    <InfoArea
-                      className={classes.infoArea}
-                      title="思い出を手記に"
-                      description="過去の出来事を、感情と共に、時系列で手記にすることで思考は整理され、見えてくる物があるかもしれません。"
-                      icon={HistoryIcon}
-                      iconColor="rose"
-                    />
-                    <InfoArea
-                      className={classes.infoArea}
-                      title="人の思い出と出会う"
-                      description="例えば、同じ時代、同じものが好きだった人の今と出会えます。過去に同じ悩みを抱えていた人の今と出会えます。"
-                      icon={CompareArrowsIcon}
-                      iconColor="primary"
-                    />
-                    <InfoArea
-                      className={classes.infoArea}
-                      title="未来に繋げる"
-                      description="様々な人の思い出を仮想体験することで、今の問題を解決し、未来の計画が立てやすくなります"
-                      icon={UpdateIcon}
-                      iconColor="info"
-                    />
-                  </GridItem>
-                  {/*******************/}
-                  {/* サインアップ      */}
-                  {/*******************/}
-                  <GridItem xs={12} sm={5} md={5}>
-                    <div className={classes.textCenter}>
-                      <Button justIcon round color="google">
-                        <i className={classes.socials + ' fab fa-google'} />
-                      </Button>
-                      {` `}
-                      <Button justIcon round color="twitter">
-                        <i className={classes.socials + ' fab fa-twitter'} />
-                      </Button>
-                      {` `}
-                      <Button justIcon round color="facebook">
-                        <i className={classes.socials + ' fab fa-facebook-f'} />
-                      </Button>
-                      {` `}
-                      <h4 className={classes.socialTitle}>or be classical</h4>
-                    </div>
-                    {/***********************/}
-                    {/* サインアップフォーム   */}
-                    {/***********************/}
-                    <form className={classes.form}>
-                      {/***********************/}
-                      {/* アカウントフォーム     */}
-                      {/***********************/}
-                      <CustomInput
-                        labelText="アカウント名(半角アルファベットのみ)"
-                        formControlProps={{
-                          fullWidth: true,
-                          className: classes.customFormControlClasses,
-                        }}
-                        inputProps={{
-                          placeholder: 'Name...',
-                          type: 'text',
-                          startAdornment: (
-                            <InputAdornment
-                              position="start"
-                              className={classes.inputAdornment}
-                            >
-                              <PersonAddIcon
-                                className={classes.inputAdornmentIcon}
-                              />
-                            </InputAdornment>
-                          ),
-                          value: account,
-                          onChange: (e) => setAccount(e.target.value),
-                        }}
+    <>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/signup`}
+      />
+      {/*******************/}
+      {/* 背景画像         */}
+      {/*******************/}
+      <div
+        className={classes.pageHeader}
+        style={{
+          backgroundImage: 'url(' + image + ')',
+          backgroundSize: 'cover',
+          backgroundPosition: 'top center',
+        }}
+      >
+        <div className={classes.container}>
+          <GridContainer justify="center">
+            <GridItem xs={12} sm={10} md={10}>
+              {/*******************/}
+              {/* サインアップカード */}
+              {/*******************/}
+              <Card className={classes.cardSignup}>
+                <h2 className={classes.cardTitle}>{RSC.signupPrint}</h2>
+                <CardBody>
+                  <GridContainer justify="center">
+                    {/*******************/}
+                    {/* Appの説明文      */}
+                    {/*******************/}
+                    <GridItem xs={12} sm={5} md={5}>
+                      <InfoArea
+                        className={classes.infoArea}
+                        title="思い出を手記に"
+                        description="過去の出来事を、感情と共に、時系列で手記にすることで思考は整理され、見えてくる物があるかもしれません。"
+                        icon={HistoryIcon}
+                        iconColor="rose"
                       />
-                      {/***********************/}
-                      {/* メールアドレスフォーム  */}
-                      {/***********************/}
-                      <CustomInput
-                        labelText="アカウント名@example.com を使ってください"
-                        formControlProps={{
-                          fullWidth: true,
-                          className: classes.customFormControlClasses,
-                        }}
-                        // material-uiのInputコンポーネントのProps
-                        inputProps={{
-                          placeholder: 'Email...',
-                          type: 'email',
-                          startAdornment: (
-                            <InputAdornment
-                              position="start"
-                              className={classes.inputAdornment}
-                            >
-                              <Email className={classes.inputAdornmentIcon} />
-                            </InputAdornment>
-                          ),
-                          value: email,
-                          onChange: (e) => setEmail(e.target.value),
-                        }}
+                      <InfoArea
+                        className={classes.infoArea}
+                        title="人の思い出と出会う"
+                        description="例えば、同じ時代、同じものが好きだった人の今と出会えます。過去に同じ悩みを抱えていた人の今と出会えます。"
+                        icon={CompareArrowsIcon}
+                        iconColor="primary"
                       />
-                      {/***********************/}
-                      {/* パスワードフォーム     */}
-                      {/***********************/}
-                      <CustomInput
-                        labelText="パスワード"
-                        formControlProps={{
-                          fullWidth: true,
-                          className: classes.customFormControlClasses,
-                        }}
-                        inputProps={{
-                          placeholder: 'Password...',
-                          type: 'password',
-                          startAdornment: (
-                            <InputAdornment
-                              position="start"
-                              className={classes.inputAdornment}
-                            >
-                              <Icon className={classes.inputAdornmentIcon}>
-                                lock_outline
-                              </Icon>
-                            </InputAdornment>
-                          ),
-                          value: pass,
-                          onChange: (e) => setPass(e.target.value),
-                        }}
+                      <InfoArea
+                        className={classes.infoArea}
+                        title="未来に繋げる"
+                        description="様々な人の思い出を仮想体験することで、今の問題を解決し、未来の計画が立てやすくなります"
+                        icon={UpdateIcon}
+                        iconColor="info"
                       />
-                      {/***********************/}
-                      {/* 同意チェック          */}
-                      {/***********************/}
-                      <FormControlLabel
-                        classes={{
-                          label: classes.label,
-                        }}
-                        control={
-                          <Checkbox
-                            tabIndex={-1}
-                            onClick={() => handleToggle(1)}
-                            checkedIcon={
-                              <Check className={classes.checkedIcon} />
-                            }
-                            icon={<Check className={classes.uncheckedIcon} />}
-                            classes={{
-                              checked: classes.checked,
-                              root: classes.checkRoot,
-                            }}
-                            checked={checked.indexOf(1) !== -1 ? true : false}
-                          />
-                        }
-                        label={
-                          <span>
-                            I agree to the{' '}
-                            <a href="#pablo">terms and conditions</a>.
-                          </span>
-                        }
-                      />
-                      {/***********************/}
-                      {/* サインアップボタン     */}
-                      {/***********************/}
+                    </GridItem>
+                    {/*******************/}
+                    {/* サインアップ      */}
+                    {/*******************/}
+                    <GridItem xs={12} sm={5} md={5}>
                       <div className={classes.textCenter}>
-                        <Button
-                          round
-                          color="primary"
-                          type="submit"
-                          onClick={onSubmit}
-                        >
-                          {RSC.signupBtnPrint}
+                        <Button justIcon round color="google">
+                          <i className={classes.socials + ' fab fa-google'} />
                         </Button>
+                        {` `}
+                        <Button justIcon round color="twitter">
+                          <i className={classes.socials + ' fab fa-twitter'} />
+                        </Button>
+                        {` `}
+                        <Button justIcon round color="facebook">
+                          <i
+                            className={classes.socials + ' fab fa-facebook-f'}
+                          />
+                        </Button>
+                        {` `}
+                        <h4 className={classes.socialTitle}>or be classical</h4>
                       </div>
-                    </form>
-                  </GridItem>
-                </GridContainer>
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
+                      {/***********************/}
+                      {/* サインアップフォーム   */}
+                      {/***********************/}
+                      <form className={classes.form}>
+                        {/***********************/}
+                        {/* アカウントフォーム     */}
+                        {/***********************/}
+                        <CustomInput
+                          labelText="アカウント名(半角アルファベットのみ)"
+                          formControlProps={{
+                            fullWidth: true,
+                            className: classes.customFormControlClasses,
+                          }}
+                          inputProps={{
+                            placeholder: 'Name...',
+                            type: 'text',
+                            startAdornment: (
+                              <InputAdornment
+                                position="start"
+                                className={classes.inputAdornment}
+                              >
+                                <PersonAddIcon
+                                  className={classes.inputAdornmentIcon}
+                                />
+                              </InputAdornment>
+                            ),
+                            value: account,
+                            onChange: (e) => setAccount(e.target.value),
+                          }}
+                        />
+                        {/***********************/}
+                        {/* メールアドレスフォーム  */}
+                        {/***********************/}
+                        <CustomInput
+                          labelText="アカウント名@example.com を使ってください"
+                          formControlProps={{
+                            fullWidth: true,
+                            className: classes.customFormControlClasses,
+                          }}
+                          // material-uiのInputコンポーネントのProps
+                          inputProps={{
+                            placeholder: 'Email...',
+                            type: 'email',
+                            startAdornment: (
+                              <InputAdornment
+                                position="start"
+                                className={classes.inputAdornment}
+                              >
+                                <Email className={classes.inputAdornmentIcon} />
+                              </InputAdornment>
+                            ),
+                            value: email,
+                            onChange: (e) => setEmail(e.target.value),
+                          }}
+                        />
+                        {/***********************/}
+                        {/* パスワードフォーム     */}
+                        {/***********************/}
+                        <CustomInput
+                          labelText="パスワード"
+                          formControlProps={{
+                            fullWidth: true,
+                            className: classes.customFormControlClasses,
+                          }}
+                          inputProps={{
+                            placeholder: 'Password...',
+                            type: 'password',
+                            startAdornment: (
+                              <InputAdornment
+                                position="start"
+                                className={classes.inputAdornment}
+                              >
+                                <Icon className={classes.inputAdornmentIcon}>
+                                  lock_outline
+                                </Icon>
+                              </InputAdornment>
+                            ),
+                            value: pass,
+                            onChange: (e) => setPass(e.target.value),
+                          }}
+                        />
+                        {/***********************/}
+                        {/* 同意チェック          */}
+                        {/***********************/}
+                        <FormControlLabel
+                          classes={{
+                            label: classes.label,
+                          }}
+                          control={
+                            <Checkbox
+                              tabIndex={-1}
+                              onClick={() => handleToggle(1)}
+                              checkedIcon={
+                                <Check className={classes.checkedIcon} />
+                              }
+                              icon={<Check className={classes.uncheckedIcon} />}
+                              classes={{
+                                checked: classes.checked,
+                                root: classes.checkRoot,
+                              }}
+                              checked={checked.indexOf(1) !== -1 ? true : false}
+                            />
+                          }
+                          label={
+                            <span>
+                              I agree to the{' '}
+                              <a href="#pablo">terms and conditions</a>.
+                            </span>
+                          }
+                        />
+                        {/***********************/}
+                        {/* サインアップボタン     */}
+                        {/***********************/}
+                        <div className={classes.textCenter}>
+                          <Button
+                            round
+                            color="primary"
+                            type="submit"
+                            onClick={onSubmit}
+                          >
+                            {RSC.signupBtnPrint}
+                          </Button>
+                        </div>
+                      </form>
+                    </GridItem>
+                  </GridContainer>
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
+        </div>
+        {error && (
+          <SimpleModal
+            modalTitle="ログインエラー"
+            modalText={errText}
+            closeBtnTxt="CLOSE"
+            yesBtnTxt=""
+            noBtnTxt=""
+            callBack={callBackSetError}
+          />
+        )}
+        {/* ログイン済みでログインページに遷移してきた場合 */}
+        {userName && !moveUserPage && (
+          <SimpleModal
+            modalTitle={`${userName}さんはログイン済みです`}
+            modalText="このままユーザページへ移動しますか？"
+            closeBtnTxt=""
+            yesBtnTxt="移動する"
+            noBtnTxt="移動しない"
+            callBack={callBackSetMoveUserPage}
+          />
+        )}
       </div>
-      {error && (
-        <SimpleModal
-          modalTitle="ログインエラー"
-          modalText={errText}
-          closeBtnTxt="CLOSE"
-          yesBtnTxt=""
-          noBtnTxt=""
-          callBack={callBackSetError}
-        />
-      )}
-      {/* ログイン済みでログインページに遷移してきた場合 */}
-      {userName && !moveUserPage && (
-        <SimpleModal
-          modalTitle={`${userName}さんはログイン済みです`}
-          modalText="このままユーザページへ移動しますか？"
-          closeBtnTxt=""
-          yesBtnTxt="移動する"
-          noBtnTxt="移動しない"
-          callBack={callBackSetMoveUserPage}
-        />
-      )}
-    </div>
-    // </AppMain>
+    </>
   );
 }
 

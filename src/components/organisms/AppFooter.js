@@ -10,6 +10,7 @@ import Mail from '@material-ui/icons/Mail';
 import Favorite from '@material-ui/icons/Favorite';
 // core components
 import Footer from 'components/Footer/Footer.js';
+import { RSC } from 'src/common/resource';
 
 import styles from 'assets/jss/nextjs-material-kit-pro/pages/componentsSections/footerStyle.js';
 
@@ -29,7 +30,7 @@ export const AppFooter = () => {
         <div>
           <div className={classes.left}>
             <a href="/top" className={classes.footerBrand}>
-              手記書庫 ShukiShoko
+              {RSC.appTitle}
             </a>
           </div>
           <div className={classes.pullCenter}>

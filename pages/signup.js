@@ -16,7 +16,6 @@ import { SignupPageMain } from 'src/components/templates/authPage/SignupPageMain
 export default function SignUpPage({ ...rest }) {
   return (
     <AppLayout>
-      <AppHead pageTitle={RSC.signupPageTitle} />
       <SignupPageMain />
     </AppLayout>
   );

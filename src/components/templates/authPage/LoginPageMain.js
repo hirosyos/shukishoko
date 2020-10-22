@@ -22,6 +22,7 @@ import image from 'public/hana_07F.jpg';
 
 /* MyApp */
 import { RSC } from 'src/common/resource';
+import { AppHead } from 'src/components/organisms/AppHead';
 import firebase from 'src/common/firebase';
 import { getUserDataFromUid, firebaseErrToTxt } from 'src/common/common';
 import SimpleModal from 'src/components/atoms/SimpleModal';
@@ -166,148 +167,159 @@ export default function LoginPageMain() {
   const classes = useStyles();
 
   return (
-    // <AppMain>
-    <div
-      className={classes.pageHeader}
-      style={{
-        backgroundImage: 'url(' + image + ')',
-        backgroundSize: 'cover',
-        backgroundPosition: 'top center',
-      }}
-    >
-      <div className={classes.container}>
-        <GridContainer justify="center">
-          <GridItem xs={12} sm={8} md={4}>
-            {/****************/}
-            {/* ログインカード */}
-            {/****************/}
-            <Card>
-              <form className={classes.form}>
-                <CardHeader
-                  color="primary"
-                  signup
-                  className={classes.cardHeader}
-                >
-                  <h4 className={classes.cardTitle}>{RSC.loginPrint}</h4>
-                  <div className={classes.socialLine}>
+    <>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/login`}
+      />
+      {/*******************/}
+      {/* 背景画像         */}
+      {/*******************/}
+      <div
+        className={classes.pageHeader}
+        style={{
+          backgroundImage: 'url(' + image + ')',
+          backgroundSize: 'cover',
+          backgroundPosition: 'top center',
+        }}
+      >
+        <div className={classes.container}>
+          <GridContainer justify="center">
+            <GridItem xs={12} sm={8} md={4}>
+              {/****************/}
+              {/* ログインカード */}
+              {/****************/}
+              <Card>
+                <form className={classes.form}>
+                  <CardHeader
+                    color="primary"
+                    signup
+                    className={classes.cardHeader}
+                  >
+                    <h4 className={classes.cardTitle}>{RSC.loginPrint}</h4>
+                    <div className={classes.socialLine}>
+                      <Button
+                        justIcon
+                        color="transparent"
+                        className={classes.iconButtons}
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <i className="fab fa-twitter" />
+                      </Button>
+                      <Button
+                        justIcon
+                        color="transparent"
+                        className={classes.iconButtons}
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <i className="fab fa-facebook" />
+                      </Button>
+                      <Button
+                        justIcon
+                        color="transparent"
+                        className={classes.iconButtons}
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <i className="fab fa-google-plus-g" />
+                      </Button>
+                    </div>
+                  </CardHeader>
+                  <p className={classes.description + ' ' + classes.textCenter}>
+                    Or Be Classical
+                  </p>
+                  <CardBody signup>
+                    {/************************/}
+                    {/* メールアドレスフォーム   */}
+                    {/************************/}
+                    <CustomInput
+                      id="email"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      // material-uiのInputコンポーネントのProps
+                      inputProps={{
+                        placeholder: 'Email...',
+                        type: 'email',
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Email className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
+                        autoComplete: 'email',
+                        value: email,
+                        onChange: (e) => setEmail(e.target.value),
+                      }}
+                    />
+                    {/************************/}
+                    {/* パスワードフォーム      */}
+                    {/************************/}
+                    <CustomInput
+                      id="pass"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        placeholder: 'Password',
+                        type: 'password',
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Icon className={classes.inputIconsColor}>
+                              lock_utline
+                            </Icon>
+                          </InputAdornment>
+                        ),
+                        autoComplete: 'current-password',
+                        value: pass,
+                        onChange: (e) => setPass(e.target.value),
+                      }}
+                    />
+                  </CardBody>
+                  {/***********************/}
+                  {/* ログインボタン         */}
+                  {/***********************/}
+                  <div className={classes.textCenter}>
                     <Button
-                      justIcon
-                      color="transparent"
-                      className={classes.iconButtons}
-                      onClick={(e) => e.preventDefault()}
+                      simple
+                      color="primary"
+                      size="lg"
+                      type="submit"
+                      onClick={onSubmit}
                     >
-                      <i className="fab fa-twitter" />
-                    </Button>
-                    <Button
-                      justIcon
-                      color="transparent"
-                      className={classes.iconButtons}
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fab fa-facebook" />
-                    </Button>
-                    <Button
-                      justIcon
-                      color="transparent"
-                      className={classes.iconButtons}
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <i className="fab fa-google-plus-g" />
+                      {RSC.loginBtnPrint}
                     </Button>
                   </div>
-                </CardHeader>
-                <p className={classes.description + ' ' + classes.textCenter}>
-                  Or Be Classical
-                </p>
-                <CardBody signup>
-                  {/************************/}
-                  {/* メールアドレスフォーム   */}
-                  {/************************/}
-                  <CustomInput
-                    id="email"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    // material-uiのInputコンポーネントのProps
-                    inputProps={{
-                      placeholder: 'Email...',
-                      type: 'email',
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Email className={classes.inputIconsColor} />
-                        </InputAdornment>
-                      ),
-                      autoComplete: 'email',
-                      value: email,
-                      onChange: (e) => setEmail(e.target.value),
-                    }}
-                  />
-                  {/************************/}
-                  {/* パスワードフォーム      */}
-                  {/************************/}
-                  <CustomInput
-                    id="pass"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      placeholder: 'Password',
-                      type: 'password',
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Icon className={classes.inputIconsColor}>
-                            lock_utline
-                          </Icon>
-                        </InputAdornment>
-                      ),
-                      autoComplete: 'current-password',
-                      value: pass,
-                      onChange: (e) => setPass(e.target.value),
-                    }}
-                  />
-                </CardBody>
-                {/***********************/}
-                {/* ログインボタン         */}
-                {/***********************/}
-                <div className={classes.textCenter}>
-                  <Button
-                    simple
-                    color="primary"
-                    size="lg"
-                    type="submit"
-                    onClick={onSubmit}
-                  >
-                    {RSC.loginBtnPrint}
-                  </Button>
-                </div>
-              </form>
-            </Card>
-          </GridItem>
-        </GridContainer>
+                </form>
+              </Card>
+            </GridItem>
+          </GridContainer>
+        </div>
+        {/* ログインエラーになった場合 */}
+        {error && (
+          <SimpleModal
+            modalTitle="ログインエラー"
+            modalText={errText}
+            closeBtnTxt="CLOSE"
+            yesBtnTxt=""
+            noBtnTxt=""
+            callBack={callBackSetError}
+          />
+        )}
+        {/* ログイン済みでログインページに遷移してきた場合 */}
+        {userName && !moveUserPage && (
+          <SimpleModal
+            modalTitle={`${userName}さんはログイン済みです`}
+            modalText="このままユーザページへ移動しますか？"
+            closeBtnTxt=""
+            yesBtnTxt="移動する"
+            noBtnTxt="移動しない"
+            callBack={callBackSetMoveUserPage}
+          />
+        )}
       </div>
-      {/* ログインエラーになった場合 */}
-      {error && (
-        <SimpleModal
-          modalTitle="ログインエラー"
-          modalText={errText}
-          closeBtnTxt="CLOSE"
-          yesBtnTxt=""
-          noBtnTxt=""
-          callBack={callBackSetError}
-        />
-      )}
-      {/* ログイン済みでログインページに遷移してきた場合 */}
-      {userName && !moveUserPage && (
-        <SimpleModal
-          modalTitle={`${userName}さんはログイン済みです`}
-          modalText="このままユーザページへ移動しますか？"
-          closeBtnTxt=""
-          yesBtnTxt="移動する"
-          noBtnTxt="移動しない"
-          callBack={callBackSetMoveUserPage}
-        />
-      )}
-    </div>
-    // </AppMain>
+    </>
   );
 }
