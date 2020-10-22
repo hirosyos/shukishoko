@@ -288,6 +288,7 @@ export function SignupPageMain({ ...rest }) {
                       {/* アカウントフォーム     */}
                       {/***********************/}
                       <CustomInput
+                        labelText="アカウント名(半角アルファベットのみ)"
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses,
@@ -313,6 +314,7 @@ export function SignupPageMain({ ...rest }) {
                       {/* メールアドレスフォーム  */}
                       {/***********************/}
                       <CustomInput
+                        labelText="アカウント名@example.com を使ってください"
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses,
@@ -337,6 +339,7 @@ export function SignupPageMain({ ...rest }) {
                       {/* パスワードフォーム     */}
                       {/***********************/}
                       <CustomInput
+                        labelText="パスワード"
                         formControlProps={{
                           fullWidth: true,
                           className: classes.customFormControlClasses,
