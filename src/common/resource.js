@@ -1,20 +1,37 @@
 export const RSC = {
+  domain: 'http://shukishoko.com',
   appConcept: '思い出を未来へ繋ぐ',
-  appTitle: '手記書庫-ShukiShoko',
-  appIntro: `「思い出を未来に繋ぐ」をコンセプトにした、過去の出来事を、感情と共に、時系列でまとめて閲覧できるサービスです。
-              思い出の深堀りや誰かの思い出との出会いが、今抱えている問題を解決するきっかけとなるかもしれません。
-              手記書庫をきっかけにした体験が手記として還元され、様々な人の思い出が、様々な人の未来に繋がる世界を目指します。`,
+  appDescription: '思い出を時間と感情と共に綴る、手記投稿サービス',
+  appTitle: '§ 手記書庫-ShukiShoko',
+
+  appTabUser: 'ユーザ',
+  appTabBook: '手記',
+  appTabSection: 'セクション',
+  appTabFuture: '未来',
+
+  topPageDescription_1: `「思い出を未来へ繋ぐ」をコンセプトにした、過去の出来事を、時間と感情と共に綴る、手記投稿サービスです。`,
+  topPageDescription_2: `思い出の深堀りや誰かの思い出との出会いが、今抱えている問題を解決するきっかけとなるかもしれません。
+                          手記書庫をきっかけにした体験が手記として還元され、様々な人の思い出が、様々な人の未来に繋がる世界を目指します。`,
   topPageTitle: 'トップ',
+
+  landingPageDescription_1: `あなたの思い出を手記にして共有することで、誰かの未来に繋がるかもしれません。 
+                            同様に、誰かの思い出が、あなたの未来に繋がるかもしれません。`,
+  landingPageDescription_2: `手記書庫は思い出と思い出の繋がる場所を提供し、それを未来に繋げます。`,
+
   userPageTitle: 'ユーザ',
+
   bookPageTitle: '手記',
+
   sectionPageTitle: 'セクション',
   searchPageTitle: '検索',
+
   loginPrint: 'おかえりなさい',
   loginPageTitle: 'ログイン',
   logoutPageTitle: 'ログアウト',
+  loginBtnPrint: 'ログインする',
+
   signupPrint: 'ようこそ',
   signupPageTitle: 'サインアップ',
-  loginBtnPrint: 'ログインする',
   signupBtnPrint: '登録する',
   img: {
     logoSquare: '/public/logo_shukishoko_square.svg',

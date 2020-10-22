@@ -90,13 +90,6 @@ export default function UserNamePage({
 }) {
   return (
     <>
-      <AppHead
-        pageTitle={`${RSC.userPageTitle}/${userName}`}
-        description="ディスクリプション"
-        keyword="キーワード"
-        image="http://shukishoko.com/logo_shukishoko_fullscreen.png"
-        url={`http://shukishoko.com/users/${userName}/`}
-      />
       <AppLayout>
         <UserPageMain
           userName={userName}

@@ -19,6 +19,8 @@ import { AuthContext } from 'pages/_app';
 import { BookCreateInputForm } from 'src/components/molecules/Book';
 import { AppLayout } from 'src/components/organisms/AppLayout';
 import image from 'public/hana_07F.jpg';
+import { RSC } from 'src/common/resource';
+import { AppHead } from 'src/components/organisms/AppHead';
 
 // スタイル設定
 import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
@@ -73,66 +75,76 @@ export default function BookCreatePage() {
   const classes = useStyles();
 
   return (
-    <AppLayout>
-      <div
-        className={classes.pageHeader}
-        style={{
-          backgroundImage: 'url(' + image + ')',
-          backgroundSize: 'cover',
-          backgroundPosition: 'top center',
-        }}
-      >
-        <div className={classes.container}>
-          <GridContainer justify="center">
-            <GridItem xs={12} sm={10} md={10}>
-              {/****************/}
-              {/* 手記作成カード */}
-              {/****************/}
-              <Card className={classes.cardSignup}>
-                <h2 className={classes.cardTitle}>新規手記作成</h2>
-                <GridContainer justify="center">
-                  <GridItem align="center">
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                      {userData.userIconImageUrl}
-                    </Avatar>
-                    <h3 className={classes.title}>
-                      {userData.userDisplayName}
-                    </h3>
-                    <p>@{userData.userName}</p>
-                  </GridItem>
-                </GridContainer>
-                <CardBody>
+    <>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/book-create`}
+      />
+      <AppLayout>
+        <div
+          className={classes.pageHeader}
+          style={{
+            backgroundImage: 'url(' + image + ')',
+            backgroundSize: 'cover',
+            backgroundPosition: 'top center',
+          }}
+        >
+          <div className={classes.container}>
+            <GridContainer justify="center">
+              <GridItem xs={12} sm={10} md={10}>
+                {/****************/}
+                {/* 手記作成カード */}
+                {/****************/}
+                <Card className={classes.cardSignup}>
+                  <h2 className={classes.cardTitle}>新規手記作成</h2>
                   <GridContainer justify="center">
-                    <GridItem xs={12} sm={10} md={10}>
-                      <BookCreateInputForm classes userData={userData} />
+                    <GridItem align="center">
+                      <Avatar aria-label="recipe" className={classes.avatar}>
+                        {userData.userIconImageUrl}
+                      </Avatar>
+                      <h3 className={classes.title}>
+                        {userData.userDisplayName}
+                      </h3>
+                      <p>@{userData.userName}</p>
                     </GridItem>
                   </GridContainer>
-                </CardBody>
-              </Card>
-            </GridItem>
-          </GridContainer>
+                  <CardBody>
+                    <GridContainer justify="center">
+                      <GridItem xs={12} sm={10} md={10}>
+                        <BookCreateInputForm classes userData={userData} />
+                      </GridItem>
+                    </GridContainer>
+                  </CardBody>
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </div>
+          {/* ログインしていない場合 */}
+          {!user && (
+            <SimpleModal
+              modalTitle={`ログインしていません`}
+              modalText="トップページへ移動します"
+              closeBtnTxt=""
+              yesBtnTxt="OK"
+              noBtnTxt=""
+              callBack={callBackSetMoveTopPage}
+            />
+          )}
         </div>
-        {/* ログインしていない場合 */}
-        {!user && (
-          <SimpleModal
-            modalTitle={`ログインしていません`}
-            modalText="トップページへ移動します"
-            closeBtnTxt=""
-            yesBtnTxt="OK"
-            noBtnTxt=""
-            callBack={callBackSetMoveTopPage}
-          />
-        )}
-      </div>
 
-      <p>
-        ユーザー:
-        {userData.userName}
-      </p>
+        <p>
+          ユーザー:
+          {userData.userName}
+        </p>
 
-      <Link href={`/users/${userData.userName}`}>
-        <a>ユーザページへ戻る</a>
-      </Link>
-    </AppLayout>
+        <Link href={`/users/${userData.userName}`}>
+          <a>ユーザページへ戻る</a>
+        </Link>
+      </AppLayout>
+    </>
   );
 }

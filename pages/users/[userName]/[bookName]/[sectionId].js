@@ -108,7 +108,6 @@ export default function SectionIdPage({
 }) {
   return (
     <AppLayout>
-      <AppHead pageTitle={`${RSC.sectionPageTitle}/${sectionId}`} />
       <SectionPageMain
         userName={userName}
         userData={userData}

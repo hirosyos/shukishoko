@@ -31,6 +31,7 @@ import { AuthContext } from 'pages/_app';
 /* MyApp */
 import { RSC } from 'src/common/resource';
 import { AppMain } from 'src/components/organisms/AppMain';
+import { AppHead } from 'src/components/organisms/AppHead';
 
 import { UserList } from 'src/components/molecules/UserList';
 
@@ -62,6 +63,17 @@ const TopPageMain = ({
 
   return (
     <>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/top`}
+      />
+      {/*******************/}
+      {/* 背景画像         */}
+      {/*******************/}
       <Parallax
         image="hana_01F.jpg"
         filter="dark"
@@ -82,8 +94,13 @@ const TopPageMain = ({
                 />
               </div>
               <div className={classes.name}>
+                {/* タイトル */}
                 <h3 className={classes.title}>{RSC.appTitle}</h3>
-                <h6>{RSC.appConcept}</h6>
+                {/* ディスクリプション */}
+                <h6>
+                  {RSC.topPageDescription_1}
+                  {RSC.topPageDescription_2}
+                </h6>
               </div>
             </div>
           </GridItem>

@@ -128,7 +128,7 @@ export default function AppHeaderLinks(props) {
                 トップ
               </a>
             </Link>,
-            <Link href="/serach">
+            <Link href="/search">
               <a className={classes.dropdownLink}>
                 <SearchIcon className={classes.dropdownIcons} />
                 検索

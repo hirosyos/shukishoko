@@ -27,6 +27,7 @@ import SectionProduct from 'pages-sections/landing-page/SectionProduct.js';
 
 import { AppHead } from 'src/components/organisms/AppHead';
 import { AppLayout } from 'src/components/organisms/AppLayout';
+import { RSC } from 'src/common/resource';
 
 const useStyles = makeStyles(landingPageStyle);
 
@@ -38,17 +39,26 @@ export default function LandingPage({ ...rest }) {
   const classes = useStyles();
   return (
     <div>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/landing-page`}
+      />
       <AppLayout>
         <Parallax image={require('public/rainbow.jpg')} filter="dark">
           <div className={classes.container}>
             <GridContainer>
               {/* <GridContainer justify="center"> */}
               <GridItem xs={12} sm={6} md={6}>
-                <h1 className={classes.title}>思い出を未来に繋げる</h1>
+                {/* コンセプト */}
+                <h1 className={classes.title}>{RSC.appConcept}</h1>
+                {/* ディスクリプション */}
                 <h4>
-                  あなたの思い出を手記にして共有することで、誰かの未来に繋がるかもしれません。
-                  同様に、誰かの思い出が、あなたの未来に繋がるかもしれません。
-                  手記書庫は思い出と思い出の繋がる場所を提供し、それを未来に繋げます。
+                  {RSC.landingPageDescription_1}
+                  {RSC.landingPageDescription_2}
                 </h4>
                 <br />
                 {/* <GridContainer justify="center"> */}

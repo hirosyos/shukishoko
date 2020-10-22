@@ -1,6 +1,8 @@
 import Link from 'src/components/atoms/Link';
 
 import { AppLayout } from 'src/components/organisms/AppLayout';
+import { RSC } from 'src/common/resource';
+import { AppHead } from 'src/components/organisms/AppHead';
 
 // /**
 //  * 静的パス取得
@@ -36,18 +38,28 @@ import { AppLayout } from 'src/components/organisms/AppLayout';
  */
 export default function BookSettingPage(props) {
   return (
-    <AppLayout>
-      {/* <Layout> */}
+    <>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/book-settting`}
+      />
+      <AppLayout>
+        {/* <Layout> */}
 
-      <h1>手記設定</h1>
+        <h1>手記設定</h1>
 
-      <p> ユーザー: {props.userName}</p>
+        <p> ユーザー: {props.userName}</p>
 
-      <Link href={`/users/${props.userName}`}>
-        <a>ユーザページ</a>
-      </Link>
+        <Link href={`/users/${props.userName}`}>
+          <a>ユーザページ</a>
+        </Link>
 
-      {/* </Layout> */}
-    </AppLayout>
+        {/* </Layout> */}
+      </AppLayout>
+    </>
   );
 }

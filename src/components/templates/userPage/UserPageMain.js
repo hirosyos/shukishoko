@@ -65,6 +65,8 @@ import { SectionList } from 'src/components/molecules/SectionList';
 import UserCard from 'src/components/molecules/UserCard';
 import { AuthContext } from 'pages/_app';
 import { AppMain } from 'src/components/organisms/AppMain';
+import { AppHead } from 'src/components/organisms/AppHead';
+import { RSC } from 'src/common/resource';
 
 import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 
@@ -125,6 +127,14 @@ export const UserPageMain = ({
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   return (
     <>
+      {/********************/}
+      {/* ヘッダ設定         */}
+      {/********************/}
+      <AppHead
+        pageTitle={`§ ${userData.userDisplayName}@${userData.userName}さんの手記書庫`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/users/${userName}`}
+      />
       {/*******************/}
       {/* ユーザカバー画像   */}
       {/*******************/}

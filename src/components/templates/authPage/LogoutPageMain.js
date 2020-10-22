@@ -27,6 +27,7 @@ import { getUserDataFromUid, firebaseErrToTxt } from 'src/common/common';
 import SimpleModal from 'src/components/atoms/SimpleModal';
 import { AppMain } from 'src/components/organisms/AppMain';
 import { AuthContext } from 'pages/_app';
+import { AppHead } from 'src/components/organisms/AppHead';
 
 // スタイル設定
 import loginPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/loginPageStyle.js';
@@ -69,6 +70,17 @@ export default function LogoutPageMain() {
 
   return (
     <>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/logout`}
+      />
+      {/*******************/}
+      {/* 背景画像         */}
+      {/*******************/}
       <div
         className={classes.pageHeader}
         style={{

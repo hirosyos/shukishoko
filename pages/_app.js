@@ -78,24 +78,27 @@ function MyApp({ Component, pageProps }) {
     }
   }, [user]);
 
-  if (loading) {
-    return (
-      <>
-        {/* <p>Initialising User...</p> */}
-        <PageChange path={'/Initialising User...'} />
-      </>
-    );
-  }
-  if (error) {
-    console.log({ error });
-    return (
-      <div>
-        <p>
-          認証処理でエラーが発生しました:
-          {error}
-        </p>
-      </div>
-    );
+  // 認証系の動作はクライアントサイドのみで行う
+  if (process.browser) {
+    if (loading) {
+      return (
+        <>
+          {/* <p>Initialising User...</p> */}
+          <PageChange path={'/Initialising User...'} />
+        </>
+      );
+    }
+    if (error) {
+      console.log({ error });
+      return (
+        <div>
+          <p>
+            認証処理でエラーが発生しました:
+            {error}
+          </p>
+        </div>
+      );
+    }
   }
 
   return (

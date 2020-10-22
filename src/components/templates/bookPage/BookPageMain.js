@@ -35,6 +35,8 @@ import { AuthContext } from 'pages/_app';
 import Parallax from 'components/Parallax/Parallax.js';
 
 import { convertFromTimestampToDatetime } from 'src/common/common';
+import { AppHead } from 'src/components/organisms/AppHead';
+import { RSC } from 'src/common/resource';
 
 import UserCard from 'src/components/molecules/UserCard';
 
@@ -102,6 +104,14 @@ const BookPageMain = ({
 
   return (
     <>
+      {/********************/}
+      {/* ヘッダ設定         */}
+      {/********************/}
+      <AppHead
+        pageTitle={`§ 主人公『${bookData.authorDisplayName}』を綴った 手記『${bookData.bookName}』 `}
+        description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんの手記書庫より〜`}
+        url={`${RSC.domain}/users/${userName}/${bookName}`}
+      />
       {/*******************/}
       {/* 手記カバー画像    */}
       {/*******************/}

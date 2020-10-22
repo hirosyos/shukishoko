@@ -3,6 +3,8 @@ import Head from 'next/head';
 import Link from 'src/components/atoms/Link';
 
 import { AppLayout } from 'src/components/organisms/AppLayout';
+import { RSC } from 'src/common/resource';
+import { AppHead } from 'src/components/organisms/AppHead';
 
 /**
  * 検索ページ
@@ -26,9 +28,14 @@ export default function Search(props) {
 
   return (
     <>
-      <Head>
-        <title>あああああ</title>
-      </Head>
+      {/*******************/}
+      {/* ヘッダ情報        */}
+      {/*******************/}
+      <AppHead
+        pageTitle={`${RSC.appTitle}`}
+        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        url={`${RSC.domain}/search`}
+      />
       <AppLayout>
         <div>
           <main>

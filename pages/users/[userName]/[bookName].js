@@ -129,11 +129,6 @@ export default function BookNamePage({
 
   return (
     <AppLayout>
-      {/* <Layout
-        pageTitle={`${RSC.bookPageTitle}/${userName}/${bookName}`}
-        userData={userData}
-      > */}
-      <AppHead pageTitle={`${RSC.bookPageTitle}/${userName}/${bookName}`} />
       <BookPageMain
         userName={userName}
         userData={userData}
