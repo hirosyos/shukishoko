@@ -96,11 +96,8 @@ const TopPageMain = ({
               <div className={classes.name}>
                 {/* タイトル */}
                 <h3 className={classes.title}>{RSC.appTitle}</h3>
-                {/* ディスクリプション */}
-                <h6>
-                  {RSC.topPageDescription_1}
-                  {RSC.topPageDescription_2}
-                </h6>
+                {/* コンセプト */}
+                <h6>{RSC.appConcept}</h6>
               </div>
             </div>
           </GridItem>
@@ -109,7 +106,11 @@ const TopPageMain = ({
         {/* APP 紹介文     */}
         {/*****************/}
         <div className={classNames(classes.description, classes.textCenter)}>
-          <p>{RSC.appIntro}</p>
+          {/* ディスクリプション */}
+          <p>
+            {RSC.topPageDescription_1}
+            {RSC.topPageDescription_2}
+          </p>
         </div>
         <div className={classes.profileTabs}>
           <NavPills
