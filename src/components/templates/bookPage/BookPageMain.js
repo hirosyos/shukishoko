@@ -108,7 +108,7 @@ const BookPageMain = ({
       {/* ヘッダ設定         */}
       {/********************/}
       <AppHead
-        pageTitle={`§ 主人公『${bookData.authorDisplayName}』を綴った 手記『${bookData.bookName}』 `}
+        pageTitle={`§ 主人公『${bookData.authorDisplayName}』を綴った 手記『${bookData.bookDisplayName}』 `}
         description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんの手記書庫より〜`}
         url={`${RSC.domain}/users/${userName}/${bookName}`}
       />
