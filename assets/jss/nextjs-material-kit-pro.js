@@ -185,9 +185,9 @@ const card = {
 };
 
 const defaultFont = {
-  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  fontWeight: "300",
-  lineHeight: "1.5em"
+  fontFamily: '"Noto Sans JP","Roboto", "Helvetica", "Arial", sans-serif',
+  fontWeight: '300',
+  lineHeight: '1.5em',
 };
 
 const boxShadow = {
@@ -326,12 +326,12 @@ const defaultBoxShadow = {
 
 const title = {
   color: grayColor[1],
-  textDecoration: "none",
-  fontWeight: "700",
-  marginTop: "30px",
-  marginBottom: "25px",
-  minHeight: "32px",
-  fontFamily: `"Roboto Slab", "Times New Roman", serif`
+  textDecoration: 'none',
+  fontWeight: '700',
+  marginTop: '30px',
+  marginBottom: '25px',
+  minHeight: '32px',
+  fontFamily: `"Noto Serif JP","Roboto Slab", "Times New Roman", serif`,
 };
 
 const cardTitle = {

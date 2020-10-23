@@ -1,7 +1,7 @@
 export const RSC = {
   domain: 'http://shukishoko.com',
 
-  appTitle: '§ 手記書庫-ShukiShoko',
+  appTitle: '§手記書庫-ShukiShoko',
   appConcept: '思い出を未来へ繋ぐ',
 
   appTabUser: 'ユーザ',

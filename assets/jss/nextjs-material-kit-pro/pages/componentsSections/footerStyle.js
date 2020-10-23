@@ -84,7 +84,7 @@ const style = {
     color: grayColor[1],
     textDecoration: "none",
     fontWeight: 700,
-    fontFamily: "Roboto Slab,Times New Roman,serif"
+    fontFamily: "Noto Serif JP,Roboto Slab,Times New Roman,serif"
   },
   pullCenter: {
     display: "inline-block",
