@@ -278,57 +278,6 @@ export default function SectionCreatePage({
             />
           )}
         </div>
-
-        <p>
-          ユーザー:
-          {userData.userName}
-        </p>
-
-        <Link href={`/users/${userData.userName}`}>
-          <a>ユーザページへ戻る</a>
-        </Link>
-      </AppLayout>
-    </>
-  );
-
-  return (
-    <>
-      {/*******************/}
-      {/* ヘッダ情報        */}
-      {/*******************/}
-      <AppHead
-        pageTitle={`${RSC.appTitle}`}
-        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
-        url={`${RSC.domain}/section-create`}
-      />
-      <AppLayout>
-        {/* <Layout> */}
-        <h1>セクション作成</h1>
-        <p>
-          {' '}
-          ユーザー:
-          {props.userName}
-        </p>
-        <p>
-          {' '}
-          手記:
-          {props.bookName}
-        </p>
-
-        <SectionCreateInputForm
-          userData={props.userData}
-          bookData={props.bookData}
-          bookId={props.bookId}
-        />
-
-        <Link href={`/users/${props.userName}`}>
-          <a>ユーザページへ戻る</a>
-        </Link>
-        <Link href={`/users/${props.userName}/${props.bookName}`}>
-          <a>手記ページへ戻る</a>
-        </Link>
-
-        {/* </Layout> */}
       </AppLayout>
     </>
   );

@@ -1,11 +1,12 @@
 /* react */
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 /* next */
 import { useRouter } from 'next/router';
 /* classNames */
 import classNames from 'classnames';
-/* materialui */
+/* materialui core */
 import { makeStyles } from '@material-ui/core/styles';
+/* materialui icon */
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import NotesIcon from '@material-ui/icons/Notes';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
@@ -18,6 +19,7 @@ import GridItem from 'components/Grid/GridItem.js';
 import NavPills from 'components/NavPills/NavPills.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
+import buttonStyle from 'assets/jss/nextjs-material-kit-pro/components/buttonStyle.js';
 /* MyApp */
 import { convertFromTimestampToDatetime } from 'src/common/common';
 import { RSC } from 'src/common/resource';
@@ -30,8 +32,8 @@ import { AppHead } from 'src/components/organisms/AppHead';
 import shukishoko from 'public/logo_shukishoko_circle.svg';
 import { AuthContext } from 'pages/_app';
 
-
 const useStyles = makeStyles(profilePageStyle);
+const useButtonStyles = makeStyles(buttonStyle);
 
 /**
  * ブックページメイン
@@ -52,7 +54,6 @@ const BookPageMain = ({
   bookData,
   sectionDataList,
 }) => {
-
   // 認証情報取得
   const { user: authUser, userData: authUserData } = useContext(AuthContext);
 
@@ -88,6 +89,7 @@ const BookPageMain = ({
   }
 
   const classes = useStyles();
+  const btnClasses = useButtonStyles();
 
   const imageClasses = classNames(
     classes.imgRaised,
@@ -163,13 +165,14 @@ const BookPageMain = ({
               {/* 手記編集       */}
               {/*****************/}
               <Button
+                simple
+                valiant="text"
                 component={Link}
                 href="/about"
                 color="primary"
                 round
                 style={{
                   textDecoration: 'none',
-                  color: 'white',
                   width: '12rem',
                 }}
               >
@@ -179,13 +182,13 @@ const BookPageMain = ({
               {/* セクション作成  */}
               {/*****************/}
               <Button
+                simple
                 component={Link}
                 href={`/users/${userName}/${bookName}/section-create`}
                 color="primary"
                 round
                 style={{
                   textDecoration: 'none',
-                  color: 'white',
                   width: '12rem',
                 }}
               >
