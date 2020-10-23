@@ -90,20 +90,16 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
   return (
     <Card className={classes.root}>
       <CardHeader color="success">
-        <GridContainer
-          align-content-xs-center
-          align-items-xs-center
-          spacing={2}
-        >
-          <GridItem item align-content-xs-center align-items-xs-center xs={2}>
+        <GridContainer spacing={2}>
+          <GridItem item xs={2}>
             <Avatar aria-label="recipe" className={classes.avatar}>
               §
             </Avatar>
           </GridItem>
-          <Grid item align-content-xs-center align-items-xs-center xs={8}>
+          <Grid item xs={8}>
             <h4>{convertFromTimestampToDatetime(sectionData.date.seconds)}</h4>
           </Grid>
-          <GridItem item align-content-xs-center align-items-xs-center xs={2}>
+          <GridItem item xs={2}>
             <IconButton aria-label="settings">
               <MoreVertIcon />
             </IconButton>
@@ -117,8 +113,11 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
         >
           <CardBody>
             <h4 className={classes.cardTitle}>{sectionData.title}</h4>
-            <p>{sectionData.contents}</p>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {sectionData.contents}
+            </Typography>
           </CardBody>
+
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
               セクション公開設定：{sectionData.isPublic}
@@ -207,32 +206,6 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           </Typography>
         </CardContent>
       </Collapse>
-    </Card>
-  );
-
-  return (
-    <Card style={{ width: '20rem' }}>
-      <CardHeader color="primary">
-        <p>{convertFromTimestampToDatetime(sectionData.date.seconds)}</p>
-      </CardHeader>
-      <CardActionArea>
-        {/* <Link
-           underline="none"
-           href={`/users/${userName}/${bookName}/${sectionId}`}
-         > */}
-        <CardBody>
-          <h4 className={classes.cardTitle}>{sectionData.title}</h4>
-          <p>{sectionData.contents}</p>
-        </CardBody>
-      </CardActionArea>
-      <CardFooter>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardFooter>
     </Card>
   );
 };

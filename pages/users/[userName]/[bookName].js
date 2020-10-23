@@ -136,7 +136,6 @@ export default function BookNamePage({
         bookData={bookData}
         sectionDataList={sectionDataList}
       />
-      {/* </Layout> */}
     </AppLayout>
   );
 }

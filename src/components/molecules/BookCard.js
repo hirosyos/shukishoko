@@ -120,22 +120,18 @@ const BookCard = ({ userName, bookName, bookData }) => {
         subheader={convertFromTimestampToDatetime(bookData.updatedAt.seconds)}
       /> */}
       <CardHeader color="warning">
-        <GridContainer
-          align-content-xs-center
-          align-items-xs-center
-          spacing={2}
-        >
+        <GridContainer spacing={2}>
           {/* <IconButton aria-label="add to favorites"> */}
 
-          <GridItem item align-content-xs-center align-items-xs-center xs={2}>
+          <GridItem item xs={2}>
             <Avatar aria-label="recipe" className={classes.avatar}>
               記
             </Avatar>
           </GridItem>
-          <GridItem align-content-xs-center align-items-xs-center xs={8}>
+          <GridItem xs={8}>
             <h4>{bookData.bookDisplayName}</h4>
           </GridItem>
-          <GridItem item align-content-xs-center align-items-xs-center xs={2}>
+          <GridItem item xs={2}>
             <IconButton aria-label="settings">
               <MoreVertIcon />
             </IconButton>

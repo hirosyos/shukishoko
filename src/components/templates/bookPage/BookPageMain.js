@@ -159,15 +159,35 @@ const BookPageMain = ({
         {authUserData.uid === userData.uid && (
           <>
             <GridContainer justify="center">
-              <Button component={Link} href="/about" color="primary" round>
+              {/*****************/}
+              {/* 手記編集       */}
+              {/*****************/}
+              <Button
+                component={Link}
+                href="/about"
+                color="primary"
+                round
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  width: '12rem',
+                }}
+              >
                 手記を編集
               </Button>
-
+              {/*****************/}
+              {/* セクション作成  */}
+              {/*****************/}
               <Button
                 component={Link}
                 href={`/users/${userName}/${bookName}/section-create`}
                 color="primary"
                 round
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  width: '12rem',
+                }}
               >
                 セクションを追加
               </Button>
@@ -178,7 +198,7 @@ const BookPageMain = ({
         <div className={classes.profileTabs}>
           <NavPills
             // 初期フォーカスはセクションとする
-            active="2"
+            active={2}
             alignCenter
             color="primary"
             tabs={[
@@ -258,16 +278,6 @@ const BookPageMain = ({
           />
         </div>
         <Clearfix />
-
-        <Link href={`/users/${userData.userName}/bookSetting`}>
-          <a>手記設定 へ移動</a>
-        </Link>
-        <br />
-        <Link
-          href={`/users/${userData.userName}/${bookData.bookName}/sectionCreate`}
-        >
-          <a>セクション作成 へ移動</a>
-        </Link>
       </AppMain>
     </>
   );

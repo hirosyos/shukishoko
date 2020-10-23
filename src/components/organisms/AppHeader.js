@@ -84,8 +84,9 @@ export function AppHeader(props) {
       {/*************/}
       <Toolbar className={classes.container}>
         <Button className={classes.title}>
-          <Link href="/top">
-            <a>{brand}</a>
+          <Link href="/top" style={{ textDecoration: 'none', color: 'white' }}>
+            {/* <a>{brand}</a> */}
+            {brand}
           </Link>
         </Button>
         <Hidden smDown implementation="css" className={classes.hidden}>

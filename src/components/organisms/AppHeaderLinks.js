@@ -9,6 +9,7 @@ import Link from 'src/components/atoms/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Icon from '@material-ui/core/Icon';
 import Hidden from '@material-ui/core/Hidden';
 
@@ -29,6 +30,9 @@ import NotesIcon from '@material-ui/icons/Notes';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
+import HelpIcon from '@material-ui/icons/Help';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import CodeIcon from '@material-ui/icons/Code';
 
 import AccountBalance from '@material-ui/icons/AccountBalance';
 import ArtTrack from '@material-ui/icons/ArtTrack';
@@ -122,36 +126,51 @@ export default function AppHeaderLinks(props) {
           }}
           buttonIcon={Apps}
           dropdownList={[
-            <Link href="/top">
-              <a className={classes.dropdownLink}>
-                <HomeIcon className={classes.dropdownIcons} />
-                トップ
-              </a>
-            </Link>,
-            <Link href="/search">
-              <a className={classes.dropdownLink}>
-                <SearchIcon className={classes.dropdownIcons} />
-                検索
-              </a>
-            </Link>,
-            <Link href="/landing-page">
-              <a className={classes.dropdownLink}>
-                <SearchIcon className={classes.dropdownIcons} />
-                マニュアル
-              </a>
-            </Link>,
-            <Link href="/pricing">
-              <a className={classes.dropdownLink}>
-                <SearchIcon className={classes.dropdownIcons} />
-                料金
-              </a>
-            </Link>,
-            <Link href="/about-us">
-              <a className={classes.dropdownLink}>
-                <SearchIcon className={classes.dropdownIcons} />
-                開発者について
-              </a>
-            </Link>,
+            <ListItem
+              button
+              component={Link}
+              href="/top"
+              style={{ textDecoration: 'none' }}
+            >
+              <HomeIcon className={classes.dropdownIcons} />
+              <ListItemText primary="トップ" />
+            </ListItem>,
+            <ListItem
+              button
+              component={Link}
+              href="/search"
+              style={{ textDecoration: 'none' }}
+            >
+              <SearchIcon className={classes.dropdownIcons} />
+              <ListItemText primary="検索" />
+            </ListItem>,
+            <ListItem
+              button
+              component={Link}
+              href="/landing-page"
+              style={{ textDecoration: 'none' }}
+            >
+              <HelpIcon className={classes.dropdownIcons} />
+              <ListItemText primary="マニュアル" />
+            </ListItem>,
+            <ListItem
+              button
+              component={Link}
+              href="/pricing"
+              style={{ textDecoration: 'none' }}
+            >
+              <MonetizationOnIcon className={classes.dropdownIcons} />
+              <ListItemText primary="料金" />
+            </ListItem>,
+            <ListItem
+              button
+              component={Link}
+              href="/about-us"
+              style={{ textDecoration: 'none' }}
+            >
+              <CodeIcon className={classes.dropdownIcons} />
+              <ListItemText primary="開発者について" />
+            </ListItem>,
           ]}
         />
       </ListItem>
@@ -162,54 +181,76 @@ export default function AppHeaderLinks(props) {
             noLiPadding
             navDropdown
             hoverColor={dropdownHoverColor}
-            buttonText="ユーザー"
+            buttonText={`ユーザ（${userData.userDisplayName}）`}
             buttonProps={{
               className: classes.navLink,
               color: 'transparent',
             }}
             buttonIcon={AccountCircle}
             dropdownList={[
-              <Link href={`/users/${userData.userName}`}>
-                <a className={classes.dropdownLink}>
-                  <AccountCircle className={classes.dropdownIcons} />
-                  マイページ（{userData.userDisplayName}）
-                </a>
-              </Link>,
-              <Link href={`/user-setting`}>
-                <a className={classes.dropdownLink}>
-                  <SettingsIcon className={classes.dropdownIcons} />
-                  ユーザ設定
-                </a>{' '}
-              </Link>,
-              <Link href={`/book-create`}>
-                <a className={classes.dropdownLink}>
-                  <LibraryBooks className={classes.dropdownIcons} />
-                  手記作成
-                </a>
-              </Link>,
-              <Link href={`/book-setting`}>
-                <a className={classes.dropdownLink}>
-                  <SettingsIcon className={classes.dropdownIcons} />
-                  手記設定
-                </a>
-              </Link>,
-              <Link href={`/section-create`}>
-                <a className={classes.dropdownLink}>
-                  <NotesIcon className={classes.dropdownIcons} />
-                  セクション作成
-                </a>
-              </Link>,
-              <Link href={`/section-setting`}>
-                <a className={classes.dropdownLink}>
-                  <SettingsIcon className={classes.dropdownIcons} />
-                  セクション設定
-                </a>
-              </Link>,
-              <Link href="/logout">
-                <a className={classes.dropdownLink}>
-                  <ExitToAppIcon className={classes.dropdownIcons} /> ログアウト
-                </a>
-              </Link>,
+              <ListItem
+                button
+                component={Link}
+                href={`/users/${userData.userName}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <AccountCircle className={classes.dropdownIcons} />
+                <ListItemText primary="マイページ" />
+              </ListItem>,
+              <ListItem
+                button
+                component={Link}
+                href="/user-setting"
+                style={{ textDecoration: 'none' }}
+              >
+                <SettingsIcon className={classes.dropdownIcons} />
+                <ListItemText primary="ユーザ設定" />
+              </ListItem>,
+              <ListItem
+                button
+                component={Link}
+                href="/book-create"
+                style={{ textDecoration: 'none' }}
+              >
+                <LibraryBooks className={classes.dropdownIcons} />
+                <ListItemText primary="手記作成" />
+              </ListItem>,
+              <ListItem
+                button
+                component={Link}
+                href="/book-setting"
+                style={{ textDecoration: 'none' }}
+              >
+                <SettingsIcon className={classes.dropdownIcons} />
+                <ListItemText primary="手記設定" />
+              </ListItem>,
+              <ListItem
+                button
+                component={Link}
+                href="/section-create"
+                style={{ textDecoration: 'none' }}
+              >
+                <NotesIcon className={classes.dropdownIcons} />
+                <ListItemText primary="セクション作成" />
+              </ListItem>,
+              <ListItem
+                button
+                component={Link}
+                href="/section-setting"
+                style={{ textDecoration: 'none' }}
+              >
+                <SettingsIcon className={classes.dropdownIcons} />
+                <ListItemText primary="セクション設定" />
+              </ListItem>,
+              <ListItem
+                button
+                component={Link}
+                href="/logout"
+                style={{ textDecoration: 'none' }}
+              >
+                <ExitToAppIcon className={classes.dropdownIcons} />
+                <ListItemText primary="ログアウト" />
+              </ListItem>,
             ]}
           />
         )}
@@ -225,16 +266,24 @@ export default function AppHeaderLinks(props) {
             }}
             buttonIcon={ViewCarousel}
             dropdownList={[
-              <Link href="/login">
-                <a className={classes.dropdownLink}>
-                  <LockOpenIcon className={classes.dropdownIcons} /> ログイン
-                </a>
-              </Link>,
-              <Link href="/auth/signup">
-                <a className={classes.dropdownLink}>
-                  <PersonAdd className={classes.dropdownIcons} /> サインアップ
-                </a>
-              </Link>,
+              <ListItem
+                button
+                component={Link}
+                href="/login"
+                style={{ textDecoration: 'none' }}
+              >
+                <LockOpenIcon className={classes.dropdownIcons} />
+                <ListItemText primary="ログイン" />
+              </ListItem>,
+              <ListItem
+                button
+                component={Link}
+                href="/signup"
+                style={{ textDecoration: 'none' }}
+              >
+                <LockOpenIcon className={classes.dropdownIcons} />
+                <ListItemText primary="サインアップ" />
+              </ListItem>,
             ]}
           />
         )}
