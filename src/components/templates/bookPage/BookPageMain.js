@@ -1,46 +1,36 @@
-import Link from 'src/components/atoms/Link';
+/* react */
+import React, {useContext} from 'react';
+/* next */
 import { useRouter } from 'next/router';
-
-import { AppMain } from 'src/components/organisms/AppMain';
-
-import { SectionList } from 'src/components/molecules/SectionList';
-
-import BookCard from 'src/components/molecules/BookCard';
-
+/* classNames */
 import classNames from 'classnames';
+/* materialui */
+import { makeStyles } from '@material-ui/core/styles';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import NotesIcon from '@material-ui/icons/Notes';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import UpdateIcon from '@material-ui/icons/Update';
+/* nextjs-materialui-kit */
+import Button from 'components/CustomButtons/Button.js';
+import Clearfix from 'components/Clearfix/Clearfix.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import NavPills from 'components/NavPills/NavPills.js';
-import Clearfix from 'components/Clearfix/Clearfix.js';
-import Button from 'components/CustomButtons/Button.js';
-import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
-import Add from '@material-ui/icons/Add';
-import Camera from '@material-ui/icons/Camera';
-import Palette from '@material-ui/icons/Palette';
-import People from '@material-ui/icons/People';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import NotesIcon from '@material-ui/icons/Notes';
-import UpdateIcon from '@material-ui/icons/Update';
-import Avatar from '@material-ui/core/Avatar';
-import { IconButton } from '@material-ui/core';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-
+import Parallax from 'components/Parallax/Parallax.js';
+import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
+/* MyApp */
+import { convertFromTimestampToDatetime } from 'src/common/common';
+import { RSC } from 'src/common/resource';
+import Link from 'src/components/atoms/Link';
+import { SectionList } from 'src/components/molecules/SectionList';
+import BookCard from 'src/components/molecules/BookCard';
+import UserCard from 'src/components/molecules/UserCard';
+import { AppMain } from 'src/components/organisms/AppMain';
+import { AppHead } from 'src/components/organisms/AppHead';
 import shukishoko from 'public/logo_shukishoko_circle.svg';
-
-import { BookList } from 'src/components/molecules/BookList';
-
 import { AuthContext } from 'pages/_app';
 
-import Parallax from 'components/Parallax/Parallax.js';
 
-import { convertFromTimestampToDatetime } from 'src/common/common';
-import { AppHead } from 'src/components/organisms/AppHead';
-import { RSC } from 'src/common/resource';
-
-import UserCard from 'src/components/molecules/UserCard';
-
-import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 const useStyles = makeStyles(profilePageStyle);
 
 /**
@@ -62,7 +52,9 @@ const BookPageMain = ({
   bookData,
   sectionDataList,
 }) => {
-  const classes = useStyles();
+
+  // 認証情報取得
+  const { user: authUser, userData: authUserData } = useContext(AuthContext);
 
   // 事前ビルドされていない場合はここで作成する
   const router = useRouter();
@@ -94,6 +86,8 @@ const BookPageMain = ({
 
     return <div>指定された手記は存在しません...</div>;
   }
+
+  const classes = useStyles();
 
   const imageClasses = classNames(
     classes.imgRaised,
@@ -160,6 +154,27 @@ const BookPageMain = ({
           <hr />
           <p>{bookData.bookIntroduction}</p>
         </div>
+
+        {/* 自分のページの場合のみ表示する */}
+        {authUserData.uid === userData.uid && (
+          <>
+            <GridContainer justify="center">
+              <Button component={Link} href="/about" color="primary" round>
+                手記を編集
+              </Button>
+
+              <Button
+                component={Link}
+                href={`/users/${userName}/${bookName}/section-create`}
+                color="primary"
+                round
+              >
+                セクションを追加
+              </Button>
+            </GridContainer>
+          </>
+        )}
+
         <div className={classes.profileTabs}>
           <NavPills
             // 初期フォーカスはセクションとする
