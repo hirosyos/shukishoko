@@ -154,7 +154,7 @@ const SectionPageMain = ({
         <div className={classes.profileTabs}>
           <NavPills
             // 初期フォーカスはセクションとする
-            active="2"
+            active={2}
             alignCenter
             color="primary"
             tabs={[
@@ -222,15 +222,6 @@ const SectionPageMain = ({
           />
         </div>
         <Clearfix />
-
-        <br />
-
-        <Link href={`/users/${userName}`}>
-          <a>ユーザページ</a>
-        </Link>
-        <Link href={`/users/${userName}/${bookName}`}>
-          <a>手記ページ</a>
-        </Link>
       </AppMain>
     </>
   );

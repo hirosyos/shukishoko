@@ -115,7 +115,7 @@ const TopPageMain = ({
         <div className={classes.profileTabs}>
           <NavPills
             // 初期フォーカスはユーザとする
-            active="0"
+            active={0}
             alignCenter
             color="primary"
             tabs={[

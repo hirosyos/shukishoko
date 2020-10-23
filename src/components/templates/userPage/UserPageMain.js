@@ -169,7 +169,7 @@ export const UserPageMain = ({
         <div className={classes.profileTabs}>
           <NavPills
             // 初期フォーカスは手記とする
-            active="1"
+            active={1}
             alignCenter
             color="primary"
             tabs={[

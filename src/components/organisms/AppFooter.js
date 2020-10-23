@@ -5,12 +5,14 @@ import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 // @material-ui/icons
 import Mail from '@material-ui/icons/Mail';
 import Favorite from '@material-ui/icons/Favorite';
 // core components
 import Footer from 'components/Footer/Footer.js';
 import { RSC } from 'src/common/resource';
+import Link from 'src/components/atoms/Link';
 
 import styles from 'assets/jss/nextjs-material-kit-pro/pages/componentsSections/footerStyle.js';
 
@@ -29,26 +31,42 @@ export const AppFooter = () => {
       content={
         <div>
           <div className={classes.left}>
-            <a href="/top" className={classes.footerBrand}>
+            <Link
+              href="/top"
+              className={classes.footerBrand}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
               {RSC.appTitle}
-            </a>
+            </Link>
           </div>
           <div className={classes.pullCenter}>
             <List className={classes.list}>
               <ListItem className={classes.inlineBlock}>
-                <a href="/landing-page" className={classes.block}>
+                <Link
+                  href="/landing-page"
+                  className={classes.block}
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
                   Manual
-                </a>
+                </Link>
               </ListItem>
               <ListItem className={classes.inlineBlock}>
-                <a href="/pricing" className={classes.block}>
+                <Link
+                  href="/pricing"
+                  className={classes.block}
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
                   Payment
-                </a>
+                </Link>
               </ListItem>
               <ListItem className={classes.inlineBlock}>
-                <a href="/about-us" className={classes.block}>
+                <Link
+                  href="/about-us"
+                  className={classes.block}
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
                   About Us
-                </a>
+                </Link>
               </ListItem>
             </List>
           </div>

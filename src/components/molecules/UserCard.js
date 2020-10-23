@@ -99,20 +99,16 @@ const UserCard = ({ userName, userData }) => {
         subheader={convertFromTimestampToDatetime(userData.updatedAt.seconds)}
       /> */}
       <CardHeader color="primary">
-        <GridContainer
-          align-content-xs-center
-          align-items-xs-center
-          spacing={2}
-        >
-          <GridItem item align-content-xs-center align-items-xs-center xs={2}>
+        <GridContainer spacing={2}>
+          <GridItem item xs={2}>
             <Avatar aria-label="recipe" className={classes.avatar}>
               {userData.userIconImageUrl}
             </Avatar>
           </GridItem>
-          <Grid item align-content-xs-center align-items-xs-center xs={8}>
+          <Grid item xs={8}>
             <h4>{userData.userDisplayName}</h4>
           </Grid>
-          <GridItem item align-content-xs-center align-items-xs-center xs={2}>
+          <GridItem item xs={2}>
             <IconButton aria-label="settings">
               <MoreVertIcon />
             </IconButton>

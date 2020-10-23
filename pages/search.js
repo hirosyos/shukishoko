@@ -41,21 +41,8 @@ export default function Search(props) {
           <main>
             <h1>Welcome to 検索ページ</h1>
 
-            <Link href={`/top`}>
-              <a>トップページ</a>
-            </Link>
           </main>
 
-          <footer>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Powered by{' '}
-              <img src="/logo_shukishoko_icon.svg" alt="ShukiShoko Logo" />
-            </a>
-          </footer>
         </div>
       </AppLayout>
     </>

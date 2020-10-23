@@ -28,6 +28,7 @@ import SectionProduct from 'pages-sections/landing-page/SectionProduct.js';
 import { AppHead } from 'src/components/organisms/AppHead';
 import { AppLayout } from 'src/components/organisms/AppLayout';
 import { RSC } from 'src/common/resource';
+import Link from 'src/components/atoms/Link';
 
 const useStyles = makeStyles(landingPageStyle);
 
@@ -38,7 +39,7 @@ export default function LandingPage({ ...rest }) {
   });
   const classes = useStyles();
   return (
-    <div>
+    <>
       {/*******************/}
       {/* ヘッダ情報        */}
       {/*******************/}
@@ -74,6 +75,8 @@ export default function LandingPage({ ...rest }) {
                   </Button> */}
                 <br />
                 <Button
+                  component={Link}
+                  style={{ textDecoration: 'none', color: 'white' }}
                   color="primary"
                   size="lg"
                   href="/top"
@@ -95,6 +98,6 @@ export default function LandingPage({ ...rest }) {
           </div>
         </div>
       </AppLayout>
-    </div>
+    </>
   );
 }

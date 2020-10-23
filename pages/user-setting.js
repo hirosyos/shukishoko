@@ -21,9 +21,7 @@ export default function UserSettingPage() {
       />
       <AppLayout>
         <h1>Welcome to ユーザ設定 ページ</h1>
-        <Link href="/users/hoge/bookCreate">
-          <a>手記作成</a>
-        </Link>
+
       </AppLayout>
     </>
   );
