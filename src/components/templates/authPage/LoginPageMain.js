@@ -284,6 +284,7 @@ export default function LoginPageMain() {
                   <div className={classes.textCenter}>
                     <Button
                       simple
+                      disableFocusRipple={false}
                       color="primary"
                       size="lg"
                       type="submit"

@@ -4,22 +4,18 @@ import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 // @material-ui/icon
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import CakeIcon from '@material-ui/icons/Cake';
 import CheckIcon from '@material-ui/icons/Check';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
-import HistoryIcon from '@material-ui/icons/History';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 import HttpIcon from '@material-ui/icons/Http';
-import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import VerticalAlignBottomIcon from '@material-ui/icons/VerticalAlignBottom';
-import VerticalAlignTopIcon from '@material-ui/icons/VerticalAlignTop';
 // nextjs-matelialui-kit
 import Button from 'components/CustomButtons/Button.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import GridContainer from 'components/Grid/GridContainer.js';
 import Switch from '@material-ui/core/Switch';
+
 
 // nextjs-matelialui-kit スタイル
 import radioSwitchStyle from 'assets/jss/nextjs-material-kit-pro/customCheckboxRadioSwitchStyle.js';
@@ -252,7 +248,7 @@ const SectionCreateInputForm = ({
           type: 'datetime-local',
           startAdornment: (
             <InputAdornment position="start">
-              <CakeIcon className={classes.inputAdornmentIcon} />
+              <EventNoteIcon className={classes.inputAdornmentIcon} />
             </InputAdornment>
           ),
           autoComplete: 'off',
@@ -488,80 +484,6 @@ const SectionCreateInputForm = ({
           callBack={callBackSetParamOk}
         />
       )}
-
-      {/* <form action="">
-        <ul>
-          <li>
-            <label htmlFor="isPublic">セクション公開設定(true/false)：</label>
-            <input
-              type="text"
-              id="isPublic"
-              value={isPublic}
-              onChange={(e) => setIsPublic(e.target.value)}
-            />
-          </li>
-          <li>
-            <label htmlFor="date">発生日：</label>
-            <input
-              type="datetime-local"
-              id="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </li>
-          <li>
-            <label htmlFor="title">タイトル：</label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </li>
-          <li>
-            <label htmlFor="contents">内容：</label>
-            <textarea
-              type="text"
-              id="contents"
-              value={contents}
-              onChange={(e) => setContents(e.target.value)}
-            />
-          </li>
-          <li>
-            <label htmlFor="tag">タグ：</label>
-            <input
-              type="text"
-              id="tag"
-              value={tag}
-              onChange={(e) => setTag(e.target.value)}
-            />
-          </li>
-          <li>
-            <label htmlFor="url">URL：</label>
-            <input
-              type="text"
-              id="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-          </li>
-          <li>
-            <label htmlFor="emo">喜怒哀楽：</label>
-            <input
-              type="text"
-              id="emo"
-              value={emo}
-              onChange={(e) => setEmo(e.target.value)}
-            />
-          </li>
-
-          <li>
-            <button type="button" onClick={submitData}>
-              submit
-            </button>
-          </li>
-        </ul>
-      </form> */}
     </>
   );
 };

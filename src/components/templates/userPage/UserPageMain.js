@@ -1,74 +1,35 @@
 /* react */
 import { useContext } from 'react';
-
-// nodejs library that concatenates classes
+/* next */
+import { useRouter } from 'next/router';
+/* nodejs library that concatenates classes */
 import classNames from 'classnames';
-// @material-ui/core components
+/* material-ui core  */
 import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-// @material-ui/icons
-import Camera from '@material-ui/icons/Camera';
-import Palette from '@material-ui/icons/Palette';
-import People from '@material-ui/icons/People';
-import Add from '@material-ui/icons/Add';
-import Favorite from '@material-ui/icons/Favorite';
-// core components
-import Header from 'components/Header/Header.js';
-import Footer from 'components/Footer/Footer.js';
-import GridContainer from 'components/Grid/GridContainer.js';
-import GridItem from 'components/Grid/GridItem.js';
-import HeaderLinks from 'components/Header/HeaderLinks.js';
-import NavPills from 'components/NavPills/NavPills.js';
-import Card from 'components/Card/Card.js';
-import CardBody from 'components/Card/CardBody.js';
-import CardHeader from 'components/Card/CardHeader.js';
-import Badge from 'components/Badge/Badge.js';
-import Muted from 'components/Typography/Muted.js';
-import Parallax from 'components/Parallax/Parallax.js';
-import Clearfix from 'components/Clearfix/Clearfix.js';
-import Button from 'components/CustomButtons/Button.js';
+/* material-ui icon */
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import NotesIcon from '@material-ui/icons/Notes';
-import UpdateIcon from '@material-ui/icons/Update';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-
-import shukishoko from 'public/logo_shukishoko_circle.svg';
-import christian from 'assets/img/faces/christian.jpg';
-import oluEletu from 'assets/img/examples/olu-eletu.jpg';
-import clemOnojeghuo from 'assets/img/examples/clem-onojeghuo.jpg';
-import cynthiaDelRio from 'assets/img/examples/cynthia-del-rio.jpg';
-import mariyaGeorgieva from 'assets/img/examples/mariya-georgieva.jpg';
-import clemOnojegaw from 'assets/img/examples/clem-onojegaw.jpg';
-import darrenColeshill from 'assets/img/examples/darren-coleshill.jpg';
-import avatar from 'assets/img/faces/avatar.jpg';
-import marc from 'assets/img/faces/marc.jpg';
-import kendall from 'assets/img/faces/kendall.jpg';
-import cardProfile2Square from 'assets/img/faces/card-profile2-square.jpg';
-
-/* next */
-import Link from 'src/components/atoms/Link';
-import { useRouter } from 'next/router';
-/* material-ui */
-import Typography from '@material-ui/core/Typography';
-import { useTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import UpdateIcon from '@material-ui/icons/Update';
+/* nextjs-materialui-kit */
+import Button from 'components/CustomButtons/Button.js';
+import Clearfix from 'components/Clearfix/Clearfix.js';
+import GridContainer from 'components/Grid/GridContainer.js';
+import GridItem from 'components/Grid/GridItem.js';
+import NavPills from 'components/NavPills/NavPills.js';
+import Parallax from 'components/Parallax/Parallax.js';
+import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 /* MyApp */
+import { RSC } from 'src/common/resource';
+import Link from 'src/components/atoms/Link';
 import { BookList } from 'src/components/molecules/BookList';
 import { SectionList } from 'src/components/molecules/SectionList';
-
 import UserCard from 'src/components/molecules/UserCard';
-import { AuthContext } from 'pages/_app';
 import { AppMain } from 'src/components/organisms/AppMain';
 import { AppHead } from 'src/components/organisms/AppHead';
-import { RSC } from 'src/common/resource';
+import { AuthContext } from 'pages/_app';
+import shukishoko from 'public/logo_shukishoko_circle.svg';
 
-import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 
 const useStyles = makeStyles(profilePageStyle);
 
@@ -90,12 +51,10 @@ export const UserPageMain = ({
   sectionDataList,
   ...rest
 }) => {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  // 認証情報取得
+  const { user: authUser, userData: authUserData } = useContext(AuthContext);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  const classes = useStyles();
 
   // 事前ビルドされていない場合はここで作成する
   const router = useRouter();
@@ -114,10 +73,6 @@ export const UserPageMain = ({
     console.log('異常終了 指定されたユーザは存在しません...\n');
     return <div>指定されたユーザは存在しません...</div>;
   }
-
-  //認証情報取得
-  const { user } = useContext(AuthContext);
-  // console.log({ user });
 
   const imageClasses = classNames(
     classes.imgRaised,
@@ -166,6 +121,48 @@ export const UserPageMain = ({
         <div className={classNames(classes.description, classes.textCenter)}>
           <p>{userData.userIntroduction}</p>
         </div>
+
+        {/* 自分のページの場合のみ表示する */}
+        {authUserData.uid === userData.uid && (
+          <>
+            <GridContainer justify="center">
+              {/*****************/}
+              {/* ユーザ編集      */}
+              {/*****************/}
+              <Button
+                simple
+                valiant="text"
+                component={Link}
+                href="/top"
+                color="primary"
+                round
+                style={{
+                  textDecoration: 'none',
+                  width: '12rem',
+                }}
+              >
+                ユーザを編集
+              </Button>
+              {/*****************/}
+              {/* 手記作成       */}
+              {/*****************/}
+              <Button
+                simple
+                component={Link}
+                href={`/users/${userName}/book-create`}
+                color="primary"
+                round
+                style={{
+                  textDecoration: 'none',
+                  width: '12rem',
+                }}
+              >
+                手記を追加
+              </Button>
+            </GridContainer>
+          </>
+        )}
+
         <div className={classes.profileTabs}>
           <NavPills
             // 初期フォーカスは手記とする
@@ -235,7 +232,7 @@ export const UserPageMain = ({
                         ユーザが繋いだ未来
                       </h4>
                       <GridContainer justify="center">
-                        <SectionList sectionDataList={sectionDataList} />
+                        {/* <SectionList sectionDataList={sectionDataList} /> */}
                       </GridContainer>
                     </GridItem>
                   </GridContainer>

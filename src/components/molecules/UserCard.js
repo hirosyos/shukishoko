@@ -101,12 +101,14 @@ const UserCard = ({ userName, userData }) => {
       <CardHeader color="primary">
         <GridContainer spacing={2}>
           <GridItem item xs={2}>
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <Avatar aria-label="avatar" className={classes.avatar}>
               {userData.userIconImageUrl}
             </Avatar>
           </GridItem>
           <Grid item xs={8}>
-            <h4>{userData.userDisplayName}</h4>
+            <h4  >
+              {userData.userDisplayName}@{userData.userName}
+            </h4>
           </Grid>
           <GridItem item xs={2}>
             <IconButton aria-label="settings">
@@ -117,40 +119,39 @@ const UserCard = ({ userName, userData }) => {
       </CardHeader>
       <CardActionArea>
         <Link underline="none" href={`/users/${userName}`}>
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-              ユーザドキュメント作成日:
-              {convertFromTimestampToDatetime(userData.createdAt.seconds)}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              ユーザドキュメント更新日:
-              {convertFromTimestampToDatetime(userData.updatedAt.seconds)}
-            </Typography>
+          <CardBody>
+            <h4 className={classes.cardTitle}>aaa</h4>
             <Typography variant="body2" color="textSecondary" component="p">
               ユーザ公開設定:{userData.isPublic}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              google認証から取得したユーザID:{userData.uid}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              管理上のユーザ名:{userData.userName}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              画面上に見せるユーザ名:{userData.userDisplayName}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              ユーザアイコン画像URL:{userData.userIconImageUrl}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              ユーザカバー画像URL:{userData.userCoverImageUrl}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              ユーザ自己紹介文:{userData.userIntroduction}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              料金プラン:{userData.pricePlan}
-            </Typography>
-          </CardContent>
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                ユーザ公開設定:{userData.isPublic}
+              </Typography>
+
+              <Typography variant="body2" color="textSecondary" component="p">
+                ユーザアイコン画像URL:{userData.userIconImageUrl}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                ユーザカバー画像URL:{userData.userCoverImageUrl}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                ユーザ自己紹介文:{userData.userIntroduction}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                料金プラン:{userData.pricePlan}
+              </Typography>
+              <br />
+              <Typography variant="body2" color="textSecondary" component="p">
+                作成日:
+                {convertFromTimestampToDatetime(userData.createdAt.seconds)}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                更新日:
+                {convertFromTimestampToDatetime(userData.updatedAt.seconds)}
+              </Typography>
+            </CardContent>
+          </CardBody>
         </Link>
       </CardActionArea>
       <Divider />

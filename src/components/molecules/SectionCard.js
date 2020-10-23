@@ -107,53 +107,38 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
         </GridContainer>
       </CardHeader>
       <CardActionArea>
-        <Link
-          underline="none"
-          href={`/users/${userName}/${bookName}/${sectionId}`}
-        >
+        <Link underline="none" href={`/users/${userName}/${bookName}`}>
           <CardBody>
             <h4 className={classes.cardTitle}>{sectionData.title}</h4>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {sectionData.contents}
-            </Typography>
-          </CardBody>
+            <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                セクション公開設定：
+                {/* {sectionData.isPublic} */}
+              </Typography>
 
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-              セクション公開設定：{sectionData.isPublic}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              セクションドキュメントID：{sectionData.sectionId}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              セクションが起きた日付：
-              {convertFromTimestampToDatetime(sectionData.date.seconds)}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              セクションのタイトル：{sectionData.title}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              セクションの内容：{sectionData.contents}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              喜怒哀楽：{sectionData.emo}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              引用した元セクション：{sectionData.quoteRef}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              引用された数：{sectionData.quotedCount}
-            </Typography>
-            <br />
-            <Typography variant="body2" color="textSecondary" component="p">
-              作成日：
-              {convertFromTimestampToDatetime(sectionData.createdAt.seconds)}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              更新日：
-              {convertFromTimestampToDatetime(sectionData.updatedAt.seconds)}
-            </Typography>
-          </CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                セクションの内容：{sectionData.contents}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                喜怒哀楽：{sectionData.emo}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                引用した元セクション：{sectionData.quoteRef}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                引用された数：{sectionData.quotedCount}
+              </Typography>
+              <br />
+              <Typography variant="body2" color="textSecondary" component="p">
+                作成日：
+                {convertFromTimestampToDatetime(sectionData.createdAt.seconds)}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                更新日：
+                {convertFromTimestampToDatetime(sectionData.updatedAt.seconds)}
+              </Typography>
+            </CardContent>
+          </CardBody>
         </Link>
       </CardActionArea>
       <Divider />
