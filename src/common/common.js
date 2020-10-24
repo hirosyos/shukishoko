@@ -1,3 +1,5 @@
+/* date-fns-timezone */
+import { formatToTimeZone } from 'date-fns-timezone';
 /* MyApp */
 import firebase from 'src/common/firebase';
 
@@ -570,4 +572,15 @@ export const firebaseErrToTxt = (e, method) => {
         return 'エラーが発生しました。しばらく時間をおいてお試しください';
       }
   }
+};
+/**
+ * firestoreのTimestampのsecond部分をISO8601にする
+ *
+ * @param {*} seconds
+ * @return {*} 
+ */
+export const secToISO8601DateTimeTokyo = (seconds) => {
+  return formatToTimeZone(seconds * 1000, 'YYYY-MM-DDTHH:mm', {
+    timeZone: 'Asia/Tokyo',
+  });
 };

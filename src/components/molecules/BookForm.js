@@ -22,10 +22,16 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import Switch from '@material-ui/core/Switch';
 // nextjs-matelialui-kit スタイル
 import radioSwitchStyle from 'assets/jss/nextjs-material-kit-pro/customCheckboxRadioSwitchStyle.js';
+
 /* MyApp */
 import firebase from 'src/common/firebase';
-import { VALIDUSERS, VALIDBOOKS } from 'src/common/common';
+import {
+  VALIDUSERS,
+  VALIDBOOKS,
+  secToISO8601DateTimeTokyo,
+} from 'src/common/common';
 import SimpleModal from 'src/components/atoms/SimpleModal';
+
 
 // スタイル設定
 const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
@@ -37,8 +43,7 @@ const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
  * @return {*}
  */
 export const BookForm = ({ classes, userData, bookData }) => {
-  // console.log('関数 BookCreateInputForm');
-  // console.log({ userData });
+
 
   // 年月日時刻は初期値入れといたほうがデザインが崩れないようだ
   const now = new Date();
@@ -68,9 +73,23 @@ export const BookForm = ({ classes, userData, bookData }) => {
   const [authorDisplayName, setAuthorDisplayName] = useState(
     bookData ? bookData.authorDisplayName : '',
   );
+
+  // const secToISO8601DateTimeTokyo = formatToTimeZone(
+  //   bookData.authorBirthday.seconds * 1000,
+  //   'YYYY-MM-DDTHH:mm',
+  //   {
+  //     timeZone: 'Asia/Tokyo',
+  //   },
+  // );
+
   const [authorBirthday, setAuthorBirthday] = useState(
-    bookData ? bookData.authorBirthday : dateTimeLocal,
+    bookData
+      ? secToISO8601DateTimeTokyo(bookData.authorBirthday.seconds)
+      : dateTimeLocal,
   );
+
+  // console.log('bookData.authorBirthday');
+  // console.log(bookData.authorBirthday);
 
   const [chapterName_0, setChapterName_0] = useState(
     bookData ? bookData.chapterName_0 : '',
@@ -457,7 +476,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <CakeIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -501,7 +520,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -522,7 +541,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -567,7 +586,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -588,7 +607,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -633,7 +652,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -654,7 +673,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -699,7 +718,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -720,7 +739,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -765,7 +784,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -786,7 +805,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
           inputProps={{
             type: 'datetime-local',
-            endAdornment: (
+            startAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
