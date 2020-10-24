@@ -153,7 +153,7 @@ const SectionPageMain = ({
               <Button
                 simple
                 component={Link}
-                href={`/users/${userName}/${bookName}/section-setting`}
+                href={`/users/${userName}/${bookName}/${sectionId}/section-edit`}
                 color="primary"
                 round
                 style={{

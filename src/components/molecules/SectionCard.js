@@ -107,7 +107,7 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
         </GridContainer>
       </CardHeader>
       <CardActionArea>
-        <Link underline="none" href={`/users/${userName}/${bookName}`}>
+        <Link underline="none" href={`/users/${userName}/${bookName}/${sectionId}`}>
           <CardBody>
             <h4 className={classes.cardTitle}>{sectionData.title}</h4>
             <CardContent>

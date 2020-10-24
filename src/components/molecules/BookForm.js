@@ -174,15 +174,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
       .doc(userId)
       .collection(bookCollectionName)
       .doc(bookId)
-      // .set(postData);
-
       .set(postData, { merge: true });
-    // .then(() => {})
-    // .catch((e) => {
-    //   console.log(e.message, mounted);
-    // })
-    // .finally(() => {});
-
     return addedData;
   };
 

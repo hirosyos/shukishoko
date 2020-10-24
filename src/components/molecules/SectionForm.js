@@ -27,7 +27,12 @@ import radioSwitchStyle from 'assets/jss/nextjs-material-kit-pro/customCheckboxR
 import customSelectStyles from 'assets/jss/nextjs-material-kit-pro/customSelectStyle.js';
 /* MyApp */
 import firebase from 'src/common/firebase';
-import { VALIDUSERS, VALIDBOOKS, VALIDSECTIONS } from 'src/common/common';
+import {
+  VALIDUSERS,
+  VALIDBOOKS,
+  VALIDSECTIONS,
+  secToISO8601DateTimeTokyo,
+} from 'src/common/common';
 import SimpleModal from 'src/components/atoms/SimpleModal';
 
 // スタイル設定
@@ -49,6 +54,8 @@ export const SectionForm = ({
   bookName,
   bookData,
   bookId,
+  sectionId,
+  sectionData,
 }) => {
   // console.log({ userData, bookData, bookId });
 
@@ -59,19 +66,37 @@ export const SectionForm = ({
   now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
   const dateTimeLocal = now.toISOString().slice(0, -8);
 
-  const [isPublic, setIsPublic] = useState(true);
-  const [isFuture, setIsFuture] = useState(false);
-  const [date, setDate] = useState(dateTimeLocal);
-  const [title, setTitle] = useState('');
-  const [contents, setContents] = useState('');
+  // const [sectionId, setSectionId] = useState(
+  //   sectionData ? sectionData.sectionId : '',
+  // );
+  const [isPublic, setIsPublic] = useState(
+    sectionData ? sectionData.isPublic : true,
+  );
+  const [isFuture, setIsFuture] = useState(
+    sectionData ? sectionData.isFuture : false,
+  );
+  const [date, setDate] = useState(
+    sectionData
+      ? secToISO8601DateTimeTokyo(sectionData.date.seconds)
+      : dateTimeLocal,
+  );
+  const [title, setTitle] = useState(sectionData ? sectionData.title : '');
+  const [contents, setContents] = useState(
+    sectionData ? sectionData.contents : '',
+  );
+  // const [emoIcon, setEmoIcon] = useState(
+  //   sectionData ? sectionData.emoIcon : [],
+  // );
   const [emoIcon, setEmoIcon] = useState([]);
-  const [emo, setEmo] = useState('');
-  const [tag_0, setTag_0] = useState('');
-  const [tag_1, setTag_1] = useState('');
-  const [tag_2, setTag_2] = useState('');
-  const [urlVideo, setUrlVideo] = useState('');
-  const [urlImg, setUrlImg] = useState('');
-  const [urlWeb, setUrlWeb] = useState('');
+  const [emo, setEmo] = useState(sectionData ? sectionData.emo : '');
+  const [tag_0, setTag_0] = useState(sectionData ? sectionData.tag_0 : '');
+  const [tag_1, setTag_1] = useState(sectionData ? sectionData.tag_1 : '');
+  const [tag_2, setTag_2] = useState(sectionData ? sectionData.tag_2 : '');
+  const [urlVideo, setUrlVideo] = useState(
+    sectionData ? sectionData.urlVideo : '',
+  );
+  const [urlImg, setUrlImg] = useState(sectionData ? sectionData.urlImg : '');
+  const [urlWeb, setUrlWeb] = useState(sectionData ? sectionData.urlWeb : '');
 
   // const [value, setValue] = useState('');
 
@@ -133,20 +158,24 @@ export const SectionForm = ({
     }
 
     // sectionIdを事前に取得
-    const sectionId = firebase
-      .firestore()
-      .collection(VALIDUSERS)
-      .doc(userData.uid)
-      .collection(VALIDBOOKS)
-      .doc(bookId)
-      .collection(VALIDSECTIONS)
-      .doc().id;
+    let sectionDocId;
+    if (!sectionData) {
+      sectionDocId = firebase
+        .firestore()
+        .collection(VALIDUSERS)
+        .doc(userData.uid)
+        .collection(VALIDBOOKS)
+        .doc(bookId)
+        .collection(VALIDSECTIONS)
+        .doc().id;
+    } else {
+      sectionDocId = sectionData.sectionId;
+    }
 
     const postData = {
       isPublic,
       isFuture,
 
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
 
       uid: userData.uid,
@@ -157,7 +186,7 @@ export const SectionForm = ({
       bookName,
       bookDocRef: `/${VALIDUSERS}/${userData.uid}/${VALIDBOOKS}/${bookId}`,
 
-      sectionId,
+      sectionId: sectionDocId,
       sectionDocRef: `/${VALIDUSERS}/${userData.uid}/${VALIDBOOKS}/${bookId}/${VALIDSECTIONS}/${sectionId}/`,
       date: new Date(date),
       title,
@@ -174,30 +203,35 @@ export const SectionForm = ({
       quotedRef: '',
       quotedCount: '',
     };
+    if (!sectionData) {
+      postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+    }
     console.log({ postData });
+
+
     const addedData = await postDataToFirestore(
       VALIDUSERS,
       userData.uid,
       VALIDBOOKS,
       bookId,
       VALIDSECTIONS,
-      sectionId,
+      sectionDocId,
       postData,
     );
 
-    setIsPublic(true);
-    setIsFuture(false);
-    setDate(dateTimeLocal);
-    setTitle('');
-    setContents('');
-    setTag_0('');
-    setTag_1('');
-    setTag_2('');
-    setUrlVideo('');
-    setUrlImg('');
-    setUrlWeb('');
-    setEmoIcon([]);
-    setEmo('');
+    // setIsPublic(true);
+    // setIsFuture(false);
+    // setDate(dateTimeLocal);
+    // setTitle('');
+    // setContents('');
+    // setTag_0('');
+    // setTag_1('');
+    // setTag_2('');
+    // setUrlVideo('');
+    // setUrlImg('');
+    // setUrlWeb('');
+    // setEmoIcon([]);
+    // setEmo('');
   };
 
   // スタイル読み出し
