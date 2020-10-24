@@ -96,9 +96,9 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
               §
             </Avatar>
           </GridItem>
-          <Grid item xs={8}>
+          <GridItem xs={8}>
             <h4>{convertFromTimestampToDatetime(sectionData.date.seconds)}</h4>
-          </Grid>
+          </GridItem>
           <GridItem item xs={2}>
             <IconButton aria-label="settings">
               <MoreVertIcon />

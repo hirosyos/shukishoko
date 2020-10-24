@@ -11,13 +11,11 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
 import Card from 'components/Card/Card.js';
@@ -105,11 +103,11 @@ const UserCard = ({ userName, userData }) => {
               {userData.userIconEmoji ? userData.userIconEmoji : '🙆'}
             </Avatar>
           </GridItem>
-          <Grid item xs={8}>
+          <GridItem xs={8}>
             <h4>
               {userData.userDisplayName}@{userData.userName}
             </h4>
-          </Grid>
+          </GridItem>
           <GridItem item xs={2}>
             <IconButton aria-label="settings">
               <MoreVertIcon />
