@@ -133,7 +133,7 @@ export const UserPageMain = ({
                 simple
                 valiant="text"
                 component={Link}
-                href="/top"
+                href={`/users/${userName}/user-edit`}
                 color="primary"
                 round
                 style={{

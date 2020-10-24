@@ -226,7 +226,7 @@ export default function SectionCreatePage({
                   <GridContainer justify="center">
                     <GridItem align="center">
                       <Avatar aria-label="recipe" className={classes.avatar}>
-                        {userData.userIconImageUrl}
+                        {userData.userIconEmoji ? userData.userIconEmoji : '🙆'}
                       </Avatar>
                       <h3 className={classes.title}>
                         {userData.userDisplayName}
@@ -239,7 +239,6 @@ export default function SectionCreatePage({
                   <CardBody>
                     <GridContainer justify="center">
                       <GridItem xs={12} sm={10} md={10}>
-                        {/* <BookCreateInputForm classes userData={userData} /> */}
                         <SectionCreateInputForm
                           classes={classes}
                           userName={userName}
