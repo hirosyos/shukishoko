@@ -4,25 +4,24 @@ import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 // @material-ui/icon
-import CheckIcon from '@material-ui/icons/Check';
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import AccessibilityNewIcon from '@material-ui/icons/AccessibilityNew';
 import HttpIcon from '@material-ui/icons/Http';
+import LaptopChromebookIcon from '@material-ui/icons/LaptopChromebook';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import PersonIcon from '@material-ui/icons/Person';
 // nextjs-matelialui-kit
 import Button from 'components/CustomButtons/Button.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import GridContainer from 'components/Grid/GridContainer.js';
 import Switch from '@material-ui/core/Switch';
-
 // nextjs-matelialui-kit スタイル
 import radioSwitchStyle from 'assets/jss/nextjs-material-kit-pro/customCheckboxRadioSwitchStyle.js';
 /* MyApp */
+import { VALIDUSERS } from 'src/common/common';
 import firebase from 'src/common/firebase';
-import { VALIDUSERS, VALIDBOOKS, VALIDSECTIONS } from 'src/common/common';
-
 import SimpleModal from 'src/components/atoms/SimpleModal';
+
 
 // スタイル設定
 const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
@@ -91,7 +90,7 @@ export const UserForm = ({ classes, userData }) => {
       .firestore()
       .collection(userCollectionName)
       .doc(userId)
-      .set(postData);
+      .set(postData,{merge:true});
     return addedData;
   };
 
@@ -186,9 +185,9 @@ export const UserForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: 'ユーザ管理名称',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
-                <LibraryBooksIcon className={classes.inputAdornmentIcon} />
+                <LaptopChromebookIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
             ),
             autoComplete: 'off',
@@ -206,11 +205,11 @@ export const UserForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '手記表示名称',
+            placeholder: 'ユーザ表示名称',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
-                <LibraryBooksIcon className={classes.inputAdornmentIcon} />
+                <PersonIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
             ),
             autoComplete: 'off',
@@ -231,7 +230,7 @@ export const UserForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: 'ユーザアイコン絵文字',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <LibraryBooksIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -253,9 +252,9 @@ export const UserForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: 'ユーザアイコン画像URL(オプション)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
-                <CheckIcon className={classes.inputAdornmentIcon} />
+                <HttpIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
             ),
             autoComplete: 'off',
@@ -275,7 +274,7 @@ export const UserForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: 'ユーザカバー画像URL(オプション)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <HttpIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -297,9 +296,9 @@ export const UserForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: 'ユーザ自己紹介文(オプション)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
-                <HttpIcon className={classes.inputAdornmentIcon} />
+                <AccessibilityNewIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
             ),
             autoComplete: 'off',

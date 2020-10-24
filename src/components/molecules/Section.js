@@ -1,32 +1,38 @@
 /* react */
 import { useState } from 'react';
 // @material-ui/core components
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Grid from '@material-ui/core/grid';
+import TextField from '@material-ui/core/TextField';
 // @material-ui/icon
-import CheckIcon from '@material-ui/icons/Check';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import HttpIcon from '@material-ui/icons/Http';
+import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import NotesIcon from '@material-ui/icons/Notes';
 // nextjs-matelialui-kit
 import Button from 'components/CustomButtons/Button.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import GridContainer from 'components/Grid/GridContainer.js';
 import Switch from '@material-ui/core/Switch';
-
-
 // nextjs-matelialui-kit スタイル
 import radioSwitchStyle from 'assets/jss/nextjs-material-kit-pro/customCheckboxRadioSwitchStyle.js';
+import customSelectStyles from 'assets/jss/nextjs-material-kit-pro/customSelectStyle.js';
 /* MyApp */
 import firebase from 'src/common/firebase';
 import { VALIDUSERS, VALIDBOOKS, VALIDSECTIONS } from 'src/common/common';
-
 import SimpleModal from 'src/components/atoms/SimpleModal';
 
 // スタイル設定
 const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
+const useCustomSelectStyles = makeStyles(customSelectStyles);
 
 /**
  * セクション作成フォーム
@@ -36,7 +42,7 @@ const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
  * @param {string} bookId
  * @return {JSX}
  */
-const SectionCreateInputForm = ({
+export const SectionForm = ({
   classes,
   userName,
   userData,
@@ -44,13 +50,21 @@ const SectionCreateInputForm = ({
   bookData,
   bookId,
 }) => {
-  console.log({ userData, bookData, bookId });
+  // console.log({ userData, bookData, bookId });
+
+  const customSelectStylesClasses = useCustomSelectStyles();
+
+  // 年月日時刻は初期値入れといたほうがデザインが崩れないようだ
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  const dateTimeLocal = now.toISOString().slice(0, -8);
 
   const [isPublic, setIsPublic] = useState(true);
   const [isFuture, setIsFuture] = useState(false);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(dateTimeLocal);
   const [title, setTitle] = useState('');
   const [contents, setContents] = useState('');
+  const [emoIcon, setEmoIcon] = useState([]);
   const [emo, setEmo] = useState('');
   const [tag_0, setTag_0] = useState('');
   const [tag_1, setTag_1] = useState('');
@@ -59,7 +73,13 @@ const SectionCreateInputForm = ({
   const [urlImg, setUrlImg] = useState('');
   const [urlWeb, setUrlWeb] = useState('');
 
+  // const [value, setValue] = useState('');
+
   const [paramOk, setParamOk] = useState(true);
+
+  // const handleMultiple = (event) => {
+  //   setMultipleSelect(event.target.value);
+  // };
 
   /**
    * paramOkを操作するコールバック関数
@@ -100,14 +120,14 @@ const SectionCreateInputForm = ({
       .doc(bookId)
       .collection(sectionCollectionName)
       .doc(sectionId)
-      .set(postData);
+      .set(postData, { merge: true });
     return addedData;
   };
 
   // 設定ボタンクリック時の処理
   const onClickCallback = async () => {
-    if (date === '' || title === '' || contents === '' || emo === '') {
-      alert('日付、タイトル、コンテンツ、感情は必須です');
+    if (date === '' || title === '' || contents === '' || emoIcon === '') {
+      alert('日付、タイトル、コンテンツ、感情アイコンは必須です');
       setParamOk(false);
       return false;
     }
@@ -148,12 +168,13 @@ const SectionCreateInputForm = ({
       urlVideo,
       urlImg,
       urlWeb,
+      emoIcon,
       emo,
       quoteRef: '',
       quotedRef: '',
       quotedCount: '',
     };
-    console.log({postData});
+    console.log({ postData });
     const addedData = await postDataToFirestore(
       VALIDUSERS,
       userData.uid,
@@ -166,7 +187,7 @@ const SectionCreateInputForm = ({
 
     setIsPublic(true);
     setIsFuture(false);
-    setDate('');
+    setDate(dateTimeLocal);
     setTitle('');
     setContents('');
     setTag_0('');
@@ -175,6 +196,7 @@ const SectionCreateInputForm = ({
     setUrlVideo('');
     setUrlImg('');
     setUrlWeb('');
+    setEmoIcon([]);
     setEmo('');
   };
 
@@ -233,259 +255,343 @@ const SectionCreateInputForm = ({
             }}
           />
         </div>
-      </form>
-      {/************************/}
-      {/* 日付                  */}
-      {/************************/}
-      <CustomInput
-        labelText="日付"
-        id="date"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: '日付',
-          type: 'datetime-local',
-          startAdornment: (
-            <InputAdornment position="start">
-              <EventNoteIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: date,
-          onChange: (e) => setDate(e.target.value),
-        }}
-      />
-      {/************************/}
-      {/* タイトル              */}
-      {/************************/}
-      <CustomInput
-        labelText="タイトル"
-        id="title"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: 'タイトル',
-          type: 'text',
-          startAdornment: (
-            <InputAdornment position="start">
-              <LibraryBooksIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: title,
-          onChange: (e) => setTitle(e.target.value),
-        }}
-      />
-      {/************************/}
-      {/* コンテンツ            */}
-      {/************************/}
-      <CustomInput
-        labelText="コンテンツ"
-        id="contents"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: 'コンテンツ',
-          type: 'text',
-          startAdornment: (
-            <InputAdornment position="start">
-              <CheckIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: contents,
-          onChange: (e) => setContents(e.target.value),
-        }}
-      />
-      {/************************/}
-      {/* 感情                  */}
-      {/************************/}
-      <CustomInput
-        labelText="感情"
-        id="emo"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: '感情',
-          type: 'text',
-          startAdornment: (
-            <InputAdornment position="start">
-              <HttpIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: emo,
-          onChange: (e) => setEmo(e.target.value),
-        }}
-      />
-      <h3>タグ(未実装)</h3>
-      {/************************/}
-      {/* タグ 0               */}
-      {/************************/}
-      <CustomInput
-        labelText="タグ 0"
-        id="tag_0"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: 'タグ 0',
-          type: 'text',
-          startAdornment: (
-            <InputAdornment position="start">
-              <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: tag_0,
-          onChange: (e) => setTag_0(e.target.value),
-        }}
-      />
-      {/************************/}
-      {/* タグ 1               */}
-      {/************************/}
-      <CustomInput
-        labelText="タグ 1"
-        id="tag_1"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: 'タグ 1',
-          type: 'text',
-          startAdornment: (
-            <InputAdornment position="start">
-              <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: tag_1,
-          onChange: (e) => setTag_1(e.target.value),
-        }}
-      />
-      {/************************/}
-      {/* タグ 2               */}
-      {/************************/}
-      <CustomInput
-        labelText="タグ 2"
-        id="tag_2"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: 'タグ 2',
-          type: 'text',
-          startAdornment: (
-            <InputAdornment position="start">
-              <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: tag_2,
-          onChange: (e) => setTag_2(e.target.value),
-        }}
-      />
-      <h3>関連URL(未実装)</h3>
-      {/************************/}
-      {/* 関連動画URL           */}
-      {/************************/}
-      <CustomInput
-        labelText="関連動画URL(未実装)"
-        id="urlVideo"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: '関連動画URL(未実装)',
-          type: 'url',
-          startAdornment: (
-            <InputAdornment position="start">
-              <HttpIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: urlVideo,
-          onChange: (e) => setUrlVideo(e.target.value),
-        }}
-      />
-      {/************************/}
-      {/* 関連画像URL           */}
-      {/************************/}
-      <CustomInput
-        labelText="関連画像URL(未実装)"
-        id="urlImg"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: '関連画像URL(未実装)',
-          type: 'url',
-          startAdornment: (
-            <InputAdornment position="start">
-              <HttpIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: urlImg,
-          onChange: (e) => setUrlImg(e.target.value),
-        }}
-      />
-      {/************************/}
-      {/* 関連サイトURL           */}
-      {/************************/}
-      <CustomInput
-        labelText="関連サイトURL(未実装)"
-        id="urlWeb"
-        formControlProps={{
-          fullWidth: true,
-        }}
-        inputProps={{
-          placeholder: '関連サイトURL(未実装)',
-          type: 'url',
-          startAdornment: (
-            <InputAdornment position="start">
-              <HttpIcon className={classes.inputAdornmentIcon} />
-            </InputAdornment>
-          ),
-          autoComplete: 'off',
-          value: urlWeb,
-          onChange: (e) => setUrlWeb(e.target.value),
-        }}
-      />
 
-      {/***********************/}
-      {/* セクション作成ボタン   */}
-      {/***********************/}
-      <GridContainer justify="center">
-        <div className={classes.textCenter}>
-          <Button
-            simple
-            color="primary"
-            size="lg"
-            type="button"
-            onClick={onClickCallback}
-          >
-            新しいセクションを作成する
-          </Button>
-        </div>
-      </GridContainer>
-      {/*必須パラメータが足りない場合*/}
-      {!paramOk && (
-        <SimpleModal
-          modalTitle={`必須項目が足りません`}
-          modalText="手記管理名称、手記表示名称、手記アイコン絵文字、主人公の名前、主人公の誕生日は必須です"
-          closeBtnTxt=""
-          yesBtnTxt="OK"
-          noBtnTxt=""
-          callBack={callBackSetParamOk}
+        {/************************/}
+        {/* 日付                  */}
+        {/************************/}
+        <CustomInput
+          labelText="日付"
+          id="date"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            placeholder: '日付',
+            type: 'datetime-local',
+            startAdornment: (
+              <InputAdornment position="start">
+                <EventNoteIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: date,
+            onChange: (e) => setDate(e.target.value),
+          }}
         />
-      )}
+
+        {/************************/}
+        {/* タイトル              */}
+        {/************************/}
+        <CustomInput
+          labelText="タイトル"
+          id="title"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            type: 'text',
+            endAdornment: (
+              <InputAdornment position="start">
+                <LibraryBooksIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: title,
+            onChange: (e) => setTitle(e.target.value),
+          }}
+        />
+        {/************************/}
+        {/* コンテンツ            */}
+        {/************************/}
+
+        <CustomInput
+          multiline
+          labelText="コンテンツ"
+          id="contents"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            type: 'text',
+            multiline: true,
+            rows: 8,
+            variant: 'outlined',
+            endAdornment: (
+              <InputAdornment position="end">
+                <NotesIcon />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: contents,
+            onChange: (e) => setContents(e.target.value),
+          }}
+        />
+
+        {/************************/}
+        {/* 感情 選択式            */}
+        {/************************/}
+        <FormControl
+          fullWidth
+          className={customSelectStylesClasses.selectFormControl}
+        >
+          <InputLabel
+            htmlFor="multiple-select"
+            className={customSelectStylesClasses.selectLabel}
+          >
+            感情選択
+          </InputLabel>
+          <Select
+            multiple
+            value={emoIcon}
+            // onChange={handleMultiple}
+            onChange={(e) => setEmoIcon(e.target.value)}
+            MenuProps={{
+              className: customSelectStylesClasses.selectMenu,
+              classes: { paper: customSelectStylesClasses.selectPaper },
+            }}
+            classes={{ select: customSelectStylesClasses.select }}
+            inputProps={{
+              name: 'emoIcon',
+              id: 'multiple-select',
+            }}
+          >
+            <MenuItem
+              disabled
+              classes={{
+                root: customSelectStylesClasses.selectMenuItem,
+              }}
+            >
+              複数選択可能
+            </MenuItem>
+            <MenuItem
+              classes={{
+                root: customSelectStylesClasses.selectMenuItem,
+                selected:
+                  customSelectStylesClasses.selectMenuItemSelectedMultiple,
+              }}
+              value="😆喜"
+            >
+              😆喜
+            </MenuItem>
+            <MenuItem
+              classes={{
+                root: customSelectStylesClasses.selectMenuItem,
+                selected:
+                  customSelectStylesClasses.selectMenuItemSelectedMultiple,
+              }}
+              value="💢怒"
+            >
+              💢怒
+            </MenuItem>
+            <MenuItem
+              classes={{
+                root: customSelectStylesClasses.selectMenuItem,
+                selected:
+                  customSelectStylesClasses.selectMenuItemSelectedMultiple,
+              }}
+              value="😢哀"
+            >
+              😢哀
+            </MenuItem>
+            <MenuItem
+              classes={{
+                root: customSelectStylesClasses.selectMenuItem,
+                selected:
+                  customSelectStylesClasses.selectMenuItemSelectedMultiple,
+              }}
+              value="😍楽"
+            >
+              😍楽
+            </MenuItem>
+          </Select>
+        </FormControl>
+        {/************************/}
+        {/* 感情  補足             */}
+        {/************************/}
+        <CustomInput
+          labelText="感情"
+          id="emo"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            // placeholder: '感情',
+            type: 'text',
+            endAdornment: (
+              <InputAdornment position="start">
+                <InsertEmoticonIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: emo,
+            onChange: (e) => setEmo(e.target.value),
+          }}
+        />
+        <h3>タグ(未実装)</h3>
+        {/************************/}
+        {/* タグ 0               */}
+        {/************************/}
+        <CustomInput
+          labelText="タグ 0"
+          id="tag_0"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            // placeholder: 'タグ 0',
+            type: 'text',
+            endAdornment: (
+              <InputAdornment position="start">
+                <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: tag_0,
+            onChange: (e) => setTag_0(e.target.value),
+          }}
+        />
+        {/************************/}
+        {/* タグ 1               */}
+        {/************************/}
+        <CustomInput
+          labelText="タグ 1"
+          id="tag_1"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            // placeholder: 'タグ 1',
+            type: 'text',
+            endAdornment: (
+              <InputAdornment position="start">
+                <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: tag_1,
+            onChange: (e) => setTag_1(e.target.value),
+          }}
+        />
+        {/************************/}
+        {/* タグ 2               */}
+        {/************************/}
+        <CustomInput
+          labelText="タグ 2"
+          id="tag_2"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            // placeholder: 'タグ 2',
+            type: 'text',
+            endAdornment: (
+              <InputAdornment position="start">
+                <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: tag_2,
+            onChange: (e) => setTag_2(e.target.value),
+          }}
+        />
+        <h3>関連URL(未実装)</h3>
+        {/************************/}
+        {/* 関連動画URL           */}
+        {/************************/}
+        <CustomInput
+          labelText="関連動画URL(未実装)"
+          id="urlVideo"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            // placeholder: '関連動画URL(未実装)',
+            type: 'url',
+            endAdornment: (
+              <InputAdornment position="start">
+                <HttpIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: urlVideo,
+            onChange: (e) => setUrlVideo(e.target.value),
+          }}
+        />
+        {/************************/}
+        {/* 関連画像URL           */}
+        {/************************/}
+        <CustomInput
+          labelText="関連画像URL(未実装)"
+          id="urlImg"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            // placeholder: '関連画像URL(未実装)',
+            type: 'url',
+            endAdornment: (
+              <InputAdornment position="start">
+                <HttpIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: urlImg,
+            onChange: (e) => setUrlImg(e.target.value),
+          }}
+        />
+        {/************************/}
+        {/* 関連サイトURL           */}
+        {/************************/}
+        <CustomInput
+          labelText="関連サイトURL(未実装)"
+          id="urlWeb"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            // placeholder: '関連サイトURL(未実装)',
+            type: 'url',
+            endAdornment: (
+              <InputAdornment position="start">
+                <HttpIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: urlWeb,
+            onChange: (e) => setUrlWeb(e.target.value),
+          }}
+        />
+
+        {/***********************/}
+        {/* セクション作成ボタン   */}
+        {/***********************/}
+        <GridContainer justify="center">
+          <div className={classes.textCenter}>
+            <Button
+              simple
+              color="primary"
+              size="lg"
+              type="button"
+              onClick={onClickCallback}
+            >
+              実行する
+            </Button>
+          </div>
+        </GridContainer>
+        {/*必須パラメータが足りない場合*/}
+        {!paramOk && (
+          <SimpleModal
+            modalTitle={`必須項目が足りません`}
+            modalText="日付、タイトル、コンテンツ、感情アイコンは必須です"
+            closeBtnTxt=""
+            yesBtnTxt="OK"
+            noBtnTxt=""
+            callBack={callBackSetParamOk}
+          />
+        )}
+      </form>
     </>
   );
 };
 
-export default SectionCreateInputForm;
+// export default SectionCreateInputForm;

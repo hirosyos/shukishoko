@@ -1,62 +1,28 @@
-/* eslint-disable */
+/* react */
 import React, { useContext } from 'react';
-// nodejs library to set properties for components
+/* nodejs library to set properties for components */
 import PropTypes from 'prop-types';
-// react components for routing our app without refresh
-import Link from 'src/components/atoms/Link';
-
-// @material-ui/core components
+/* @material-ui/core components */
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Icon from '@material-ui/core/Icon';
-import Hidden from '@material-ui/core/Hidden';
-
-// @material-ui/icons
-import Apps from '@material-ui/icons/Apps';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import ViewDay from '@material-ui/icons/ViewDay';
-import Dns from '@material-ui/icons/Dns';
-import Build from '@material-ui/icons/Build';
-import ListIcon from '@material-ui/icons/List';
-import People from '@material-ui/icons/People';
-import Assignment from '@material-ui/icons/Assignment';
-import MonetizationOn from '@material-ui/icons/MonetizationOn';
-import Chat from '@material-ui/icons/Chat';
-import Call from '@material-ui/icons/Call';
-import ViewCarousel from '@material-ui/icons/ViewCarousel';
-import NotesIcon from '@material-ui/icons/Notes';
-import SettingsIcon from '@material-ui/icons/Settings';
-import SearchIcon from '@material-ui/icons/Search';
-import HomeIcon from '@material-ui/icons/Home';
-import HelpIcon from '@material-ui/icons/Help';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import CodeIcon from '@material-ui/icons/Code';
-
-import AccountBalance from '@material-ui/icons/AccountBalance';
-import ArtTrack from '@material-ui/icons/ArtTrack';
-import ViewQuilt from '@material-ui/icons/ViewQuilt';
-import LocationOn from '@material-ui/icons/LocationOn';
-import Fingerprint from '@material-ui/icons/Fingerprint';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import AttachMoney from '@material-ui/icons/AttachMoney';
-import Store from '@material-ui/icons/Store';
+/* @material-ui/icons */
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import PersonAdd from '@material-ui/icons/PersonAdd';
-import Layers from '@material-ui/icons/Layers';
-import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
-import LineStyle from '@material-ui/icons/LineStyle';
-import Error from '@material-ui/icons/Error';
-
-// core components
+import Apps from '@material-ui/icons/Apps';
+import CodeIcon from '@material-ui/icons/Code';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HelpIcon from '@material-ui/icons/Help';
+import HomeIcon from '@material-ui/icons/Home';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import SearchIcon from '@material-ui/icons/Search';
+import ViewCarousel from '@material-ui/icons/ViewCarousel';
+/* nectjs materialui kit core components */
 import CustomDropdown from 'components/CustomDropdown/CustomDropdown.js';
-import Button from 'components/CustomButtons/Button.js';
-
 import styles from 'assets/jss/nextjs-material-kit-pro/components/headerLinksStyle.js';
-
+/* MyApp */
+import Link from 'src/components/atoms/Link';
 import { AuthContext } from 'pages/_app';
 
 const useStyles = makeStyles(styles);
@@ -181,7 +147,7 @@ export default function AppHeaderLinks(props) {
             noLiPadding
             navDropdown
             hoverColor={dropdownHoverColor}
-            buttonText={`ユーザ（${userData.userDisplayName}）`}
+            buttonText={`ユーザ（${userData.userIconEmoji}）`}
             buttonProps={{
               className: classes.navLink,
               color: 'transparent',
@@ -197,51 +163,7 @@ export default function AppHeaderLinks(props) {
                 <AccountCircle className={classes.dropdownIcons} />
                 <ListItemText primary="マイページ" />
               </ListItem>,
-              <ListItem
-                button
-                component={Link}
-                href="/user-setting"
-                style={{ textDecoration: 'none' }}
-              >
-                <SettingsIcon className={classes.dropdownIcons} />
-                <ListItemText primary="ユーザ設定" />
-              </ListItem>,
-              <ListItem
-                button
-                component={Link}
-                href="/book-create"
-                style={{ textDecoration: 'none' }}
-              >
-                <LibraryBooks className={classes.dropdownIcons} />
-                <ListItemText primary="手記作成" />
-              </ListItem>,
-              <ListItem
-                button
-                component={Link}
-                href="/book-setting"
-                style={{ textDecoration: 'none' }}
-              >
-                <SettingsIcon className={classes.dropdownIcons} />
-                <ListItemText primary="手記設定" />
-              </ListItem>,
-              <ListItem
-                button
-                component={Link}
-                href="/section-create"
-                style={{ textDecoration: 'none' }}
-              >
-                <NotesIcon className={classes.dropdownIcons} />
-                <ListItemText primary="セクション作成" />
-              </ListItem>,
-              <ListItem
-                button
-                component={Link}
-                href="/section-setting"
-                style={{ textDecoration: 'none' }}
-              >
-                <SettingsIcon className={classes.dropdownIcons} />
-                <ListItemText primary="セクション設定" />
-              </ListItem>,
+
               <ListItem
                 button
                 component={Link}

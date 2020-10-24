@@ -20,13 +20,11 @@ import CustomInput from 'components/CustomInput/CustomInput.js';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import GridContainer from 'components/Grid/GridContainer.js';
 import Switch from '@material-ui/core/Switch';
-
 // nextjs-matelialui-kit スタイル
 import radioSwitchStyle from 'assets/jss/nextjs-material-kit-pro/customCheckboxRadioSwitchStyle.js';
 /* MyApp */
 import firebase from 'src/common/firebase';
 import { VALIDUSERS, VALIDBOOKS } from 'src/common/common';
-
 import SimpleModal from 'src/components/atoms/SimpleModal';
 
 // スタイル設定
@@ -42,6 +40,11 @@ export const BookCreateInputForm = ({ classes, userData }) => {
   // console.log('関数 BookCreateInputForm');
   // console.log({ userData });
 
+  // 年月日時刻は初期値入れといたほうがデザインが崩れないようだ
+  const now = new Date();
+  now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+  const dateTimeLocal = now.toISOString().slice(0, -8);
+
   const [isPublic, setIsPublic] = useState(true);
 
   const [bookName, setBookName] = useState('');
@@ -52,23 +55,23 @@ export const BookCreateInputForm = ({ classes, userData }) => {
   const [bookIntroduction, setBookIntroduction] = useState('');
 
   const [authorDisplayName, setAuthorDisplayName] = useState('');
-  const [authorBirthday, setAuthorBirthday] = useState('');
+  const [authorBirthday, setAuthorBirthday] = useState(dateTimeLocal);
 
   const [chapterName_0, setChapterName_0] = useState('');
-  const [chapterStartDate_0, setChapterStartDate_0] = useState('');
-  const [chapterEndDate_0, setChapterEndtDate_0] = useState('');
+  const [chapterStartDate_0, setChapterStartDate_0] = useState(dateTimeLocal);
+  const [chapterEndDate_0, setChapterEndtDate_0] = useState(dateTimeLocal);
   const [chapterName_1, setChapterName_1] = useState('');
-  const [chapterStartDate_1, setChapterStartDate_1] = useState('');
-  const [chapterEndDate_1, setChapterEndtDate_1] = useState('');
+  const [chapterStartDate_1, setChapterStartDate_1] = useState(dateTimeLocal);
+  const [chapterEndDate_1, setChapterEndtDate_1] = useState(dateTimeLocal);
   const [chapterName_2, setChapterName_2] = useState('');
-  const [chapterStartDate_2, setChapterStartDate_2] = useState('');
-  const [chapterEndDate_2, setChapterEndtDate_2] = useState('');
+  const [chapterStartDate_2, setChapterStartDate_2] = useState(dateTimeLocal);
+  const [chapterEndDate_2, setChapterEndtDate_2] = useState(dateTimeLocal);
   const [chapterName_3, setChapterName_3] = useState('');
-  const [chapterStartDate_3, setChapterStartDate_3] = useState('');
-  const [chapterEndDate_3, setChapterEndtDate_3] = useState('');
+  const [chapterStartDate_3, setChapterStartDate_3] = useState(dateTimeLocal);
+  const [chapterEndDate_3, setChapterEndtDate_3] = useState(dateTimeLocal);
   const [chapterName_4, setChapterName_4] = useState('');
-  const [chapterStartDate_4, setChapterStartDate_4] = useState('');
-  const [chapterEndDate_4, setChapterEndtDate_4] = useState('');
+  const [chapterStartDate_4, setChapterStartDate_4] = useState(dateTimeLocal);
+  const [chapterEndDate_4, setChapterEndtDate_4] = useState(dateTimeLocal);
 
   const [paramOk, setParamOk] = useState(true);
 
@@ -107,7 +110,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
       .doc(userId)
       .collection(bookCollectionName)
       .doc(bookId)
-      .set(postData);
+      .set(postData, { merge: true });
     return addedData;
   };
 
@@ -180,23 +183,23 @@ export const BookCreateInputForm = ({ classes, userData }) => {
     setBookIntroduction('');
 
     setAuthorDisplayName('');
-    setAuthorBirthday('');
+    setAuthorBirthday(dateTimeLocal);
 
     setChapterName_0('');
-    setChapterStartDate_0('');
-    setChapterEndtDate_0('');
+    setChapterStartDate_0(dateTimeLocal);
+    setChapterEndtDate_0(dateTimeLocal);
     setChapterName_1('');
-    setChapterStartDate_1('');
-    setChapterEndtDate_1('');
+    setChapterStartDate_1(dateTimeLocal);
+    setChapterEndtDate_1(dateTimeLocal);
     setChapterName_2('');
-    setChapterStartDate_2('');
-    setChapterEndtDate_2('');
+    setChapterStartDate_2(dateTimeLocal);
+    setChapterEndtDate_2(dateTimeLocal);
     setChapterName_3('');
-    setChapterStartDate_3('');
-    setChapterEndtDate_3('');
+    setChapterStartDate_3(dateTimeLocal);
+    setChapterEndtDate_3(dateTimeLocal);
     setChapterName_4('');
-    setChapterStartDate_4('');
-    setChapterEndtDate_4('');
+    setChapterStartDate_4(dateTimeLocal);
+    setChapterEndtDate_4(dateTimeLocal);
   };
 
   // スタイル読み出し
@@ -211,7 +214,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
         {/************************/}
         <div>
           <FormControlLabel
-            label={`手記公開設定(${isPublic ? '公開' : '非公開'})`}
+            label={`公開設定(${isPublic ? '公開' : '非公開'})`}
             control={
               <Switch
                 checked={isPublic}
@@ -234,15 +237,15 @@ export const BookCreateInputForm = ({ classes, userData }) => {
         {/* 手記管理名称          */}
         {/***********************/}
         <CustomInput
-          labelText="手記管理名称(アルファベットのみ)"
+          labelText="管理名称(アルファベットのみ)"
           id="bookName"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '手記管理名称',
+            placeholder: '管理名称',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <LaptopChromebookIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -256,15 +259,15 @@ export const BookCreateInputForm = ({ classes, userData }) => {
         {/* 手記表示名称           */}
         {/************************/}
         <CustomInput
-          labelText="手記表示名称(画面に表示されるタイトル)"
+          labelText="表示名称(画面に表示されるタイトル)"
           id="bookDisplayName"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '手記表示名称',
+            placeholder: '表示名称',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <LibraryBooksIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -278,15 +281,15 @@ export const BookCreateInputForm = ({ classes, userData }) => {
         {/* 手記アイコン絵文字      */}
         {/************************/}
         <CustomInput
-          labelText="手記アイコン絵文字🙆"
+          labelText="アイコン絵文字🙆"
           id="bookIconEmoji"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '手記アイコン絵文字🙆',
+            placeholder: 'アイコン絵文字🙆',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -300,15 +303,15 @@ export const BookCreateInputForm = ({ classes, userData }) => {
         {/* 手記アイコン画像URL     */}
         {/************************/}
         <CustomInput
-          labelText="手記アイコン画像URL(未実装)"
+          labelText="アイコン画像URL(未実装)"
           id="bookIconImageUrl"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '手記アイコン画像URL(未実装)',
+            placeholder: 'アイコン画像URL(未実装)',
             type: 'url',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <HttpIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -322,15 +325,15 @@ export const BookCreateInputForm = ({ classes, userData }) => {
         {/* 手記カバー画像URL      */}
         {/************************/}
         <CustomInput
-          labelText="手記カバー画像URL(未実装)"
+          labelText="カバー画像URL(未実装)"
           id="bookCoverImageUrl"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '手記カバー画像URL(未実装)',
+            placeholder: 'カバー画像URL(未実装)',
             type: 'url',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <HttpIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -344,15 +347,15 @@ export const BookCreateInputForm = ({ classes, userData }) => {
         {/* イントロダクション      */}
         {/************************/}
         <CustomInput
-          labelText="手記イントロダクション"
+          labelText="イントロダクション"
           id="bookIntroduction"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '手記イントロダクション',
+            placeholder: 'イントロダクション',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <CheckIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -375,7 +378,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '主人公の名前(ユーザ名とは別)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <AccountBoxIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -397,7 +400,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '主人公の誕生日(ユーザとは別)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <CakeIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -421,7 +424,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代名称(未実装)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <HistoryIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -443,7 +446,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -465,7 +468,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -490,7 +493,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代名称(未実装)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <HistoryIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -512,7 +515,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -534,7 +537,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -559,7 +562,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代名称(未実装)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <HistoryIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -581,7 +584,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -603,7 +606,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -628,7 +631,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代名称(未実装)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <HistoryIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -650,7 +653,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -672,7 +675,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -697,7 +700,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代名称(未実装)',
             type: 'text',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <HistoryIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -719,7 +722,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignTopIcon className={classes.inputAdornmentIcon} />
               </InputAdornment>
@@ -741,7 +744,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
           inputProps={{
             placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
-            startAdornment: (
+            endAdornment: (
               <InputAdornment position="start">
                 <VerticalAlignBottomIcon
                   className={classes.inputAdornmentIcon}
@@ -766,7 +769,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
             type="button"
             onClick={onClickCallback}
           >
-            新しい手記を作成する
+            実行する
           </Button>
         </div>
       </GridContainer>

@@ -3,50 +3,35 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 /* next */
 import { useRouter } from 'next/router';
 // @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import Icon from '@material-ui/core/Icon';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Icon from '@material-ui/core/Icon';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import { makeStyles } from '@material-ui/core/styles';
 // @material-ui/icons
-import Timeline from '@material-ui/icons/Timeline';
-import Code from '@material-ui/icons/Code';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import Check from '@material-ui/icons/Check';
 import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
-import UpdateIcon from '@material-ui/icons/Update';
+import Email from '@material-ui/icons/Email';
 import HistoryIcon from '@material-ui/icons/History';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-
-import Group from '@material-ui/icons/Group';
-import Face from '@material-ui/icons/Face';
-import Email from '@material-ui/icons/Email';
-import Check from '@material-ui/icons/Check';
-import Favorite from '@material-ui/icons/Favorite';
-// core components
-import GridContainer from 'components/Grid/GridContainer.js';
-import GridItem from 'components/Grid/GridItem.js';
+import UpdateIcon from '@material-ui/icons/Update';
+// nextjs materialui kit core components
 import Button from 'components/CustomButtons/Button.js';
 import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
-import InfoArea from 'components/InfoArea/InfoArea.js';
 import CustomInput from 'components/CustomInput/CustomInput.js';
-
+import GridContainer from 'components/Grid/GridContainer.js';
+import GridItem from 'components/Grid/GridItem.js';
+import InfoArea from 'components/InfoArea/InfoArea.js';
 import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
-
-// import image from 'assets/img/bg7.jpg';
-import image from 'public/hana_01F.jpg';
-
 /* MyApp */
 import { getUserDataFromUid, firebaseErrToTxt } from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import firebase from 'src/common/firebase';
 import SimpleModal from 'src/components/atoms/SimpleModal';
-import { AppMain } from 'src/components/organisms/AppMain';
-import { AuthContext } from 'pages/_app';
 import { AppHead } from 'src/components/organisms/AppHead';
+import { AuthContext } from 'pages/_app';
+import image from 'public/hana_01F.jpg';
 
 // スタイル設定
 const useStyles = makeStyles(signupPageStyle);
@@ -144,10 +129,7 @@ export function SignupPageMain({ ...rest }) {
       async function fetchData() {
         const { userData } = await getUserDataFromUid(user.uid);
 
-        // console.log('userData');
-        // console.log(userData);
         setUserName(userData.userName);
-        // setMoveUserPage('true');
       }
       fetchData();
     }
@@ -186,10 +168,11 @@ export function SignupPageMain({ ...rest }) {
         const userData = {
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-          isPublic: 'false',
+          isPublic: true,
           uid: firebase.auth().currentUser.uid,
           userName: account,
           userDisplayName: '',
+          userIconEmoji: '',
           userIconImageUrl: '',
           userCoverImageUrl: '',
           userIntroduction: '',
@@ -467,26 +450,4 @@ const postDataToFirestore = async (collectionName, docName, postData) => {
     .set(postData);
 
   return addedData;
-};
-
-/**
- *
- *
- * @param {*} collectionName
- * @param {*} docName
- * @param {*} postData
- * @return {*}
- */
-const createUserWithAuthenticationId = async (
-  collectionName,
-  docName,
-  postData,
-) => {
-  const currentUser = firebase.auth().currentUser;
-  await firebase
-    .firestore()
-    .collection(collectionName)
-    .doc(currentUser.uid)
-    .set(postData);
-  return currentUser;
 };

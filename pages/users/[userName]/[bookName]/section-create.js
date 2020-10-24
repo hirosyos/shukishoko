@@ -10,25 +10,22 @@ import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
+import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
 /* MyApp */
 import {
   getUserDataFromUserName,
   getBookDataFromBookName,
 } from 'src/common/common';
 import { RSC } from 'src/common/resource';
-import Link from 'src/components/atoms/Link';
 import SimpleModal from 'src/components/atoms/SimpleModal';
-import { BookCreateInputForm } from 'src/components/molecules/Book';
+import { SectionForm } from 'src/components/molecules/Section';
 import { AppHead } from 'src/components/organisms/AppHead';
 import { AppLayout } from 'src/components/organisms/AppLayout';
-import { AppMain } from 'src/components/organisms/AppMain';
 import { AuthContext } from 'pages/_app';
 import image from 'public/hana_07F.jpg';
 
-import SectionCreateInputForm from 'src/components/molecules/Section';
 
 // スタイル設定
-import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
 const useStyles = makeStyles(signupPageStyle);
 
 /**
@@ -239,7 +236,7 @@ export default function SectionCreatePage({
                   <CardBody>
                     <GridContainer justify="center">
                       <GridItem xs={12} sm={10} md={10}>
-                        <SectionCreateInputForm
+                        <SectionForm
                           classes={classes}
                           userName={userName}
                           userData={userData}

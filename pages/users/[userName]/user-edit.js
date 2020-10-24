@@ -1,32 +1,3 @@
-// import Link from 'src/components/atoms/Link';
-// import { AppLayout } from 'src/components/organisms/AppLayout';
-// import { RSC } from 'src/common/resource';
-// import { AppHead } from 'src/components/organisms/AppHead';
-
-// /**
-//  * ユーザ設定ページ
-//  *
-//  * @return {*}
-//  */
-// export default function UserSettingPage() {
-//   return (
-//     <>
-//       {/*******************/}
-//       {/* ヘッダ情報        */}
-//       {/*******************/}
-//       <AppHead
-//         pageTitle={`${RSC.appTitle}`}
-//         description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
-//         url={`${RSC.domain}/user-setting`}
-//       />
-//       <AppLayout>
-//         <h1>Welcome to ユーザ設定 ページ</h1>
-
-//       </AppLayout>
-//     </>
-//   );
-// }
-
 /* react */
 import React, { useState, useEffect, useContext } from 'react';
 /* next */
@@ -39,27 +10,18 @@ import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
+import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
 /* MyApp */
-import {
-  getUserDataFromUserName,
-  getBookDataFromBookName,
-  getBookDataListFromUserData,
-  getSectionDataListFromUserData,
-} from 'src/common/common';
+import { getUserDataFromUserName } from 'src/common/common';
 import { RSC } from 'src/common/resource';
-import Link from 'src/components/atoms/Link';
 import SimpleModal from 'src/components/atoms/SimpleModal';
 import { UserForm } from 'src/components/molecules/UserForm';
 import { AppHead } from 'src/components/organisms/AppHead';
 import { AppLayout } from 'src/components/organisms/AppLayout';
-import { AppMain } from 'src/components/organisms/AppMain';
 import { AuthContext } from 'pages/_app';
 import image from 'public/hana_07F.jpg';
 
-import SectionCreateInputForm from 'src/components/molecules/Section';
-
 // スタイル設定
-import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
 const useStyles = makeStyles(signupPageStyle);
 
 /**
@@ -81,7 +43,6 @@ export async function getStaticPaths() {
  * @param {*} { params }
  * @return {*}
  */
-// export async function getStaticProps({ params }) {
 export const getStaticProps = async ({ params }) => {
   // パスから切り出された値が入っている
   const { userName } = params;
@@ -102,19 +63,11 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 
-  // ユーザデータ配下のブックデータリストを取得
-  const bookDataList = await getBookDataListFromUserData(userData);
-
-  // ユーザデータ配下のセクションデータリストを取得
-  const sectionDataList = await getSectionDataListFromUserData(userData);
-
   return {
     // Next.jsはDate型を返してほしくないようなのでこのような対処をしている
     props: {
       userName,
       userData: JSON.parse(JSON.stringify(userData)),
-      bookDataList: JSON.parse(JSON.stringify(bookDataList)),
-      sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
     },
   };
 };
@@ -126,17 +79,10 @@ export const getStaticProps = async ({ params }) => {
  * @param {*} props
  * @return {*}
  */
-export default function UserEditPage({
-  userName,
-  userData,
-  bookDataList,
-  sectionDataList,
-}) {
+export default function UserEditPage({ userName, userData }) {
   console.log({
     userName,
     userData,
-    bookDataList,
-    sectionDataList,
   });
 
   // ルーティング情報
@@ -177,21 +123,6 @@ export default function UserEditPage({
     console.log('異常終了 指定されたユーザは存在しません...\n');
     return <div>指定されたユーザは存在しません...</div>;
   }
-
-  // // ユーザネームがない段階では何もしない;
-  // if (!bookName) {
-  //   console.log('異常終了 そんな手記はありません\n');
-
-  //   return <div>そんな手記はありません...</div>;
-  // }
-
-  // if (!bookData) {
-  //   console.log('異常終了 指定された手記は存在しません...\n');
-
-  //   return <div>指定された手記は存在しません...</div>;
-  // }
-
-  // return <p>Hello</p>;
 
   /**
    * moveTopPageを操作するコールバック関数

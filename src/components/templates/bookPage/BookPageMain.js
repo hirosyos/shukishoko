@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import NotesIcon from '@material-ui/icons/Notes';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import SettingsIcon from '@material-ui/icons/Settings';
 import UpdateIcon from '@material-ui/icons/Update';
 /* nextjs-materialui-kit */
 import Button from 'components/CustomButtons/Button.js';
@@ -176,6 +177,7 @@ const BookPageMain = ({
                   width: '12rem',
                 }}
               >
+                <SettingsIcon className={classes.dropdownIcons} />
                 手記を編集
               </Button>
               {/*****************/}
@@ -192,6 +194,7 @@ const BookPageMain = ({
                   width: '12rem',
                 }}
               >
+                <NotesIcon className={classes.dropdownIcons} />
                 セクションを追加
               </Button>
             </GridContainer>

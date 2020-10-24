@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import NotesIcon from '@material-ui/icons/Notes';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import SettingsIcon from '@material-ui/icons/Settings';
 import UpdateIcon from '@material-ui/icons/Update';
 /* nextjs-materialui-kit */
 import Button from 'components/CustomButtons/Button.js';
@@ -141,6 +142,7 @@ export const UserPageMain = ({
                   width: '12rem',
                 }}
               >
+                <SettingsIcon className={classes.dropdownIcons} />
                 ユーザを編集
               </Button>
               {/*****************/}
@@ -157,6 +159,7 @@ export const UserPageMain = ({
                   width: '12rem',
                 }}
               >
+                <LibraryBooks className={classes.dropdownIcons} />
                 手記を追加
               </Button>
             </GridContainer>
