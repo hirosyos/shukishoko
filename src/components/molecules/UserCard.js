@@ -102,11 +102,11 @@ const UserCard = ({ userName, userData }) => {
         <GridContainer spacing={2}>
           <GridItem item xs={2}>
             <Avatar aria-label="avatar" className={classes.avatar}>
-              {userData.userIconImageUrl}
+              {userData.userIconEmoji ? userData.userIconEmoji : '🙆'}
             </Avatar>
           </GridItem>
           <Grid item xs={8}>
-            <h4  >
+            <h4>
               {userData.userDisplayName}@{userData.userName}
             </h4>
           </Grid>

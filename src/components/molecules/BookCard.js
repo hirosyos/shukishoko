@@ -125,7 +125,7 @@ const BookCard = ({ userName, bookName, bookData }) => {
 
           <GridItem item xs={2}>
             <Avatar aria-label="recipe" className={classes.avatar}>
-              記
+              {bookData.bookIconEmoji ? bookData.bookIconEmoji : '📖'}
             </Avatar>
           </GridItem>
           <GridItem xs={8}>
@@ -145,9 +145,9 @@ const BookCard = ({ userName, bookName, bookData }) => {
           <CardBody>
             <h4 className={classes.cardTitle}>aaa</h4>
             <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
+              {/* <Typography variant="body2" color="textSecondary" component="p">
                 手記公開設定：{bookData.isPublic}
-              </Typography>
+              </Typography> */}
               <Typography variant="body2" color="textSecondary" component="p">
                 著者誕生日：
                 {convertFromTimestampToDatetime(
@@ -160,7 +160,7 @@ const BookCard = ({ userName, bookName, bookData }) => {
               <Typography variant="body2" color="textSecondary" component="p">
                 手記アイコン画像URL：{bookData.bookIconImageUrl}
               </Typography>
- 
+
               <Typography variant="body2" color="textSecondary" component="p">
                 手記はじめに：{bookData.bookIntroduction}
               </Typography>
