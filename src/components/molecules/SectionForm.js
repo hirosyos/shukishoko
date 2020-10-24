@@ -305,7 +305,6 @@ export const SectionForm = ({
         {/************************/}
 
         <CustomInput
-          multiline
           labelText="コンテンツ"
           id="contents"
           formControlProps={{
@@ -315,7 +314,6 @@ export const SectionForm = ({
             type: 'text',
             multiline: true,
             rows: 8,
-            variant: 'outlined',
             endAdornment: (
               <InputAdornment position="end">
                 <NotesIcon />
@@ -563,7 +561,7 @@ export const SectionForm = ({
         />
 
         {/***********************/}
-        {/* セクション作成ボタン   */}
+        {/* 実行ボタン            */}
         {/***********************/}
         <GridContainer justify="center">
           <div className={classes.textCenter}>

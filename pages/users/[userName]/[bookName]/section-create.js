@@ -18,7 +18,7 @@ import {
 } from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import SimpleModal from 'src/components/atoms/SimpleModal';
-import { SectionForm } from 'src/components/molecules/Section';
+import { SectionForm } from 'src/components/molecules/SectionForm';
 import { AppHead } from 'src/components/organisms/AppHead';
 import { AppLayout } from 'src/components/organisms/AppLayout';
 import { AuthContext } from 'pages/_app';

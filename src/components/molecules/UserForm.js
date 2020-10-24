@@ -154,7 +154,7 @@ export const UserForm = ({ classes, userData }) => {
         {/************************/}
         <div>
           <FormControlLabel
-            label={`ユーザ公開設定(${isPublic ? '公開' : '非公開'})`}
+            label={`公開設定(${isPublic ? '公開' : '非公開'})`}
             control={
               <Switch
                 checked={isPublic}
@@ -177,13 +177,12 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザ管理名称        */}
         {/***********************/}
         <CustomInput
-          labelText="ユーザ管理名称(アルファベットのみ)"
+          labelText="管理名称(アルファベットのみ)"
           id="userName"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'ユーザ管理名称',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -199,13 +198,12 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザ表示名称           */}
         {/************************/}
         <CustomInput
-          labelText="ユーザ表示名称(画面に表示されるユーザ名)"
+          labelText="表示名称(画面に表示されるユーザ名)"
           id="userDisplayName"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'ユーザ表示名称',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -222,13 +220,12 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザアイコン絵文字     */}
         {/************************/}
         <CustomInput
-          labelText="ユーザアイコン絵文字"
+          labelText="アイコン絵文字"
           id="userIconEmoji"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'ユーザアイコン絵文字',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -244,13 +241,12 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザアイコン画像URL   */}
         {/************************/}
         <CustomInput
-          labelText="ユーザアイコン画像URL(オプション)"
+          labelText="アイコン画像URL(オプション)"
           id="userIconImageUrl"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'ユーザアイコン画像URL(オプション)',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -266,13 +262,12 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザカバー画像URL     */}
         {/************************/}
         <CustomInput
-          labelText="ユーザカバー画像URL(オプション)"
+          labelText="カバー画像URL(オプション)"
           id="userCoverImageUrl"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'ユーザカバー画像URL(オプション)',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -288,14 +283,15 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザ自己紹介文        */}
         {/************************/}
         <CustomInput
-          labelText="ユーザ自己紹介文(オプション)"
+          labelText="自己紹介文(オプション)"
           id="userIntroduction"
           formControlProps={{
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'ユーザ自己紹介文(オプション)',
             type: 'text',
+            multiline: true,
+            rows: 8,
             endAdornment: (
               <InputAdornment position="start">
                 <AccessibilityNewIcon className={classes.inputAdornmentIcon} />
@@ -306,28 +302,6 @@ export const UserForm = ({ classes, userData }) => {
             onChange: (e) => setUserIntroduction(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 料金プラン             */}
-        {/************************/}
-        {/* <CustomInput
-          labelText="料金プラン"
-          id="pricePlan"
-          formControlProps={{
-            fullWidth: true,
-          }}
-          inputProps={{
-            placeholder: '料金プラン',
-            type: 'text',
-            startAdornment: (
-              <InputAdornment position="start">
-                <HttpIcon className={classes.inputAdornmentIcon} />
-              </InputAdornment>
-            ),
-            autoComplete: 'off',
-            value: pricePlan,
-            onChange: (e) => setPricePlan(e.target.value),
-          }}
-        /> */}
       </form>
       {/***********************/}
       {/* 実行ボタン            */}

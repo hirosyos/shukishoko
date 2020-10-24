@@ -36,7 +36,7 @@ const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
  * @param {*} props
  * @return {*}
  */
-export const BookCreateInputForm = ({ classes, userData }) => {
+export const BookForm = ({ classes, userData }) => {
   // console.log('関数 BookCreateInputForm');
   // console.log({ userData });
 
@@ -353,8 +353,9 @@ export const BookCreateInputForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'イントロダクション',
             type: 'text',
+            multiline: true,
+            rows: 8,
             endAdornment: (
               <InputAdornment position="start">
                 <CheckIcon className={classes.inputAdornmentIcon} />
@@ -758,7 +759,7 @@ export const BookCreateInputForm = ({ classes, userData }) => {
         />
       </form>
       {/***********************/}
-      {/* 手記作成ボタン         */}
+      {/* 実行ボタン            */}
       {/***********************/}
       <GridContainer justify="center">
         <div className={classes.textCenter}>

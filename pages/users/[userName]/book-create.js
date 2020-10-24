@@ -14,7 +14,7 @@ import GridItem from 'components/Grid/GridItem.js';
 import { getUserDataFromUserName } from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import SimpleModal from 'src/components/atoms/SimpleModal';
-import { BookCreateInputForm } from 'src/components/molecules/Book';
+import { BookForm } from 'src/components/molecules/BookForm';
 import { AppHead } from 'src/components/organisms/AppHead';
 import { AppLayout } from 'src/components/organisms/AppLayout';
 import { AuthContext } from 'pages/_app';
@@ -186,7 +186,7 @@ export default function BookCreatePage({ userName, userData }) {
                   <CardBody>
                     <GridContainer justify="center">
                       <GridItem xs={12} sm={10} md={10}>
-                        <BookCreateInputForm classes userData={userData} />
+                        <BookForm classes userData={userData} />
                       </GridItem>
                     </GridContainer>
                   </CardBody>
