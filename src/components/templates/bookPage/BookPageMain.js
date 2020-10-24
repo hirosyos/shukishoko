@@ -169,7 +169,7 @@ const BookPageMain = ({
                 simple
                 valiant="text"
                 component={Link}
-                href="/about"
+                href={`/users/${userName}/${bookName}/book-edit`}
                 color="primary"
                 round
                 style={{

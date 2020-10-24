@@ -36,7 +36,7 @@ const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
  * @param {*} props
  * @return {*}
  */
-export const BookForm = ({ classes, userData }) => {
+export const BookForm = ({ classes, userData, bookData }) => {
   // console.log('関数 BookCreateInputForm');
   // console.log({ userData });
 
@@ -45,33 +45,78 @@ export const BookForm = ({ classes, userData }) => {
   now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
   const dateTimeLocal = now.toISOString().slice(0, -8);
 
-  const [isPublic, setIsPublic] = useState(true);
+  const [bookId, setBookId] = useState(bookData ? bookData.bookId : '');
+  const [isPublic, setIsPublic] = useState(bookData ? bookData.isPublic : true);
 
-  const [bookName, setBookName] = useState('');
-  const [bookDisplayName, setBookDisplayName] = useState('');
-  const [bookIconEmoji, setBookIconEmoji] = useState('');
-  const [bookIconImageUrl, setBookIconImageUrl] = useState('');
-  const [bookCoverImageUrl, setBookCoverImageUrl] = useState('');
-  const [bookIntroduction, setBookIntroduction] = useState('');
+  const [bookName, setBookName] = useState(bookData ? bookData.bookName : '');
+  const [bookDisplayName, setBookDisplayName] = useState(
+    bookData ? bookData.bookDisplayName : '',
+  );
+  const [bookIconEmoji, setBookIconEmoji] = useState(
+    bookData ? bookData.bookIconEmoji : '',
+  );
+  const [bookIconImageUrl, setBookIconImageUrl] = useState(
+    bookData ? bookData.bookIconImageUrl : '',
+  );
+  const [bookCoverImageUrl, setBookCoverImageUrl] = useState(
+    bookData ? bookData.bookCoverImageUrl : '',
+  );
+  const [bookIntroduction, setBookIntroduction] = useState(
+    bookData ? bookData.bookIntroduction : '',
+  );
 
-  const [authorDisplayName, setAuthorDisplayName] = useState('');
-  const [authorBirthday, setAuthorBirthday] = useState(dateTimeLocal);
+  const [authorDisplayName, setAuthorDisplayName] = useState(
+    bookData ? bookData.authorDisplayName : '',
+  );
+  const [authorBirthday, setAuthorBirthday] = useState(
+    bookData ? bookData.authorBirthday : dateTimeLocal,
+  );
 
-  const [chapterName_0, setChapterName_0] = useState('');
-  const [chapterStartDate_0, setChapterStartDate_0] = useState(dateTimeLocal);
-  const [chapterEndDate_0, setChapterEndtDate_0] = useState(dateTimeLocal);
-  const [chapterName_1, setChapterName_1] = useState('');
-  const [chapterStartDate_1, setChapterStartDate_1] = useState(dateTimeLocal);
-  const [chapterEndDate_1, setChapterEndtDate_1] = useState(dateTimeLocal);
-  const [chapterName_2, setChapterName_2] = useState('');
-  const [chapterStartDate_2, setChapterStartDate_2] = useState(dateTimeLocal);
-  const [chapterEndDate_2, setChapterEndtDate_2] = useState(dateTimeLocal);
-  const [chapterName_3, setChapterName_3] = useState('');
-  const [chapterStartDate_3, setChapterStartDate_3] = useState(dateTimeLocal);
-  const [chapterEndDate_3, setChapterEndtDate_3] = useState(dateTimeLocal);
-  const [chapterName_4, setChapterName_4] = useState('');
-  const [chapterStartDate_4, setChapterStartDate_4] = useState(dateTimeLocal);
-  const [chapterEndDate_4, setChapterEndtDate_4] = useState(dateTimeLocal);
+  const [chapterName_0, setChapterName_0] = useState(
+    bookData ? bookData.chapterName_0 : '',
+  );
+  const [chapterStartDate_0, setChapterStartDate_0] = useState(
+    bookData ? bookData.chapterStartDate_0 : dateTimeLocal,
+  );
+  const [chapterEndDate_0, setChapterEndtDate_0] = useState(
+    bookData ? bookData.chapterEndDate_0 : dateTimeLocal,
+  );
+  const [chapterName_1, setChapterName_1] = useState(
+    bookData ? bookData.chapterName_1 : '',
+  );
+  const [chapterStartDate_1, setChapterStartDate_1] = useState(
+    bookData ? bookData.chapterStartDate_1 : dateTimeLocal,
+  );
+  const [chapterEndDate_1, setChapterEndtDate_1] = useState(
+    bookData ? bookData.chapterEndDate_1 : dateTimeLocal,
+  );
+  const [chapterName_2, setChapterName_2] = useState(
+    bookData ? bookData.chapterName_2 : '',
+  );
+  const [chapterStartDate_2, setChapterStartDate_2] = useState(
+    bookData ? bookData.chapterStartDate_2 : dateTimeLocal,
+  );
+  const [chapterEndDate_2, setChapterEndtDate_2] = useState(
+    bookData ? bookData.chapterEndDate_2 : dateTimeLocal,
+  );
+  const [chapterName_3, setChapterName_3] = useState(
+    bookData ? bookData.chapterName_3 : '',
+  );
+  const [chapterStartDate_3, setChapterStartDate_3] = useState(
+    bookData ? bookData.chapterStartDate_3 : dateTimeLocal,
+  );
+  const [chapterEndDate_3, setChapterEndtDate_3] = useState(
+    bookData ? bookData.chapterEndDate_3 : dateTimeLocal,
+  );
+  const [chapterName_4, setChapterName_4] = useState(
+    bookData ? bookData.chapterName_4 : '',
+  );
+  const [chapterStartDate_4, setChapterStartDate_4] = useState(
+    bookData ? bookData.chapterStartDate_4 : dateTimeLocal,
+  );
+  const [chapterEndDate_4, setChapterEndtDate_4] = useState(
+    bookData ? bookData.chapterEndDate_4 : dateTimeLocal,
+  );
 
   const [paramOk, setParamOk] = useState(true);
 
@@ -110,12 +155,22 @@ export const BookForm = ({ classes, userData }) => {
       .doc(userId)
       .collection(bookCollectionName)
       .doc(bookId)
+      // .set(postData);
+
       .set(postData, { merge: true });
+    // .then(() => {})
+    // .catch((e) => {
+    //   console.log(e.message, mounted);
+    // })
+    // .finally(() => {});
+
     return addedData;
   };
 
   // 設定ボタンクリック時の処理
-  const onClickCallback = async () => {
+  const onClickCallback = async (e) => {
+    e.preventDefault();
+
     if (
       bookName === '' ||
       bookDisplayName === '' ||
@@ -127,26 +182,31 @@ export const BookForm = ({ classes, userData }) => {
         '手記管理名称、手記表示名称、手記アイコン絵文字、主人公の名前、主人公の誕生日は必須です',
       );
       setParamOk(false);
-      // return false;
       return false;
     }
-    // bookIdを事前に取得
-    const bookId = firebase
-      .firestore()
-      .collection(VALIDUSERS)
-      .doc(userData.uid)
-      .collection(VALIDBOOKS)
-      .doc().id;
+    // ブックデータがない場合はbookIdを事前に取得
+    let bookDocId = bookId;
+    if (!bookData) {
+      bookDocId = firebase
+        .firestore()
+        .collection(VALIDUSERS)
+        .doc(userData.uid)
+        .collection(VALIDBOOKS)
+        .doc().id;
+      setBookId(bookDocId);
+    } else {
+      setBookId(bookData.bookId);
+    }
 
     const postData = {
       isPublic,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
 
       uid: userData.uid,
       userName: userData.userName,
       userDocRef: `/${VALIDUSERS}/${userData.uid}`,
-      bookId,
+      bookId: bookData ? bookData.bookId : bookDocId,
       bookDocRef: `/${VALIDUSERS}/${userData.uid}/${VALIDBOOKS}/${bookId}`,
 
       bookName,
@@ -158,48 +218,51 @@ export const BookForm = ({ classes, userData }) => {
 
       authorDisplayName,
       authorBirthday: authorBirthday ? new Date(authorBirthday) : '',
-
-      chapterName_0,
-      chapterStartDate_0: chapterStartDate_0
-        ? new Date(chapterStartDate_0)
-        : '',
-      chapterEndDate_0: chapterEndDate_0 ? new Date(chapterEndDate_0) : '',
     };
+    if (!bookData) {
+      postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+    }
+
+    console.log({ bookId });
+    console.log({ bookDocId });
+    console.log({ postData });
+    console.log('postDataToFirestore');
 
     await postDataToFirestore(
       VALIDUSERS,
       userData.uid,
       VALIDBOOKS,
-      bookId,
+      // bookId,
+      bookDocId,
       postData,
     );
 
-    setIsPublic(true);
-    setBookName('');
-    setBookDisplayName('');
-    setBookIconEmoji('');
-    setBookIconImageUrl('');
-    setBookCoverImageUrl('');
-    setBookIntroduction('');
+    // setIsPublic(true);
+    // setBookName('');
+    // setBookDisplayName('');
+    // setBookIconEmoji('');
+    // setBookIconImageUrl('');
+    // setBookCoverImageUrl('');
+    // setBookIntroduction('');
 
-    setAuthorDisplayName('');
-    setAuthorBirthday(dateTimeLocal);
+    // setAuthorDisplayName('');
+    // setAuthorBirthday(dateTimeLocal);
 
-    setChapterName_0('');
-    setChapterStartDate_0(dateTimeLocal);
-    setChapterEndtDate_0(dateTimeLocal);
-    setChapterName_1('');
-    setChapterStartDate_1(dateTimeLocal);
-    setChapterEndtDate_1(dateTimeLocal);
-    setChapterName_2('');
-    setChapterStartDate_2(dateTimeLocal);
-    setChapterEndtDate_2(dateTimeLocal);
-    setChapterName_3('');
-    setChapterStartDate_3(dateTimeLocal);
-    setChapterEndtDate_3(dateTimeLocal);
-    setChapterName_4('');
-    setChapterStartDate_4(dateTimeLocal);
-    setChapterEndtDate_4(dateTimeLocal);
+    // setChapterName_0('');
+    // setChapterStartDate_0(dateTimeLocal);
+    // setChapterEndtDate_0(dateTimeLocal);
+    // setChapterName_1('');
+    // setChapterStartDate_1(dateTimeLocal);
+    // setChapterEndtDate_1(dateTimeLocal);
+    // setChapterName_2('');
+    // setChapterStartDate_2(dateTimeLocal);
+    // setChapterEndtDate_2(dateTimeLocal);
+    // setChapterName_3('');
+    // setChapterStartDate_3(dateTimeLocal);
+    // setChapterEndtDate_3(dateTimeLocal);
+    // setChapterName_4('');
+    // setChapterStartDate_4(dateTimeLocal);
+    // setChapterEndtDate_4(dateTimeLocal);
   };
 
   // スタイル読み出し
@@ -243,7 +306,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '管理名称',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -265,7 +327,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '表示名称',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -287,7 +348,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'アイコン絵文字🙆',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -309,7 +369,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'アイコン画像URL(未実装)',
             type: 'url',
             endAdornment: (
               <InputAdornment position="start">
@@ -331,7 +390,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: 'カバー画像URL(未実装)',
             type: 'url',
             endAdornment: (
               <InputAdornment position="start">
@@ -377,7 +435,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '主人公の名前(ユーザ名とは別)',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -399,7 +456,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '主人公の誕生日(ユーザとは別)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -423,7 +479,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代名称(未実装)',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -445,7 +500,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -467,7 +521,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -492,7 +545,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代名称(未実装)',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -514,7 +566,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -536,7 +587,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -561,7 +611,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代名称(未実装)',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -583,7 +632,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -605,7 +653,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -630,7 +677,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代名称(未実装)',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -652,7 +698,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -674,7 +719,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -699,7 +743,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代名称(未実装)',
             type: 'text',
             endAdornment: (
               <InputAdornment position="start">
@@ -721,7 +764,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代開始日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">
@@ -743,7 +785,6 @@ export const BookForm = ({ classes, userData }) => {
             fullWidth: true,
           }}
           inputProps={{
-            placeholder: '時代終了日(未実装)',
             type: 'datetime-local',
             endAdornment: (
               <InputAdornment position="start">

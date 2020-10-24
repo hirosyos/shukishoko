@@ -5,10 +5,8 @@ import {
   getAllBookNamePaths,
   getSectionDataListFromBookData,
 } from 'src/common/common';
-import { AppHead } from 'src/components/organisms/AppHead';
-import BookPageMain from 'src/components/templates/bookPage/BookPageMain';
-import { RSC } from 'src/common/resource';
 import { AppLayout } from 'src/components/organisms/AppLayout';
+import BookPageMain from 'src/components/templates/bookPage/BookPageMain';
 
 /**
  * 静的パス取得
@@ -17,9 +15,6 @@ import { AppLayout } from 'src/components/organisms/AppLayout';
  * @return {Array} 静的パスを生成するための名称の配列
  */
 export async function getStaticPaths() {
-  // デバッグ情報
-  // console.log('\nファイル /pages/users/[userName]/[bookName].js');
-  // console.log('関数 getStaticPaths');
 
   // すべてのユーザ名とブック名を含んだパス生成用配列を取得
   const paths = await getAllBookNamePaths();
@@ -45,10 +40,6 @@ export async function getStaticPaths() {
  * @return {*}
  */
 export async function getStaticProps({ params }) {
-  // デバッグ情報
-  // console.log('\nファイル /pages/users/[userName]/[bookName].js');
-  // console.log('関数 getStaticProps');
-  // console.log({ params });
 
   const { userName, bookName } = params;
 
@@ -102,6 +93,8 @@ export async function getStaticProps({ params }) {
     },
   };
 }
+
+
 /**
  * 手記ページ
  *
@@ -116,16 +109,6 @@ export default function BookNamePage({
   bookData,
   sectionDataList,
 }) {
-  // デバッグ情報
-  // console.log('\nファイル /pages/users/[userName]/[bookName].js');
-  // console.log('関数 BookNamePage');
-  // console.log({
-  //   userName,
-  //   userData,
-  //   bookName,
-  //   bookData,
-  //   sectionDataList,
-  // });
 
   return (
     <AppLayout>

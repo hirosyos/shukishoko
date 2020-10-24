@@ -24,7 +24,6 @@ import { AppLayout } from 'src/components/organisms/AppLayout';
 import { AuthContext } from 'pages/_app';
 import image from 'public/hana_07F.jpg';
 
-
 // スタイル設定
 const useStyles = makeStyles(signupPageStyle);
 

@@ -113,7 +113,6 @@ export const UserForm = ({ classes, userData }) => {
     const postData = {
       isPublic,
 
-
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
 
       uid: userId,
@@ -123,7 +122,6 @@ export const UserForm = ({ classes, userData }) => {
       userIconImageUrl,
       userCoverImageUrl,
       userIntroduction,
-      // pricePlan,
     };
     if(!userData){
       postData.createdAt= firebase.firestore.FieldValue.serverTimestamp()

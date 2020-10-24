@@ -10,6 +10,7 @@ import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
+import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
 /* MyApp */
 import { getUserDataFromUserName } from 'src/common/common';
 import { RSC } from 'src/common/resource';
@@ -21,7 +22,6 @@ import { AuthContext } from 'pages/_app';
 import image from 'public/hana_07F.jpg';
 
 // スタイル設定
-import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
 const useStyles = makeStyles(signupPageStyle);
 
 /**
@@ -171,7 +171,7 @@ export default function BookCreatePage({ userName, userData }) {
                 {/* 手記作成カード */}
                 {/****************/}
                 <Card className={classes.cardSignup}>
-                  <h2 className={classes.cardTitle}>新規手記作成</h2>
+                  <h2 className={classes.cardTitle}>手記作成</h2>
                   <GridContainer justify="center">
                     <GridItem align="center">
                       <Avatar aria-label="recipe" className={classes.avatar}>
