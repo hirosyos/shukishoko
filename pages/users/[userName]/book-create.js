@@ -103,7 +103,7 @@ export default function BookCreatePage() {
                   <GridContainer justify="center">
                     <GridItem align="center">
                       <Avatar aria-label="recipe" className={classes.avatar}>
-                        {userData.userIconImageUrl}
+                        {userData.userIconEmoji ? userData.userIconEmoji : '🙆'}
                       </Avatar>
                       <h3 className={classes.title}>
                         {userData.userDisplayName}
@@ -134,15 +134,6 @@ export default function BookCreatePage() {
             />
           )}
         </div>
-
-        <p>
-          ユーザー:
-          {userData.userName}
-        </p>
-
-        <Link href={`/users/${userData.userName}`}>
-          <a>ユーザページへ戻る</a>
-        </Link>
       </AppLayout>
     </>
   );
