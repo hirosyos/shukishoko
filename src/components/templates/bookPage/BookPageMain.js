@@ -108,6 +108,15 @@ const BookPageMain = ({
       <AppHead
         pageTitle={`§ 主人公『${bookData.authorDisplayName}』を綴った 手記『${bookData.bookDisplayName}』 `}
         description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんの手記書庫より〜`}
+        image={
+          bookData.bookCoverImageUrl
+            ? bookData.bookCoverImageUrl
+            : getDefaultImg({
+                pageType: 'book',
+                imgType: 'cover',
+                seed: bookData.bookId,
+              })
+        }
         url={`${RSC.domain}/users/${userName}/${bookName}`}
       />
       {/*******************/}

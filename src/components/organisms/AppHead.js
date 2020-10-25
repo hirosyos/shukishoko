@@ -19,13 +19,13 @@ export const AppHead = ({ pageTitle, description, keyword, image, url }) => {
       {/* コンテンツがFacebookでシェアされたときに表示される画像のURL。 */}
       <meta
         property="og:image"
-        content={`${RSC.domain}/logo_shukishoko_fullscreen.jpg`}
+        content={image ? image : `${RSC.domain}/logo_shukishoko_fullscreen.jpg`}
       />
       <meta property="og:site_name" content={pageTitle} />
 
       {/* for Twitter */}
       {/* 大画面付きTwitterカード */}
-      <meta name="twitter:card" content="product" />
+      <meta name="twitter:card" content="summary_large_image" />
       {/* WEBサイトのTwitterアカウント */}
       <meta name="twitter:site" content="@shukishokoinfo" />
       {/* 作者ののTwitterアカウント */}
@@ -35,7 +35,7 @@ export const AppHead = ({ pageTitle, description, keyword, image, url }) => {
       <meta name="twitter:description" content={description} />
       <meta
         name="twitter:image"
-        content={`${RSC.domain}/logo_shukishoko_fullscreen.jpg`}
+        content={image ? image : `${RSC.domain}/logo_shukishoko_fullscreen.jpg`}
       />
       <link rel="canonical" href={url} />
       <link

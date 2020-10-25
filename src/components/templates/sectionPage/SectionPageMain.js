@@ -88,6 +88,15 @@ const SectionPageMain = ({
           sectionData.date.seconds,
         )} の思い出 『${sectionData.title}』`}
         description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんが主人公『${bookData.authorDisplayName}』を綴った手記『${bookData.bookDisplayName}』より〜`}
+        image={
+          sectionData.sectionCoverImageUrl
+            ? sectionData.sectionCoverImageUrl
+            : getDefaultImg({
+                pageType: 'section',
+                imgType: 'cover',
+                seed: sectionData.sectionId,
+              })
+        }
         url={`${RSC.domain}/users/${userName}/${bookName}/${sectionId}`}
       />
       {/********************/}
