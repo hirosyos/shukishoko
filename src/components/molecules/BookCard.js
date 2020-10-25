@@ -1,19 +1,22 @@
 /* react */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 
 import clsx from 'clsx';
 
 /* material-ui */
 import { makeStyles } from '@material-ui/core/styles';
 
-// import Card from '@material-ui/core/Card';
-// import CardHeader from '@material-ui/core/CardHeader';
-
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
+
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
@@ -28,42 +31,23 @@ import { cardTitle } from 'assets/jss/nextjs-material-kit-pro.js';
 import Divider from '@material-ui/core/Divider';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 
-import Card from 'components/Card/Card.js';
+// import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
-import CardHeader from 'components/Card/CardHeader.js';
+// import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
 /* MyApp */
 import { getDefaultImg } from 'src/common/common';
 import { convertFromTimestampToDatetime } from 'src/common/common';
+import {
+  getUserDataFromUserName,
+  getBookDataFromBookName,
+  getAllBookNamePaths,
+  getSectionDataListFromBookData,
+} from 'src/common/common';
 import Link from 'src/components/atoms/Link';
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     minWidth: 350,
-//     maxWidth: 400,
-//     width: '100%',
-//   },
-//   media: {
-//     height: 0,
-//     paddingTop: '56.25%', // 16:9
-//   },
-//   expand: {
-//     transform: 'rotate(0deg)',
-//     marginLeft: 'auto',
-//     transition: theme.transitions.create('transform', {
-//       duration: theme.transitions.duration.shortest,
-//     }),
-//   },
-//   expandOpen: {
-//     transform: 'rotate(180deg)',
-//   },
-//   avatar: {
-//     backgroundColor: red[500],
-//   },
-// }));
 
 const useStyles = makeStyles((style) => ({
-  // width: '40rem',
   root: {
     width: '40rem',
   },
@@ -84,8 +68,6 @@ const useStyles = makeStyles((style) => ({
   },
   avatar: {
     backgroundColor: 'white',
-    viriant: 'rounded',
-    color: 'black',
   },
 }));
 
@@ -96,37 +78,66 @@ const useStyles = makeStyles((style) => ({
  * @return {*}
  */
 const BookCard = ({ userName, bookName, bookData }) => {
+  //スタイル設定
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [userData, setUserData] = useState({});
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  // 親のuser情報取得
+  useEffect(() => {
+    async function fetchData() {
+      const { userData } = await getUserDataFromUserName(userName);
+      setUserData(userData);
+      console.log('ここは何度も通らない');
+    }
+    fetchData();
+  }, []);
+
   return (
     <Card className={classes.root}>
-      {/* <CardHeader
+      <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            著
-          </Avatar>
+          <AvatarGroup max={4}>
+            <Avatar
+              aria-label="user"
+              src={getDefaultImg({
+                pageType: 'user',
+                imgType: 'avatar',
+                seed: userData.uid,
+              })}
+              className={classes.avatar}
+            ></Avatar>
+            <Avatar
+              aria-label="book"
+              src={getDefaultImg({
+                pageType: 'book',
+                imgType: 'avatar',
+                seed: bookData.bookId,
+              })}
+              className={classes.avatar}
+            ></Avatar>
+          </AvatarGroup>
         }
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title={bookData.bookDisplayName}
+        title={`手記 『${bookData.bookDisplayName}』 by ${userData.userDisplayName}@${userData.userName}`}
         subheader={convertFromTimestampToDatetime(bookData.updatedAt.seconds)}
-      /> */}
-      <CardHeader color="warning">
+      />
+      {/* <CardHeader color="warning">
         <GridContainer spacing={2}>
-          {/* <IconButton aria-label="add to favorites"> */}
+
 
           <GridItem item xs={2}>
             <Avatar
               aria-label="📓"
-              // src={userData.userIconImageUrl}
+
               src={getDefaultImg({
                 pageType: 'book',
                 imgType: 'avatar',
@@ -136,9 +147,6 @@ const BookCard = ({ userName, bookName, bookData }) => {
             >
               {bookData.bookIconEmoji}
             </Avatar>
-            {/* <Avatar aria-label="recipe" className={classes.avatar}>
-              {bookData.bookIconEmoji ? bookData.bookIconEmoji : '📖'}
-            </Avatar> */}
           </GridItem>
           <GridItem xs={8}>
             <h4>
@@ -151,9 +159,18 @@ const BookCard = ({ userName, bookName, bookData }) => {
             </IconButton>
           </GridItem>
         </GridContainer>
-      </CardHeader>
+      </CardHeader> */}
       <CardActionArea>
         <Link underline="none" href={`/users/${userName}/${bookName}`}>
+          <CardMedia
+            className={classes.media}
+            image={getDefaultImg({
+              pageType: 'book',
+              imgType: 'cover',
+              seed: bookData.bookId,
+            })}
+            title="book"
+          />
           <CardBody>
             <h4 className={classes.cardTitle}>aaa</h4>
             <CardContent>

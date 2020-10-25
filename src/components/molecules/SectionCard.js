@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 // import React from 'react';
 import clsx from 'clsx';
 /* material-ui */
-// import { makeStyles } from '@material-ui/core/styles';
-// import Card from '@material-ui/core/Card';
-// import CardHeader from '@material-ui/core/CardHeader';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
-// import { AvatarGroup } from '@material-ui/lab';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
@@ -33,13 +33,13 @@ import FaceAvatar from 'assets/img/faces/avatar.jpg';
 
 // import React from 'react';
 // @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 // @material-ui icons
 // core components
-import Card from 'components/Card/Card.js';
+// import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
-import CardAvatar from 'components/Card/CardAvatar.js';
-import CardHeader from 'components/Card/CardHeader.js';
+// import CardAvatar from 'components/Card/CardAvatar.js';
+// import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
 import Button from 'components/CustomButtons/Button.js';
 import GridContainer from 'components/Grid/GridContainer.js';
@@ -107,20 +107,63 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
       setUserData(userData);
       const { bookData } = await getBookDataFromBookName(userName, bookName);
       setBookData(bookData);
-      console.log("ここは何度も通らない");
+      console.log('ここは何度も通らない');
     }
     fetchData();
   }, []);
 
   return (
     <Card className={classes.root}>
-      <CardHeader color="success">
+      <CardHeader
+        avatar={
+          <AvatarGroup max={4}>
+            <Avatar
+              aria-label="🙆"
+              src={getDefaultImg({
+                pageType: 'user',
+                imgType: 'avatar',
+                seed: userData.uid,
+              })}
+              className={classes.avatar}
+            ></Avatar>
+            <Avatar
+              aria-label="📓"
+              src={getDefaultImg({
+                pageType: 'book',
+                imgType: 'avatar',
+                seed: bookData.bookId,
+              })}
+              className={classes.avatar}
+            ></Avatar>
+            <Avatar
+              aria-label="§"
+              src={getDefaultImg({
+                pageType: 'section',
+                imgType: 'avatar',
+                seed: sectionData.sectionId,
+              })}
+              className={classes.avatar}
+            >
+              {sectionData.sectionIconEmoji}
+            </Avatar>
+          </AvatarGroup>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={`§『${sectionData.title}』in 手記 『${bookData.bookDisplayName}』 by ${userData.userDisplayName}@${userData.userName}`}
+        subheader={convertFromTimestampToDatetime(
+          sectionData.updatedAt.seconds,
+        )}
+      />
+      {/* <CardHeader color="success">
         <GridContainer spacing={2}>
           <GridItem item xs={2}>
             <AvatarGroup max={4}>
               <Avatar
                 aria-label="§"
-                // src={userData.userIconImageUrl}
                 src={getDefaultImg({
                   pageType: 'section',
                   imgType: 'avatar',
@@ -132,7 +175,6 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
               </Avatar>
               <Avatar
                 aria-label="📓"
-                // src={userData.userIconImageUrl}
                 src={getDefaultImg({
                   pageType: 'book',
                   imgType: 'avatar',
@@ -142,7 +184,6 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
               ></Avatar>
               <Avatar
                 aria-label="🙆"
-                // src={userData.userIconImageUrl}
                 src={getDefaultImg({
                   pageType: 'user',
                   imgType: 'avatar',
@@ -151,9 +192,7 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
                 className={classes.avatar}
               ></Avatar>
             </AvatarGroup>
-            {/* <Avatar aria-label="recipe" className={classes.avatar}>
-              §
-            </Avatar> */}
+
           </GridItem>
           <GridItem xs={8}>
             <h4>{convertFromTimestampToDatetime(sectionData.date.seconds)}</h4>
@@ -164,14 +203,26 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
             </IconButton>
           </GridItem>
         </GridContainer>
-      </CardHeader>
+      </CardHeader> */}
       <CardActionArea>
         <Link
           underline="none"
           href={`/users/${userName}/${bookName}/${sectionId}`}
         >
+          <CardMedia
+            className={classes.media}
+            image={getDefaultImg({
+              pageType: 'section',
+              imgType: 'cover',
+              seed: sectionData.sectionId,
+            })}
+            title="section"
+          />
           <CardBody>
-            <h4 className={classes.cardTitle}>{sectionData.title}</h4>
+            <h4 className={classes.cardTitle}>
+              §『{sectionData.title}』in 手記 『{bookData.bookDisplayName}』
+              by {userData.userDisplayName}@{userData.userName}
+            </h4>
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
                 セクション公開設定：
