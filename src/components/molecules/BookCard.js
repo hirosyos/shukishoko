@@ -89,11 +89,15 @@ const BookCard = ({ userName, bookName, bookData }) => {
           <Link underline="none" href={`/users/${userName}/${bookName}`}>
             <CardMedia
               className={classes.media}
-              image={getDefaultImg({
-                pageType: 'book',
-                imgType: 'cover',
-                seed: bookData.bookId,
-              })}
+              image={
+                bookData.bookCoverImageUrl
+                  ? bookName.bookCoverImageUrl
+                  : getDefaultImg({
+                      pageType: 'book',
+                      imgType: 'cover',
+                      seed: bookData.bookId,
+                    })
+              }
               title="book"
             />
           </Link>
@@ -103,20 +107,28 @@ const BookCard = ({ userName, bookName, bookData }) => {
             <AvatarGroup max={4}>
               <Avatar
                 aria-label="user"
-                src={getDefaultImg({
-                  pageType: 'user',
-                  imgType: 'avatar',
-                  seed: userData.uid,
-                })}
+                src={
+                  userData.userIconImageUrl
+                    ? userData.userIconImageUrl
+                    : getDefaultImg({
+                        pageType: 'user',
+                        imgType: 'avatar',
+                        seed: userData.uid,
+                      })
+                }
                 className={classes.avatar}
               ></Avatar>
               <Avatar
                 aria-label="book"
-                src={getDefaultImg({
-                  pageType: 'book',
-                  imgType: 'avatar',
-                  seed: bookData.bookId,
-                })}
+                src={
+                  bookData.bookIconImageUrl
+                    ? bookData.bookIconImageUrl
+                    : getDefaultImg({
+                        pageType: 'book',
+                        imgType: 'avatar',
+                        seed: bookData.bookId,
+                      })
+                }
                 className={classes.avatar}
               ></Avatar>
             </AvatarGroup>
@@ -138,9 +150,6 @@ const BookCard = ({ userName, bookName, bookData }) => {
             {userData.userDisplayName}@${userData.userName}
           </h4>
           <CardContent>
-
-
-
             <Typography variant="body2" color="textSecondary" component="p">
               主人公：
               <br />

@@ -100,11 +100,15 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
         >
           <CardMedia
             className={classes.media}
-            image={getDefaultImg({
-              pageType: 'section',
-              imgType: 'cover',
-              seed: sectionData.sectionId,
-            })}
+            image={
+              sectionData.sectionCoverImageUrl
+                ? sectionData.sectionCoverImageUrl
+                : getDefaultImg({
+                    pageType: 'section',
+                    imgType: 'cover',
+                    seed: sectionData.sectionId,
+                  })
+            }
             title="section"
           />
         </Link>
@@ -114,29 +118,41 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           <AvatarGroup max={4}>
             <Avatar
               aria-label="🙆"
-              src={getDefaultImg({
-                pageType: 'user',
-                imgType: 'avatar',
-                seed: userData.uid,
-              })}
+              src={
+                userData.userIconImageUrl
+                  ? userData.userIconImageUrl
+                  : getDefaultImg({
+                      pageType: 'user',
+                      imgType: 'avatar',
+                      seed: userData.uid,
+                    })
+              }
               className={classes.avatar}
             ></Avatar>
             <Avatar
               aria-label="📓"
-              src={getDefaultImg({
-                pageType: 'book',
-                imgType: 'avatar',
-                seed: bookData.bookId,
-              })}
+              src={
+                bookData.bookIconImageUrl
+                  ? bookData.bookIconImageUrl
+                  : getDefaultImg({
+                      pageType: 'book',
+                      imgType: 'avatar',
+                      seed: bookData.bookId,
+                    })
+              }
               className={classes.avatar}
             ></Avatar>
             <Avatar
               aria-label="§"
-              src={getDefaultImg({
-                pageType: 'section',
-                imgType: 'avatar',
-                seed: sectionData.sectionId,
-              })}
+              src={
+                sectionData.sectionIconImageUrl
+                  ? sectionData.sectionIconImageUrl
+                  : getDefaultImg({
+                      pageType: 'section',
+                      imgType: 'avatar',
+                      seed: sectionData.sectionId,
+                    })
+              }
               className={classes.avatar}
             >
               {sectionData.sectionIconEmoji}
@@ -160,7 +176,6 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           {userData.userDisplayName}@{userData.userName}
         </h4>
         <CardContent>
-
           <Typography variant="body2" color="textSecondary" component="p">
             コンテンツ：{sectionData.contents}
           </Typography>
@@ -191,7 +206,6 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>詳細:</Typography>
-        
         </CardContent>
       </Collapse>
     </Card>
