@@ -89,6 +89,15 @@ export const UserPageMain = ({
       <AppHead
         pageTitle={`§ ${userData.userDisplayName}@${userData.userName}さんの手記書庫`}
         description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        image={
+          userData.userCoverImageUrl
+            ? userData.userCoverImageUrl
+            : getDefaultImg({
+                pageType: 'user',
+                imgType: 'cover',
+                seed: userData.uid,
+              })
+        }
         url={`${RSC.domain}/users/${userName}`}
       />
       {/*******************/}
@@ -122,7 +131,7 @@ export const UserPageMain = ({
                       : getDefaultImg({
                           pageType: 'user',
                           imgType: 'avatar',
-                          seed: userData.uid ,
+                          seed: userData.uid,
                         })
                   }
                   alt={userName}
