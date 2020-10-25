@@ -127,7 +127,7 @@ export const UserForm = ({ classes, userData }) => {
       postData.createdAt= firebase.firestore.FieldValue.serverTimestamp()
     }
 
-    console.log({ postData });
+    // console.log({ postData });
     const addedData = await postDataToFirestore(VALIDUSERS, userId, postData);
 
     // setIsPublic(true);

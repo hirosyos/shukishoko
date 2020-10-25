@@ -133,8 +133,8 @@ export function SignupPageMain({ ...rest }) {
       }
       fetchData();
     }
-    console.log('user');
-    console.log({ user });
+    // console.log('user');
+    // console.log({ user });
   }, [user]);
 
   // クリーンアップ

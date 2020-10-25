@@ -204,7 +204,7 @@ export const SectionForm = ({
     if (!sectionData) {
       postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
     }
-    console.log({ postData });
+    // console.log({ postData });
 
 
     const addedData = await postDataToFirestore(

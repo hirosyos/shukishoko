@@ -80,17 +80,17 @@ export const getStaticProps = async ({ params }) => {
  * @return {*}
  */
 export default function UserEditPage({ userName, userData }) {
-  console.log({
-    userName,
-    userData,
-  });
+  // console.log({
+  //   userName,
+  //   userData,
+  // });
 
   // ルーティング情報
   const router = useRouter();
   // 認証情報取得
   const { user: authUser, userData: authUserData } = useContext(AuthContext);
-  console.log({ authUser });
-  console.log({ authUserData });
+  // console.log({ authUser });
+  // console.log({ authUserData });
   // return <p>Hello</p>;
 
   const [authUserName, setAuthUserName] = useState('');

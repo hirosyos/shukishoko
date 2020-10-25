@@ -234,10 +234,10 @@ export const BookForm = ({ classes, userData, bookData }) => {
       postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
     }
 
-    console.log({ bookId });
-    console.log({ bookDocId });
-    console.log({ postData });
-    console.log('postDataToFirestore');
+    // console.log({ bookId });
+    // console.log({ bookDocId });
+    // console.log({ postData });
+    // console.log('postDataToFirestore');
 
     await postDataToFirestore(
       VALIDUSERS,

@@ -103,21 +103,21 @@ export default function SectionEditPage({
   sectionId,
   sectionData,
 }) {
-  console.log({
-    userName,
-    userData,
-    bookName,
-    bookData,
-    sectionId,
-    sectionData,
-  });
+  // console.log({
+  //   userName,
+  //   userData,
+  //   bookName,
+  //   bookData,
+  //   sectionId,
+  //   sectionData,
+  // });
 
   // ルーティング情報
   const router = useRouter();
   // 認証情報取得
   const { user: authUser, userData: authUserData } = useContext(AuthContext);
-  console.log({ authUser });
-  console.log({ authUserData });
+  // console.log({ authUser });
+  // console.log({ authUserData });
   // return <p>Hello</p>;
 
   const [authUserName, setAuthUserName] = useState('');

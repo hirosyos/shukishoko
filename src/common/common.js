@@ -364,7 +364,7 @@ export const getSectionDataList = async () => {
     };
   });
 
-  console.log({ userDataList });
+  // console.log({ userDataList });
   return userDataList;
 };
 
@@ -599,9 +599,9 @@ export const getDefaultImg = ({
   imgType,
   seed,
 }) => {
-  console.log({ pageType });
-  console.log(imgType);
-  console.log({ seed });
+  // console.log({ pageType });
+  // console.log(imgType);
+  // console.log({ seed });
 
   let defaultImg;
   switch (pageType) {

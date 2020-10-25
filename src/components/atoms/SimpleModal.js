@@ -36,8 +36,8 @@ export default function SimpleModal(props) {
     noBtnTxt,
     callBack,
   } = props;
-  console.log({ modalTitle });
-  console.log({ modalText });
+  // console.log({ modalTitle });
+  // console.log({ modalText });
 
   return (
     <div>

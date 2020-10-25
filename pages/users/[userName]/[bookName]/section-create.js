@@ -48,8 +48,8 @@ export async function getStaticPaths() {
  */
 export async function getStaticProps({ params }) {
   const { userName, bookName } = params;
-  console.log({ userName });
-  console.log({ bookName });
+  // console.log({ userName });
+  // console.log({ bookName });
   // ユーザ名からユーザデータを取得
   const { userData } = await getUserDataFromUserName(userName);
 
@@ -109,20 +109,20 @@ export default function SectionCreatePage({
   bookData,
   bookId,
 }) {
-  console.log({
-    userName,
-    userData,
-    bookName,
-    bookData,
-    bookId,
-  });
+  // console.log({
+  //   userName,
+  //   userData,
+  //   bookName,
+  //   bookData,
+  //   bookId,
+  // });
 
   // ルーティング情報
   const router = useRouter();
   // 認証情報取得
   const { user: authUser, userData: authUserData } = useContext(AuthContext);
-  console.log({ authUser });
-  console.log({ authUserData });
+  // console.log({ authUser });
+  // console.log({ authUserData });
   // return <p>Hello</p>;
 
   const [authUserName, setAuthUserName] = useState('');
