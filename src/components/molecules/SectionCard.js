@@ -1,4 +1,5 @@
 /* react */
+import React, { useState, useEffect } from 'react';
 // import React from 'react';
 import clsx from 'clsx';
 /* material-ui */
@@ -9,6 +10,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
+// import { AvatarGroup } from '@material-ui/lab';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
@@ -28,7 +31,7 @@ import FaceAvatar from 'assets/img/faces/avatar.jpg';
 // import { convertFromTimestampToDatetime } from 'src/common/common';
 // import Link from 'src/components/atoms/Link';
 
-import React from 'react';
+// import React from 'react';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 // @material-ui icons
@@ -44,6 +47,14 @@ import GridItem from 'components/Grid/GridItem.js';
 
 import { cardTitle } from 'assets/jss/nextjs-material-kit-pro.js';
 
+/* MyApp */
+import { getDefaultImg } from 'src/common/common';
+import {
+  getUserDataFromUserName,
+  getBookDataFromBookName,
+  getAllBookNamePaths,
+  getSectionDataListFromBookData,
+} from 'src/common/common';
 import { convertFromTimestampToDatetime } from 'src/common/common';
 import Link from 'src/components/atoms/Link';
 
@@ -82,19 +93,67 @@ const useStyles = makeStyles((style) => ({
 export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [userData, setUserData] = useState({});
+  const [bookData, setBookData] = useState({});
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  // 親のbookとuser情報取得
+  useEffect(() => {
+    async function fetchData() {
+      const { userData } = await getUserDataFromUserName(userName);
+      setUserData(userData);
+      const { bookData } = await getBookDataFromBookName(userName, bookName);
+      setBookData(bookData);
+      console.log("ここは何度も通らない");
+    }
+    fetchData();
+  }, []);
 
   return (
     <Card className={classes.root}>
       <CardHeader color="success">
         <GridContainer spacing={2}>
           <GridItem item xs={2}>
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <AvatarGroup max={4}>
+              <Avatar
+                aria-label="§"
+                // src={userData.userIconImageUrl}
+                src={getDefaultImg({
+                  pageType: 'section',
+                  imgType: 'avatar',
+                  seed: sectionData.sectionId,
+                })}
+                className={classes.avatar}
+              >
+                {sectionData.sectionIconEmoji}
+              </Avatar>
+              <Avatar
+                aria-label="📓"
+                // src={userData.userIconImageUrl}
+                src={getDefaultImg({
+                  pageType: 'book',
+                  imgType: 'avatar',
+                  seed: bookData.bookId,
+                })}
+                className={classes.avatar}
+              ></Avatar>
+              <Avatar
+                aria-label="🙆"
+                // src={userData.userIconImageUrl}
+                src={getDefaultImg({
+                  pageType: 'user',
+                  imgType: 'avatar',
+                  seed: userData.uid,
+                })}
+                className={classes.avatar}
+              ></Avatar>
+            </AvatarGroup>
+            {/* <Avatar aria-label="recipe" className={classes.avatar}>
               §
-            </Avatar>
+            </Avatar> */}
           </GridItem>
           <GridItem xs={8}>
             <h4>{convertFromTimestampToDatetime(sectionData.date.seconds)}</h4>
@@ -107,7 +166,10 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
         </GridContainer>
       </CardHeader>
       <CardActionArea>
-        <Link underline="none" href={`/users/${userName}/${bookName}/${sectionId}`}>
+        <Link
+          underline="none"
+          href={`/users/${userName}/${bookName}/${sectionId}`}
+        >
           <CardBody>
             <h4 className={classes.cardTitle}>{sectionData.title}</h4>
             <CardContent>

@@ -21,6 +21,7 @@ import NavPills from 'components/NavPills/NavPills.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 /* MyApp */
+import { getDefaultImg } from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import Link from 'src/components/atoms/Link';
 import { BookList } from 'src/components/molecules/BookList';
@@ -30,7 +31,6 @@ import { AppMain } from 'src/components/organisms/AppMain';
 import { AppHead } from 'src/components/organisms/AppHead';
 import { AuthContext } from 'pages/_app';
 import shukishoko from 'public/logo_shukishoko_circle.svg';
-
 
 const useStyles = makeStyles(profilePageStyle);
 
@@ -95,7 +95,15 @@ export const UserPageMain = ({
       {/* ユーザカバー画像   */}
       {/*******************/}
       <Parallax
-        image={require('public/hana_02F.jpg')}
+        image={
+          userData.userCoverImageUrl
+            ? userData.userCoverImageUrl
+            : getDefaultImg({
+                pageType: 'user',
+                imgType: 'cover',
+                seed: userData.uid,
+              })
+        }
         filter="dark"
         className={classes.parallax}
       />
@@ -107,7 +115,19 @@ export const UserPageMain = ({
               {/* ユーザアイコン画像   */}
               {/*********************/}
               <div>
-                <img src={shukishoko} alt={userName} className={imageClasses} />
+                <img
+                  src={
+                    userData.userIconImageUrl
+                      ? userData.userIconImageUrl
+                      : getDefaultImg({
+                          pageType: 'user',
+                          imgType: 'avatar',
+                          seed: userData.uid ,
+                        })
+                  }
+                  alt={userName}
+                  className={imageClasses}
+                />
               </div>
               <div className={classes.name}>
                 <h3 className={classes.title}>{userData.userDisplayName}</h3>

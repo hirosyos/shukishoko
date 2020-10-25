@@ -33,6 +33,7 @@ import CardBody from 'components/Card/CardBody.js';
 import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
 /* MyApp */
+import { getDefaultImg } from 'src/common/common';
 import { convertFromTimestampToDatetime } from 'src/common/common';
 import Link from 'src/components/atoms/Link';
 
@@ -123,9 +124,21 @@ const BookCard = ({ userName, bookName, bookData }) => {
           {/* <IconButton aria-label="add to favorites"> */}
 
           <GridItem item xs={2}>
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {bookData.bookIconEmoji ? bookData.bookIconEmoji : '📖'}
+            <Avatar
+              aria-label="📓"
+              // src={userData.userIconImageUrl}
+              src={getDefaultImg({
+                pageType: 'book',
+                imgType: 'avatar',
+                seed: bookData.bookId,
+              })}
+              className={classes.avatar}
+            >
+              {bookData.bookIconEmoji}
             </Avatar>
+            {/* <Avatar aria-label="recipe" className={classes.avatar}>
+              {bookData.bookIconEmoji ? bookData.bookIconEmoji : '📖'}
+            </Avatar> */}
           </GridItem>
           <GridItem xs={8}>
             <h4>

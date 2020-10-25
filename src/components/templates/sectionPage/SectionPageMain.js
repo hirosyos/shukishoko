@@ -19,6 +19,7 @@ import NavPills from 'components/NavPills/NavPills.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 /* MyApp */
+import { getDefaultImg } from 'src/common/common';
 import Link from 'src/components/atoms/Link';
 import BookCard from 'src/components/molecules/BookCard';
 import { SectionCard } from 'src/components/molecules/SectionCard';
@@ -93,7 +94,16 @@ const SectionPageMain = ({
       {/* セクションカバー画像 */}
       {/********************/}
       <Parallax
-        image={require('public/hana_04F.jpg')}
+        // image={require('public/hana_04F.jpg')}
+        image={
+          userData.sectionCoverImageUrl
+            ? userData.sectionCoverImageUrl
+            : getDefaultImg({
+                pageType: 'section',
+                imgType: 'cover',
+                seed: sectionData.sectionId,
+              })
+        }
         filter="dark"
         className={classes.parallax}
       />
@@ -101,11 +111,24 @@ const SectionPageMain = ({
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={6}>
             <div className={classes.profile}>
-              {/**************/}
-              {/* アバター画像 */}
-              {/**************/}
+              {/**********************/}
+              {/* セクションアバター画像 */}
+              {/***********************/}
               <div>
-                <img src={shukishoko} alt={bookName} className={imageClasses} />
+                <img
+                  // src={shukishoko}
+                  src={
+                    userData.sectionIconImageUrl
+                      ? userData.sectionIconImageUrl
+                      : getDefaultImg({
+                          pageType: 'section',
+                          imgType: 'avatar',
+                          seed: sectionData.sectionId,
+                        })
+                  }
+                  alt={bookName}
+                  className={imageClasses}
+                />
               </div>
               <div className={classes.name}>
                 <h3 className={classes.title}>{sectionData.title}</h3>

@@ -98,7 +98,8 @@ const TopPageMain = ({
                 <h3 className={classes.title}>{RSC.appTitle}</h3>
                 {/* コンセプト */}
                 <h6>{RSC.appConcept}</h6>
-              </div>
+              </div>'
+              <img src='https://www.icloud.com/photos/#0FRM4dvJA1mCmLO6z1pPctYLw' alt='icloud'/>
             </div>
           </GridItem>
         </GridContainer>

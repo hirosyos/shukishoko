@@ -577,10 +577,153 @@ export const firebaseErrToTxt = (e, method) => {
  * firestoreのTimestampのsecond部分をISO8601にする
  *
  * @param {*} seconds
- * @return {*} 
+ * @return {*}
  */
 export const secToISO8601DateTimeTokyo = (seconds) => {
   return formatToTimeZone(seconds * 1000, 'YYYY-MM-DDTHH:mm', {
     timeZone: 'Asia/Tokyo',
   });
 };
+
+const getCoverImgUrl = (seed) => {
+  /* 1:1.91   example 1280x670 1920x1005 */
+  return `https://picsum.photos/seed/${seed}/1280/670`;
+};
+const getAvaterImgUrl = (seed) => {
+  /* squre size*/
+  return `https://picsum.photos/seed/${seed}/400/400`;
+};
+
+export const getDefaultImg = ({
+  pageType,
+  imgType,
+  seed,
+}) => {
+  console.log({ pageType });
+  console.log(imgType);
+  console.log({ seed });
+
+  let defaultImg;
+  switch (pageType) {
+    case 'user':
+      switch (imgType) {
+        case 'cover':
+          defaultImg = getCoverImgUrl(seed);
+          break;
+        case 'avatar':
+          defaultImg = getAvaterImgUrl(seed);
+          break;
+        case 'icon':
+          defaultImg = `🙆`;
+          break;
+        default:
+          break;
+      }
+      break;
+    case 'book':
+      switch (imgType) {
+        case 'cover':
+          defaultImg = getCoverImgUrl(seed);
+          break;
+        case 'avatar':
+          defaultImg = getAvaterImgUrl(seed);
+          break;
+        case 'icon':
+          defaultImg = `📓`;
+          break;
+        default:
+          break;
+      }
+      break;
+    case 'section':
+      switch (imgType) {
+        case 'cover':
+          defaultImg = getCoverImgUrl(seed);
+          break;
+        case 'avatar':
+          defaultImg = getAvaterImgUrl(seed);
+          break;
+        case 'icon':
+          defaultImg = `§`;
+          break;
+        default:
+          break;
+      }
+      break;
+    default:
+      break;
+  }
+  return defaultImg;
+};
+
+// export const getDefaultImg = ({
+//   pageType,
+//   imgType,
+//   userData,
+//   bookData,
+//   sectionData,
+// }) => {
+//   console.log({pageType});
+//   console.log(imgType);
+//   console.log({ userData });
+//   console.log({ bookData });
+//   console.log({ sectionData });
+
+//   let defaultImg;
+//   switch (pageType) {
+//     case 'user':
+//       switch (imgType) {
+//         case 'cover':
+//           defaultImg = getCoverImgUrl(userData.uid);
+//           // defaultImg = `https://picsum.photos/seed/${userData.uid}/1280/670`;
+//           break;
+//         case 'avatar':
+//           defaultImg = getAvaterImgUrl(userData.uid);
+//           // defaultImg = `https://picsum.photos/seed/${userData.uid}/400/400`;
+//           break;
+//         case 'icon':
+//           defaultImg = `🙆`;
+//           break;
+//         default:
+//           break;
+//       }
+//       break;
+//     case 'book':
+//       switch (imgType) {
+//         case 'cover':
+//           defaultImg = getCoverImgUrl(bookData.bookId);
+//           // defaultImg = `https://picsum.photos/seed/${bookData.bookId}/1280/670`;
+//           break;
+//         case 'avatar':
+//           defaultImg = getAvaterImgUrl(bookData.bookId);
+//           // defaultImg = `https://picsum.photos/seed/${bookData.bookId}/400/400`;
+//           break;
+//         case 'icon':
+//           defaultImg = `📓`;
+//           break;
+//         default:
+//           break;
+//       }
+//       break;
+//     case 'section':
+//       switch (imgType) {
+//         case 'cover':
+//           defaultImg = getCoverImgUrl(sectionData.sectionId);
+//           // defaultImg = `https://picsum.photos/seed/${sectionData.sectionId}/1280/670`;
+//           break;
+//         case 'avatar':
+//           defaultImg = getAvaterImgUrl(sectionData.sectionId);
+//           // defaultImg = `https://picsum.photos/seed/${sectionData.sectionId}/400/400`;
+//           break;
+//         case 'icon':
+//           defaultImg = `§`;
+//           break;
+//         default:
+//           break;
+//       }
+//       break;
+//     default:
+//       break;
+//   }
+//   return defaultImg;
+// };

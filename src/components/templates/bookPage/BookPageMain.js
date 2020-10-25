@@ -22,6 +22,7 @@ import Parallax from 'components/Parallax/Parallax.js';
 import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 import buttonStyle from 'assets/jss/nextjs-material-kit-pro/components/buttonStyle.js';
 /* MyApp */
+import { getDefaultImg } from 'src/common/common';
 import { convertFromTimestampToDatetime } from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import Link from 'src/components/atoms/Link';
@@ -113,7 +114,16 @@ const BookPageMain = ({
       {/* 手記カバー画像    */}
       {/*******************/}
       <Parallax
-        image={require('public/hana_03F.jpg')}
+        // image={require('public/hana_03F.jpg')}
+        image={
+          bookData.bookCoverImageUrl
+            ? userData.bookCoverImageUrl
+            : getDefaultImg({
+                pageType: 'book',
+                imgType: 'cover',
+                seed: bookData.bookId,
+              })
+        }
         filter="dark"
         className={classes.parallax}
       />
@@ -125,7 +135,20 @@ const BookPageMain = ({
               {/* 手記アイコン画像 */}
               {/******************/}
               <div>
-                <img src={shukishoko} alt={bookName} className={imageClasses} />
+                <img
+                  // src={shukishoko}
+                  src={
+                    userData.bookIconImageUrl
+                      ? userData.bookIconImageUrl
+                      : getDefaultImg({
+                          pageType: 'book',
+                          imgType: 'avatar',
+                          seed: bookData.bookId,
+                        })
+                  }
+                  alt={bookName}
+                  className={imageClasses}
+                />
               </div>
               <div className={classes.name}>
                 <h3 className={classes.title}>{bookData.bookDisplayName}</h3>

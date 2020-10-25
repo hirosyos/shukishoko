@@ -17,7 +17,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Divider from '@material-ui/core/Divider';
-
+/* MyApp */
+import { getDefaultImg } from 'src/common/common';
 import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import CardAvatar from 'components/Card/CardAvatar.js';
@@ -99,9 +100,24 @@ const UserCard = ({ userName, userData }) => {
       <CardHeader color="primary">
         <GridContainer spacing={2}>
           <GridItem item xs={2}>
-            <Avatar aria-label="avatar" className={classes.avatar}>
-              {userData.userIconEmoji ? userData.userIconEmoji : '🙆'}
+            <Avatar
+              aria-label="🙆"
+              // src={userData.userIconImageUrl}
+              src={getDefaultImg({
+                pageType: 'user',
+                imgType: 'avatar',
+                seed: userData.uid,
+              })}
+              className={classes.avatar}
+            >
+              {userData.userIconEmoji}
             </Avatar>
+            {/* <Avatar aria-label="avatar" className={classes.avatar}>
+              {userData.userIconEmoji}
+            </Avatar> */}
+            {/* <Avatar aria-label="avatar" className={classes.avatar}>
+              {userData.userIconEmoji ? userData.userIconEmoji : '🙆'}
+            </Avatar> */}
           </GridItem>
           <GridItem xs={8}>
             <h4>
