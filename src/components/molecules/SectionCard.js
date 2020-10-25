@@ -1,66 +1,42 @@
 /* react */
 import React, { useState, useEffect } from 'react';
-// import React from 'react';
+/* clsx */
 import clsx from 'clsx';
 /* material-ui */
 import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+/* material-ui icon */
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import FaceMarc from 'assets/img/faces/marc.jpg';
-import FaceChristian from 'assets/img/faces/christian.jpg';
-import FaceKendall from 'assets/img/faces/kendall.jpg';
-import FaceAvatar from 'assets/img/faces/avatar.jpg';
-
-/* MyApp */
-// import { convertFromTimestampToDatetime } from 'src/common/common';
-// import Link from 'src/components/atoms/Link';
-
-// import React from 'react';
-// @material-ui/core components
-// import { makeStyles } from '@material-ui/core/styles';
-// @material-ui icons
-// core components
-// import Card from 'components/Card/Card.js';
-import CardBody from 'components/Card/CardBody.js';
-// import CardAvatar from 'components/Card/CardAvatar.js';
-// import CardHeader from 'components/Card/CardHeader.js';
-import CardFooter from 'components/Card/CardFooter.js';
-import Button from 'components/CustomButtons/Button.js';
-import GridContainer from 'components/Grid/GridContainer.js';
-import GridItem from 'components/Grid/GridItem.js';
-
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ShareIcon from '@material-ui/icons/Share';
+/* nextjs-materialui-kit */
 import { cardTitle } from 'assets/jss/nextjs-material-kit-pro.js';
-
+import CardBody from 'components/Card/CardBody.js';
 /* MyApp */
-import { getDefaultImg } from 'src/common/common';
 import {
+  getDefaultImg,
   getUserDataFromUserName,
   getBookDataFromBookName,
-  getAllBookNamePaths,
-  getSectionDataListFromBookData,
+  convertFromTimestampToDatetime,
 } from 'src/common/common';
-import { convertFromTimestampToDatetime } from 'src/common/common';
 import Link from 'src/components/atoms/Link';
 
 const useStyles = makeStyles((style) => ({
-  // width: '40rem',
   root: {
+    marginBottom: '1rem',
     width: '40rem',
   },
   media: {
@@ -77,10 +53,13 @@ const useStyles = makeStyles((style) => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: style.transitions.create('transform', {
+      duration: style.transitions.duration.shortest,
+    }),
   },
   avatar: {
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: red[500],
   },
 }));
 
@@ -113,7 +92,23 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
   }, []);
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} variant="outlined">
+      <CardActionArea>
+        <Link
+          underline="none"
+          href={`/users/${userName}/${bookName}/${sectionId}`}
+        >
+          <CardMedia
+            className={classes.media}
+            image={getDefaultImg({
+              pageType: 'section',
+              imgType: 'cover',
+              seed: sectionData.sectionId,
+            })}
+            title="section"
+          />
+        </Link>
+      </CardActionArea>
       <CardHeader
         avatar={
           <AvatarGroup max={4}>
@@ -154,106 +149,27 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           </IconButton>
         }
         title={`§『${sectionData.title}』in 手記 『${bookData.bookDisplayName}』 by ${userData.userDisplayName}@${userData.userName}`}
-        subheader={convertFromTimestampToDatetime(
+        subheader={`更新日 ${convertFromTimestampToDatetime(
           sectionData.updatedAt.seconds,
-        )}
+        )}`}
       />
-      {/* <CardHeader color="success">
-        <GridContainer spacing={2}>
-          <GridItem item xs={2}>
-            <AvatarGroup max={4}>
-              <Avatar
-                aria-label="§"
-                src={getDefaultImg({
-                  pageType: 'section',
-                  imgType: 'avatar',
-                  seed: sectionData.sectionId,
-                })}
-                className={classes.avatar}
-              >
-                {sectionData.sectionIconEmoji}
-              </Avatar>
-              <Avatar
-                aria-label="📓"
-                src={getDefaultImg({
-                  pageType: 'book',
-                  imgType: 'avatar',
-                  seed: bookData.bookId,
-                })}
-                className={classes.avatar}
-              ></Avatar>
-              <Avatar
-                aria-label="🙆"
-                src={getDefaultImg({
-                  pageType: 'user',
-                  imgType: 'avatar',
-                  seed: userData.uid,
-                })}
-                className={classes.avatar}
-              ></Avatar>
-            </AvatarGroup>
+      <Divider />
+      <CardBody>
+        <h4 className={classes.cardTitle}>
+          §『{sectionData.title}』in 手記 『{bookData.bookDisplayName}』 by{' '}
+          {userData.userDisplayName}@{userData.userName}
+        </h4>
+        <CardContent>
 
-          </GridItem>
-          <GridItem xs={8}>
-            <h4>{convertFromTimestampToDatetime(sectionData.date.seconds)}</h4>
-          </GridItem>
-          <GridItem item xs={2}>
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          </GridItem>
-        </GridContainer>
-      </CardHeader> */}
-      <CardActionArea>
-        <Link
-          underline="none"
-          href={`/users/${userName}/${bookName}/${sectionId}`}
-        >
-          <CardMedia
-            className={classes.media}
-            image={getDefaultImg({
-              pageType: 'section',
-              imgType: 'cover',
-              seed: sectionData.sectionId,
-            })}
-            title="section"
-          />
-          <CardBody>
-            <h4 className={classes.cardTitle}>
-              §『{sectionData.title}』in 手記 『{bookData.bookDisplayName}』
-              by {userData.userDisplayName}@{userData.userName}
-            </h4>
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
-                セクション公開設定：
-                {/* {sectionData.isPublic} */}
-              </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            コンテンツ：{sectionData.contents}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            喜怒哀楽：{sectionData.emo}
+          </Typography>
+        </CardContent>
+      </CardBody>
 
-              <Typography variant="body2" color="textSecondary" component="p">
-                セクションの内容：{sectionData.contents}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                喜怒哀楽：{sectionData.emo}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                引用した元セクション：{sectionData.quoteRef}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                引用された数：{sectionData.quotedCount}
-              </Typography>
-              <br />
-              <Typography variant="body2" color="textSecondary" component="p">
-                作成日：
-                {convertFromTimestampToDatetime(sectionData.createdAt.seconds)}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                更新日：
-                {convertFromTimestampToDatetime(sectionData.updatedAt.seconds)}
-              </Typography>
-            </CardContent>
-          </CardBody>
-        </Link>
-      </CardActionArea>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
@@ -274,33 +190,8 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
+          <Typography paragraph>詳細:</Typography>
+        
         </CardContent>
       </Collapse>
     </Card>
