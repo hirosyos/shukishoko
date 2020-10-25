@@ -254,7 +254,6 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           </CardBody>
         </Link>
       </CardActionArea>
-      <Divider />
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />

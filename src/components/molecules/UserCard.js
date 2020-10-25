@@ -18,6 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Divider from '@material-ui/core/Divider';
+import { spacing } from '@material-ui/system';
 
 /* MyApp */
 import { getDefaultImg } from 'src/common/common';
@@ -39,10 +40,13 @@ import Link from 'src/components/atoms/Link';
 
 const useStyles = makeStyles((style) => ({
   root: {
+    marginBottom: '1rem',
     width: '40rem',
+    // marginTop: '1rem',
   },
   media: {
     height: 0,
+    // paddingTop: '56.25%', // 16:9
     paddingTop: '56.25%', // 16:9
   },
   cardTitle,
@@ -78,7 +82,24 @@ const UserCard = ({ userName, userData }) => {
 
   return (
     <>
-      <Card className={classes.root}>
+      <Card className={classes.root} variant="outlined">
+        <CardActionArea>
+          <Link underline="none" href={`/users/${userName}`}>
+            <CardMedia
+              className={classes.media}
+              image={
+                userData.userCoverImageUrl
+                  ? userData.userCoverImageUrl
+                  : getDefaultImg({
+                      pageType: 'user',
+                      imgType: 'cover',
+                      seed: userData.uid,
+                    })
+              }
+              title="user"
+            />
+          </Link>
+        </CardActionArea>
         <CardHeader
           avatar={
             <Avatar
@@ -103,9 +124,9 @@ const UserCard = ({ userName, userData }) => {
           title={`${userData.userDisplayName}@${userData.userName}`}
           subheader={convertFromTimestampToDatetime(userData.updatedAt.seconds)}
         />
-        <CardActionArea>
-          <Link underline="none" href={`/users/${userName}`}>
-            <CardMedia
+        {/* <CardActionArea>
+          <Link underline="none" href={`/users/${userName}`}> */}
+        {/* <CardMedia
               className={classes.media}
               image={getDefaultImg({
                 pageType: 'user',
@@ -113,23 +134,25 @@ const UserCard = ({ userName, userData }) => {
                 seed: userData.uid,
               })}
               title="user"
-            />
-            <CardBody>
-              <h4 className={classes.cardTitle}>aaa</h4>
-              <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  自己紹介:{userData.userIntroduction}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  書いた手記:
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  書いたセクションの数:
-                </Typography>
-              </CardContent>
-            </CardBody>
-          </Link>
-        </CardActionArea>
+            /> */}
+        <CardBody>
+          <h4 className={classes.cardTitle}>
+            {userData.userDisplayName}@{userData.userName}
+          </h4>
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+              自己紹介:{userData.userIntroduction}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              書いた手記:
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              書いたセクションの数:
+            </Typography>
+          </CardContent>
+        </CardBody>
+        {/* </Link>
+        </CardActionArea> */}
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />

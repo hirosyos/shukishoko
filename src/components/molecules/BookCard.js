@@ -172,7 +172,10 @@ const BookCard = ({ userName, bookName, bookData }) => {
             title="book"
           />
           <CardBody>
-            <h4 className={classes.cardTitle}>aaa</h4>
+            <h4 className={classes.cardTitle}>
+              手記 『{bookData.bookDisplayName}』 by 
+              {userData.userDisplayName}@${userData.userName}
+            </h4>
             <CardContent>
               {/* <Typography variant="body2" color="textSecondary" component="p">
                 手記公開設定：{bookData.isPublic}
