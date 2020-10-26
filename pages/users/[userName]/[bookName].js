@@ -8,28 +8,40 @@ import {
 import { AppLayout } from 'src/components/organisms/AppLayout';
 import BookPageMain from 'src/components/templates/bookPage/BookPageMain';
 
+/******************************************************************
+ * TODO:
+ * 20201026 暫定対処                                                                       
+ * SSGだと新規手記投稿の結果をユーザページが認識せず古いHTMLを見せ続ける
+ * この問題は手記ページとセクションページでも同様に起きる
+ * URLでダイレクトにページにアクセスするとフォールバック機能でページは生成
+ * されるが、親ページにそれが伝わらないためと考える
+ * 暫定対処として、getStaticPathsを削除
+ * getStaticPropsをgetServerSidePropsに変更する
+ * 対処が必要ないページもあると思うが取り急ぎ全ソースコードそのようにする
+ ******************************************************************/
+
 /**
  * 静的パス取得
  *
  * @export
  * @return {Array} 静的パスを生成するための名称の配列
  */
-export async function getStaticPaths() {
+// export async function getStaticPaths() {
 
-  // すべてのユーザ名とブック名を含んだパス生成用配列を取得
-  const paths = await getAllBookNamePaths();
+//   // すべてのユーザ名とブック名を含んだパス生成用配列を取得
+//   const paths = await getAllBookNamePaths();
 
-  // デバッグ情報
-  // if (paths) {
-  //   paths.map((p) =>
-  //     console.log(
-  //       `SSG対象ブックページ ${p.params.userName}/${p.params.bookName}`,
-  //     ),
-  //   );
-  // }
+//   // デバッグ情報
+//   // if (paths) {
+//   //   paths.map((p) =>
+//   //     console.log(
+//   //       `SSG対象ブックページ ${p.params.userName}/${p.params.bookName}`,
+//   //     ),
+//   //   );
+//   // }
 
-  return { paths, fallback: true };
-}
+//   return { paths, fallback: true };
+// }
 
 /**
  * 静的パラメータ取得
@@ -39,7 +51,8 @@ export async function getStaticPaths() {
  * @param {*} { params.bookName 'パスから切り出された値'}
  * @return {*}
  */
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
+// export async function getStaticProps({ params }) {
 
   const { userName, bookName } = params;
 
