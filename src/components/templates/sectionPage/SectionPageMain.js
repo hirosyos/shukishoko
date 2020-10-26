@@ -105,8 +105,8 @@ const SectionPageMain = ({
       <Parallax
         // image={require('public/hana_04F.jpg')}
         image={
-          userData.sectionCoverImageUrl
-            ? userData.sectionCoverImageUrl
+          sectionData.sectionCoverImageUrl
+            ? sectionData.sectionCoverImageUrl
             : getDefaultImg({
                 pageType: 'section',
                 imgType: 'cover',
@@ -127,8 +127,8 @@ const SectionPageMain = ({
                 <img
                   // src={shukishoko}
                   src={
-                    userData.sectionIconImageUrl
-                      ? userData.sectionIconImageUrl
+                    sectionData.sectionIconImageUrl
+                      ? sectionData.sectionIconImageUrl
                       : getDefaultImg({
                           pageType: 'section',
                           imgType: 'avatar',

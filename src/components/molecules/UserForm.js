@@ -152,7 +152,7 @@ export const UserForm = ({ classes, userData }) => {
         {/************************/}
         <div>
           <FormControlLabel
-            label={`公開設定(${isPublic ? '公開' : '非公開'})`}
+            label={`*公開設定(${isPublic ? '公開' : '非公開'})[未実装]`}
             control={
               <Switch
                 checked={isPublic}
@@ -171,11 +171,12 @@ export const UserForm = ({ classes, userData }) => {
             }}
           />
         </div>
+
         {/***********************/}
         {/* ユーザ管理名称        */}
         {/***********************/}
         <CustomInput
-          labelText="管理名称(アルファベットのみ)"
+          labelText="*管理名称(URLの一部)"
           id="userName"
           formControlProps={{
             fullWidth: true,
@@ -192,11 +193,12 @@ export const UserForm = ({ classes, userData }) => {
             onChange: (e) => setUserName(e.target.value),
           }}
         />
+
         {/************************/}
         {/* ユーザ表示名称           */}
         {/************************/}
         <CustomInput
-          labelText="表示名称(画面に表示されるユーザ名)"
+          labelText="*表示名称(画面表示)"
           id="userDisplayName"
           formControlProps={{
             fullWidth: true,
@@ -218,7 +220,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザアイコン絵文字     */}
         {/************************/}
         <CustomInput
-          labelText="アイコン絵文字"
+          labelText="アイコン絵文字(未指定は画像URL)"
           id="userIconEmoji"
           formControlProps={{
             fullWidth: true,
@@ -239,7 +241,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザアイコン画像URL   */}
         {/************************/}
         <CustomInput
-          labelText="アイコン画像URL(オプション)"
+          labelText="アイコン画像URL(未指定は自動画像)"
           id="userIconImageUrl"
           formControlProps={{
             fullWidth: true,
@@ -260,7 +262,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザカバー画像URL     */}
         {/************************/}
         <CustomInput
-          labelText="カバー画像URL(オプション)"
+          labelText="カバー画像URL(未指定は自動画像)"
           id="userCoverImageUrl"
           formControlProps={{
             fullWidth: true,
@@ -281,7 +283,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザ自己紹介文        */}
         {/************************/}
         <CustomInput
-          labelText="自己紹介文(オプション)"
+          labelText="プロフィール"
           id="userIntroduction"
           formControlProps={{
             fullWidth: true,
@@ -301,6 +303,7 @@ export const UserForm = ({ classes, userData }) => {
           }}
         />
       </form>
+
       {/***********************/}
       {/* 実行ボタン            */}
       {/***********************/}
@@ -317,6 +320,7 @@ export const UserForm = ({ classes, userData }) => {
           </Button>
         </div>
       </GridContainer>
+
       {/*必須パラメータが足りない場合*/}
       {!paramOk && (
         <SimpleModal

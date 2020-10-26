@@ -64,9 +64,6 @@ export const SectionForm = ({
   now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
   const dateTimeLocal = now.toISOString().slice(0, -8);
 
-  // const [sectionId, setSectionId] = useState(
-  //   sectionData ? sectionData.sectionId : '',
-  // );
   const [isPublic, setIsPublic] = useState(
     sectionData ? sectionData.isPublic : true,
   );
@@ -85,6 +82,12 @@ export const SectionForm = ({
   // const [emoIcon, setEmoIcon] = useState(
   //   sectionData ? sectionData.emoIcon : [],
   // );
+  const [sectionIconImageUrl, setSectionIconImageUrl] = useState(
+    sectionData ? sectionData.sectionIconImageUrl : '',
+  );
+  const [sectionCoverImageUrl, setSectionCoverImageUrl] = useState(
+    sectionData ? sectionData.sectionCoverImageUrl : '',
+  );
   const [emoIcon, setEmoIcon] = useState([]);
   const [emo, setEmo] = useState(sectionData ? sectionData.emo : '');
   const [tag_0, setTag_0] = useState(sectionData ? sectionData.tag_0 : '');
@@ -189,6 +192,8 @@ export const SectionForm = ({
       date: new Date(date),
       title,
       contents,
+      sectionIconImageUrl,
+      sectionCoverImageUrl,
       tag_0,
       tag_1,
       tag_2,
@@ -205,7 +210,6 @@ export const SectionForm = ({
       postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
     }
     // console.log({ postData });
-
 
     const addedData = await postDataToFirestore(
       VALIDUSERS,
@@ -239,6 +243,7 @@ export const SectionForm = ({
     <>
       <form className={classes.form}>
         <h3>手記設定(必須)</h3>
+
         {/************************/}
         {/* 手記公開設定           */}
         {/************************/}
@@ -263,6 +268,7 @@ export const SectionForm = ({
             }}
           />
         </div>
+
         {/************************/}
         {/* 思い出か未来か         */}
         {/************************/}
@@ -332,10 +338,10 @@ export const SectionForm = ({
             onChange: (e) => setTitle(e.target.value),
           }}
         />
+
         {/************************/}
         {/* コンテンツ            */}
         {/************************/}
-
         <CustomInput
           labelText="コンテンツ"
           id="contents"
@@ -354,6 +360,50 @@ export const SectionForm = ({
             autoComplete: 'off',
             value: contents,
             onChange: (e) => setContents(e.target.value),
+          }}
+        />
+
+        {/*************************/}
+        {/* セクションアイコン画像URL */}
+        {/**********************(**/}
+        <CustomInput
+          labelText="アイコン画像URL"
+          id="sectionIconImageUrl"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            type: 'url',
+            endAdornment: (
+              <InputAdornment position="start">
+                <HttpIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: sectionIconImageUrl,
+            onChange: (e) => setSectionIconImageUrl(e.target.value),
+          }}
+        />
+
+        {/************************/}
+        {/* セクションカバー画像URL  */}
+        {/************************/}
+        <CustomInput
+          labelText="カバー画像URL"
+          id="sectionCoverImageUrl"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            type: 'url',
+            endAdornment: (
+              <InputAdornment position="start">
+                <HttpIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: sectionCoverImageUrl,
+            onChange: (e) => setSectionCoverImageUrl(e.target.value),
           }}
         />
 

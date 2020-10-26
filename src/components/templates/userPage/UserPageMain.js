@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 /* nodejs library that concatenates classes */
 import classNames from 'classnames';
 /* material-ui core  */
+import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 /* material-ui icon */
 import LibraryBooks from '@material-ui/icons/LibraryBooks';

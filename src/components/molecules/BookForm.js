@@ -374,7 +374,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
         {/* 手記アイコン画像URL     */}
         {/************************/}
         <CustomInput
-          labelText="アイコン画像URL(未実装)"
+          labelText="アイコン画像URL"
           id="bookIconImageUrl"
           formControlProps={{
             fullWidth: true,
@@ -395,7 +395,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
         {/* 手記カバー画像URL      */}
         {/************************/}
         <CustomInput
-          labelText="カバー画像URL(未実装)"
+          labelText="カバー画像URL"
           id="bookCoverImageUrl"
           formControlProps={{
             fullWidth: true,
