@@ -64,6 +64,18 @@ export const getStaticProps = async ({ params }) => {
   // ユーザデータ配下のセクションデータリストを取得
   const sectionDataList = await getSectionDataListFromUserData(userData);
 
+  // デバッグ情報
+  if (bookDataList) {
+    bookDataList.map((p) => {
+      console.log(`userName ${p.userName}`);
+      console.log(`bookName ${p.bookName}`);
+      console.log(`bookData.bookName ${p.data.bookName}`);
+      console.log(`bookData.bookID ${p.data.bookId}`);
+      console.log(`bookData.bookID ${p.data.bookDisplayName}`);
+      console.log(``);
+    });
+  }
+
   return {
     // Next.jsはDate型を返してほしくないようなのでこのような対処をしている
     props: {

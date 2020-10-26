@@ -13,8 +13,8 @@ export const BookList = ({ userData, bookDataList }) => {
   // デバッグ情報
   //
   // console.log('\nファイル User.js');
-  // console.log('関数 BookList');
-  // console.log({ bookDataList });
+  console.log('関数 BookList');
+  console.log({ bookDataList });
 
   //
   // デバッグ情報
