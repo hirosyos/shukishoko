@@ -126,7 +126,7 @@ const BookPageMain = ({
         // image={require('public/hana_03F.jpg')}
         image={
           bookData.bookCoverImageUrl
-            ? userData.bookCoverImageUrl
+            ? bookData.bookCoverImageUrl
             : getDefaultImg({
                 pageType: 'book',
                 imgType: 'cover',
@@ -147,8 +147,8 @@ const BookPageMain = ({
                 <img
                   // src={shukishoko}
                   src={
-                    userData.bookIconImageUrl
-                      ? userData.bookIconImageUrl
+                    bookData.bookIconImageUrl
+                      ? bookData.bookIconImageUrl
                       : getDefaultImg({
                           pageType: 'book',
                           imgType: 'avatar',
