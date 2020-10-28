@@ -269,7 +269,7 @@ export const getUserDataList = async () => {
   const querySnapshot = await firebase
     .firestore()
     .collection(VALIDUSERS)
-    .orderBy('userName')
+    .orderBy('updatedAt', 'desc')
     .get();
   // console.log({ querySnapshot });
   // console.log('querySnapshot.size');
@@ -309,7 +309,7 @@ export const getBookDataList = async () => {
   const querySnapshot = await firebase
     .firestore()
     .collectionGroup(VALIDBOOKS)
-    .orderBy('bookName')
+    .orderBy('updatedAt', 'desc')
     .get();
   // console.log({ querySnapshot });
   // console.log('querySnapshot.size');
@@ -344,7 +344,7 @@ export const getSectionDataList = async () => {
     .firestore()
     .collectionGroup(VALIDSECTIONS)
     // .where('isFuture', '==', isFuture)
-    // .orderBy('sectionName')
+    .orderBy('updatedAt', 'desc')
     .get();
   // console.log({ querySnapshot });
   // console.log('querySnapshot.size');
@@ -403,7 +403,7 @@ export const getSectionDataListFromBookData = async (userData, bookData) => {
     .collection(VALIDBOOKS)
     .doc(bookData.bookId)
     .collection(VALIDSECTIONS)
-    .orderBy('updatedAt')
+    .orderBy('date', 'desc')
     .get();
 
   if (querySnapshot.size === 0) {
@@ -441,7 +441,7 @@ export const getBookDataListFromUserData = async (userData) => {
     .collection(VALIDUSERS)
     .doc(userData.uid)
     .collection(VALIDBOOKS)
-    .orderBy('updatedAt')
+    .orderBy('updatedAt', 'desc')
     .get();
 
   // console.log({ querySnapshot });
@@ -452,8 +452,8 @@ export const getBookDataListFromUserData = async (userData) => {
     return null;
   }
   const bookDataList = querySnapshot.docs.map((x) => {
-    // console.log('x.data()');
-    // console.log(x.data());
+    console.log('x.data()');
+    console.log(x.data());
 
     return {
       userName: userData.userName,
@@ -477,8 +477,7 @@ export const getSectionDataListFromUserData = async (userData) => {
     .firestore()
     .collectionGroup(VALIDSECTIONS)
     .where('uid', '==', userData.uid)
-    .orderBy('updatedAt')
-    .limit(5)
+    .orderBy('date', 'desc')
     .get();
 
   // console.log({ querySnapshot });
