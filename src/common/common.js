@@ -452,8 +452,8 @@ export const getBookDataListFromUserData = async (userData) => {
     return null;
   }
   const bookDataList = querySnapshot.docs.map((x) => {
-    // console.log('x.data()');
-    // console.log(x.data());
+    console.log('x.data()');
+    console.log(x.data());
 
     return {
       userName: userData.userName,

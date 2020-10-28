@@ -12,41 +12,29 @@ import SectionPageMain from 'src/components/templates/sectionPage/SectionPageMai
 
 import { AppLayout } from 'src/components/organisms/AppLayout';
 
-/******************************************************************
- * TODO:
- * 20201026 暫定対処                                                                       
- * SSGだと新規手記投稿の結果をユーザページが認識せず古いHTMLを見せ続ける
- * この問題は手記ページとセクションページでも同様に起きる
- * URLでダイレクトにページにアクセスするとフォールバック機能でページは生成
- * されるが、親ページにそれが伝わらないためと考える
- * 暫定対処として、getStaticPathsを削除
- * getStaticPropsをgetServerSidePropsに変更する
- * 対処が必要ないページもあると思うが取り急ぎ全ソースコードそのようにする
- ******************************************************************/
-
 /**
  * 静的パス取得
  *
  * @export
  * @return {*}
  */
-// export async function getStaticPaths() {
-//   // すべてのユーザ名とブック名とセクションIDを含んだパス生成用配列を取得
-//   const paths = await getAllSectionIdPaths();
+export async function getStaticPaths() {
+  // すべてのユーザ名とブック名とセクションIDを含んだパス生成用配列を取得
+  const paths = await getAllSectionIdPaths();
 
-//   //
-//   // デバッグ情報
-//   //
-//   // if (paths) {
-//   //   paths.map((p) => {
-//   //     console.log(
-//   //       `SSG対象セクションページ ${p.params.userName}/${p.params.bookName}/${p.params.sectionId}`,
-//   //     );
-//   //   });
-//   // }
+  //
+  // デバッグ情報
+  //
+  // if (paths) {
+  //   paths.map((p) => {
+  //     console.log(
+  //       `SSG対象セクションページ ${p.params.userName}/${p.params.bookName}/${p.params.sectionId}`,
+  //     );
+  //   });
+  // }
 
-//   return { paths, fallback: true };
-// }
+  return { paths, fallback: true };
+}
 
 /**
  * 静的パラメータ取得
@@ -55,8 +43,8 @@ import { AppLayout } from 'src/components/organisms/AppLayout';
  * @param {*} { params }
  * @return {*}
  */
-export async function getServerSideProps({ params }) {
-// export async function getStaticProps({ params }) {
+// export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   const { userName, bookName, sectionId } = params;
 
   // ユーザネームからユーザデータを取得
@@ -94,6 +82,7 @@ export async function getServerSideProps({ params }) {
       sectionId,
       sectionData: JSON.parse(JSON.stringify(sectionData)),
     },
+    revalidate: 1,
   };
 }
 
