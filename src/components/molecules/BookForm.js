@@ -149,8 +149,8 @@ export const BookForm = ({ classes, userData, bookData }) => {
   useEffect(() => {
     if (moveBookPage) {
       // router.push(`/users/${userData.userName}/${bookName}`);
-      router.push(`/users/${userData.userName}`);
-      // location.href = `/users/${userData.userName}`;
+      // router.push(`/users/${userData.userName}`);
+      location.href = `/users/${userData.userName}`;
       // router.replace(`/users/${userData.userName}`);
     }
   }, [moveBookPage]);
