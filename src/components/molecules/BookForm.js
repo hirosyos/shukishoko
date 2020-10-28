@@ -1,5 +1,7 @@
 /* react */
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+/* next */
+import { useRouter } from 'next/router';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -43,8 +45,6 @@ const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
  * @return {*}
  */
 export const BookForm = ({ classes, userData, bookData }) => {
-
-
   // 年月日時刻は初期値入れといたほうがデザインが崩れないようだ
   const now = new Date();
   now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -139,6 +139,22 @@ export const BookForm = ({ classes, userData, bookData }) => {
 
   const [paramOk, setParamOk] = useState(true);
 
+  const [postOk, setPostOk] = useState(false);
+  const [moveBookPage, setMoveBookPage] = useState(false);
+
+  // ルーティング設定
+  const router = useRouter();
+
+  // bookPageへ移動
+  useEffect(() => {
+    if (moveBookPage) {
+      // router.push(`/users/${userData.userName}/${bookName}`);
+      // router.push(`/users/${userData.userName}`);
+      location.href = `/users/${userData.userName}`;
+      // router.replace(`/users/${userData.userName}`);
+    }
+  }, [moveBookPage]);
+
   /**
    * paramOkを操作するコールバック関数
    *
@@ -154,6 +170,27 @@ export const BookForm = ({ classes, userData, bookData }) => {
         break;
       case 'no':
         setParamOk(true);
+        break;
+      default:
+        console.log('パラメータ異常');
+    }
+  };
+
+  /**
+   * moveBookPageを操作するコールバック関数
+   *
+   * @param {*} props
+   */
+  const callBackSetMoveBookPage = (props) => {
+    switch (props) {
+      case 'close':
+        setMoveBookPage(false);
+        break;
+      case 'yes':
+        setMoveBookPage(true);
+        break;
+      case 'no':
+        setMoveBookPage(false);
         break;
       default:
         console.log('パラメータ異常');
@@ -274,6 +311,12 @@ export const BookForm = ({ classes, userData, bookData }) => {
     // setChapterName_4('');
     // setChapterStartDate_4(dateTimeLocal);
     // setChapterEndtDate_4(dateTimeLocal);
+
+    const response = await fetch(`http://localhost:3000/users/${userData.userName}/`);
+
+
+
+    setPostOk(true);
   };
 
   // スタイル読み出し
@@ -835,6 +878,17 @@ export const BookForm = ({ classes, userData, bookData }) => {
           yesBtnTxt="OK"
           noBtnTxt=""
           callBack={callBackSetParamOk}
+        />
+      )}
+      {/*編集終了*/}
+      {postOk && (
+        <SimpleModal
+          modalTitle={`編集完了`}
+          modalText="編集した手記ページへ移動しますか"
+          closeBtnTxt=""
+          yesBtnTxt="移動する"
+          noBtnTxt="ページに残る"
+          callBack={callBackSetMoveBookPage}
         />
       )}
     </>
