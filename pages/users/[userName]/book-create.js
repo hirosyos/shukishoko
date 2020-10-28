@@ -74,6 +74,7 @@ export async function getStaticProps({ params }) {
       userName,
       userData: JSON.parse(JSON.stringify(userData)),
     },
+    revalidate: 1,
   };
 }
 

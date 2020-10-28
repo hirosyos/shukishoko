@@ -70,6 +70,7 @@ export const getStaticProps = async ({ params }) => {
       userName,
       userData: JSON.parse(JSON.stringify(userData)),
     },
+    revalidate: 1,
   };
 };
 

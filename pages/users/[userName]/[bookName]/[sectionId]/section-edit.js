@@ -73,6 +73,7 @@ export async function getStaticProps({ params }) {
         sectionId,
         sectionData: null,
       },
+      revalidate: 1,
     };
   }
 

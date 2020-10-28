@@ -93,6 +93,7 @@ export async function getStaticProps({ params }) {
       bookData: JSON.parse(JSON.stringify(bookData)),
       bookId: bookData.bookId,
     },
+    revalidate: 1,
   };
 }
 

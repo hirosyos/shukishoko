@@ -38,6 +38,7 @@ export const getStaticProps = async ({ params }) => {
       sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
       // futureDataList: JSON.parse(JSON.stringify(futureDataList)),
     },
+    revalidate: 1,
   };
 };
 
