@@ -573,6 +573,28 @@ export const firebaseErrToTxt = (e, method) => {
   }
 };
 /**
+ * firestoreのTimestampのsecond部分をYYYY/MM/DD HH:mmにする
+ *
+ * @param {*} seconds
+ * @return {*}
+ */
+export const secToSlashDateTimeTokyo = (seconds) => {
+  return formatToTimeZone(seconds * 1000, 'YYYY/MM/DD HH:mm', {
+    timeZone: 'Asia/Tokyo',
+  });
+};
+/**
+ * firestoreのTimestampのsecond部分をYYYY/MM/DDにする
+ *
+ * @param {*} seconds
+ * @return {*}
+ */
+export const secToSlashDateTokyo = (seconds) => {
+  return formatToTimeZone(seconds * 1000, 'YYYY/MM/DD', {
+    timeZone: 'Asia/Tokyo',
+  });
+};
+/**
  * firestoreのTimestampのsecond部分をISO8601にする
  *
  * @param {*} seconds

@@ -26,7 +26,11 @@ import { SectionCard } from 'src/components/molecules/SectionCard';
 import UserCard from 'src/components/molecules/UserCard';
 import { AppHead } from 'src/components/organisms/AppHead';
 import { AppMain } from 'src/components/organisms/AppMain';
-import { convertFromTimestampToDatetime } from 'src/common/common';
+import {
+  convertFromTimestampToDatetime,
+  secToSlashDateTimeTokyo,
+  secToSlashDateTokyo,
+} from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import { AuthContext } from 'pages/_app';
 import shukishoko from 'public/logo_shukishoko_circle.svg';
@@ -84,7 +88,7 @@ const SectionPageMain = ({
       {/* ヘッダ設定         */}
       {/********************/}
       <AppHead
-        pageTitle={`§ ${convertFromTimestampToDatetime(
+        pageTitle={`§ ${secToSlashDateTokyo(
           sectionData.date.seconds,
         )} の思い出 『${sectionData.title}』`}
         description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんが主人公『${bookData.authorDisplayName}』を綴った手記『${bookData.bookDisplayName}』より〜`}
@@ -142,8 +146,9 @@ const SectionPageMain = ({
               <div className={classes.name}>
                 <h3 className={classes.title}>{sectionData.title}</h3>
                 <p>
-                  @{userData.userName}/{bookData.bookName}/
-                  {sectionData.sectionId}
+                  {/* @{userData.userName}/{bookData.bookName}/
+                  {sectionData.sectionId} */}
+                  {secToSlashDateTokyo(sectionData.date.seconds)} の思い出
                 </p>
               </div>
             </div>
@@ -152,12 +157,12 @@ const SectionPageMain = ({
         {/**********************/}
         {/* セクション情報表示    */}
         {/**********************/}
-        <div className={classNames(classes.description, classes.textCenter)}>
+        {/* <div className={classNames(classes.description, classes.textCenter)}>
           <p>セクション公開設定：{sectionData.isPublic}</p>
           <p>セクションドキュメントID：{sectionData.sectionId}</p>
           <p>
             セクションが起きた日付：
-            {convertFromTimestampToDatetime(sectionData.date.seconds)}
+            {secToSlashDateTimeTokyo(sectionData.date.seconds)}
           </p>
           <p>セクションのタイトル：{sectionData.title}</p>
           <p>セクションの内容：{sectionData.contents}</p>
@@ -167,13 +172,13 @@ const SectionPageMain = ({
           <br />
           <p>
             作成日：
-            {convertFromTimestampToDatetime(sectionData.createdAt.seconds)}
+            {secToSlashDateTimeTokyo(sectionData.createdAt.seconds)}
           </p>
           <p>
             更新日：
-            {convertFromTimestampToDatetime(sectionData.updatedAt.seconds)}
+            {secToSlashDateTimeTokyo(sectionData.updatedAt.seconds)}
           </p>
-        </div>
+        </div> */}
 
         {/* 自分のページの場合のみ表示する */}
         {authUserData.uid === userData.uid && (

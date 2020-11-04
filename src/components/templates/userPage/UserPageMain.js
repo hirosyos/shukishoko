@@ -140,7 +140,7 @@ export const UserPageMain = ({
                 />
               </div>
               <div className={classes.name}>
-                <h3 className={classes.title}>{userData.userDisplayName}</h3>
+                <h3 className={classes.title}>📚{userData.userDisplayName}</h3>
                 <p>@{userData.userName}</p>
               </div>
             </div>
@@ -149,9 +149,9 @@ export const UserPageMain = ({
         {/*****************/}
         {/* ユーザ情報表示  */}
         {/*****************/}
-        <div className={classNames(classes.description, classes.textCenter)}>
+        {/* <div className={classNames(classes.description, classes.textCenter)}>
           <p>{userData.userIntroduction}</p>
-        </div>
+        </div> */}
 
         {/* 自分のページの場合のみ表示する */}
         {authUserData.uid === userData.uid && (

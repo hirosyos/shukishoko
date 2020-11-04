@@ -23,7 +23,11 @@ import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePa
 import buttonStyle from 'assets/jss/nextjs-material-kit-pro/components/buttonStyle.js';
 /* MyApp */
 import { getDefaultImg } from 'src/common/common';
-import { convertFromTimestampToDatetime } from 'src/common/common';
+import {
+  convertFromTimestampToDatetime,
+  secToSlashDateTimeTokyo,
+  secToSlashDateTokyo,
+} from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import Link from 'src/components/atoms/Link';
 import { SectionList } from 'src/components/molecules/SectionList';
@@ -160,9 +164,12 @@ const BookPageMain = ({
                 />
               </div>
               <div className={classes.name}>
-                <h3 className={classes.title}>{bookData.bookDisplayName}</h3>
+                <h3 className={classes.title}>
+                  {RSC.bookEmoji}
+                  {bookData.bookDisplayName}
+                </h3>
                 <p>
-                  @{userData.userName}/{bookData.bookName}
+                  @{bookData.bookName}
                 </p>
               </div>
             </div>
@@ -171,24 +178,20 @@ const BookPageMain = ({
         {/*****************/}
         {/* 手記情報表示    */}
         {/*****************/}
-        <div className={classNames(classes.description, classes.textCenter)}>
+        {/* <div className={classNames(classes.description, classes.textCenter)}>
           <p>公開設定：{bookData.isPublic}</p>
           <p>ユーザ名：{userData.userDisplayName}</p>
           <p>主人公：{bookData.authorDisplayName}</p>
           <p>
             主人公の誕生日：
-            {convertFromTimestampToDatetime(bookData.authorBirthday.seconds)}
+            {secToSlashDateTokyo(bookData.authorBirthday.seconds)}
           </p>
           <p>主人公の現在の年齢：{bookData.authorNowAge}</p>
-          <p>
-            作成日：{convertFromTimestampToDatetime(bookData.createdAt.seconds)}
-          </p>
-          <p>
-            更新日：{convertFromTimestampToDatetime(bookData.updatedAt.seconds)}
-          </p>
+          <p>作成日：{secToSlashDateTimeTokyo(bookData.createdAt.seconds)}</p>
+          <p>更新日：{secToSlashDateTimeTokyo(bookData.updatedAt.seconds)}</p>
           <hr />
           <p>{bookData.bookIntroduction}</p>
-        </div>
+        </div> */}
 
         {/* 自分のページの場合のみ表示する */}
         {authUserData.uid === userData.uid && (

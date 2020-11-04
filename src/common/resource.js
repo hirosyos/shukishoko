@@ -27,6 +27,14 @@ export const RSC = {
   signupPageTitle: 'サインアップ',
   signupBtnPrint: '登録する',
 
+  userEmoji: '📚',
+  bookEmoji: '📘',
+  sectionEmoji: '📖',
+  createEmoji: '✍',
+  updateEmoji: '🔄',
+  contentsEmoji: '💬',
+  birthdayEmoji: '🎂',
+  autherEmoji: '👤',
   img: {
     logoSquare: '/public/logo_shukishoko_square.svg',
     logoCircle: '/public/logo_shukishoko_circle.svg',
