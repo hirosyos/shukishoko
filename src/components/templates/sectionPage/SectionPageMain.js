@@ -35,7 +35,6 @@ import { RSC } from 'src/common/resource';
 import { AuthContext } from 'pages/_app';
 import shukishoko from 'public/logo_shukishoko_circle.svg';
 
-
 const useStyles = makeStyles(profilePageStyle);
 
 /**
@@ -88,10 +87,13 @@ const SectionPageMain = ({
       {/* ヘッダ設定         */}
       {/********************/}
       <AppHead
-        pageTitle={`§ ${secToSlashDateTokyo(
-          sectionData.date.seconds,
-        )} の思い出 『${sectionData.title}』`}
-        description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんが主人公『${bookData.authorDisplayName}』を綴った手記『${bookData.bookDisplayName}』より〜`}
+        pageTitle={`
+        ${RSC.sectionEmoji}${sectionData.title} ${
+          RSC.dateEmoji
+        }${secToSlashDateTokyo(sectionData.date.seconds)} ${
+          RSC.appTitleSimple
+        }`}
+        description={`${RSC.contentsEmoji}${sectionData.contents}`}
         image={
           sectionData.sectionCoverImageUrl
             ? sectionData.sectionCoverImageUrl
@@ -144,11 +146,15 @@ const SectionPageMain = ({
                 />
               </div>
               <div className={classes.name}>
-                <h3 className={classes.title}>{RSC.sectionEmoji}{sectionData.title}</h3>
+                <h3 className={classes.title}>
+                  {RSC.sectionEmoji}
+                  {sectionData.title}
+                </h3>
                 <p>
                   {/* @{userData.userName}/{bookData.bookName}/
                   {sectionData.sectionId} */}
-                  {secToSlashDateTokyo(sectionData.date.seconds)} の思い出
+                  {RSC.dateEmoji}
+                  {secToSlashDateTokyo(sectionData.date.seconds)}
                 </p>
               </div>
             </div>

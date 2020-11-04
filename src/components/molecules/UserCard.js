@@ -158,17 +158,19 @@ const UserCard = ({ userName, userData }) => {
             style={{ whiteSpace: 'pre-wrap' }}
           >
             {RSC.contentsEmoji}プロフィール：
+            <br />
+            <br />
             {userData.userIntroduction}
           </Typography>
           <br />
           <Typography variant="body2" color="textSecondary" component="p">
             {RSC.bookEmoji}手記数：
-            {bookDataList?`${bookDataList.length}`:`0`}
+            {bookDataList ? `${bookDataList.length}` : `0`}
           </Typography>
-          <br/>
+          <br />
           <Typography variant="body2" color="textSecondary" component="p">
             {RSC.sectionEmoji}セクション数：
-            {sectionDataList?`${sectionDataList.length}`:`0`}
+            {sectionDataList ? `${sectionDataList.length}` : `0`}
           </Typography>
         </CardContent>
         {/* </CardBody> */}

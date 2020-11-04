@@ -65,8 +65,8 @@ const useStyles = makeStyles((style) => ({
   avatar: {
     backgroundColor: red[500],
   },
-  cardContent:{
-    marginLeft:'0.5rem'
+  cardContent: {
+    marginLeft: '0.5rem',
   },
 }));
 
@@ -172,7 +172,9 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           </IconButton>
         }
         title={`${RSC.sectionEmoji}${sectionData.title}`}
-        subheader={`${secToSlashDateTokyo(sectionData.date.seconds)} の思い出`}
+        subheader={`${RSC.dateEmoji}${secToSlashDateTokyo(
+          sectionData.date.seconds,
+        )}`}
       />
       {/* <Divider /> */}
       {/* <CardBody> */}
@@ -185,6 +187,7 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           style={{ whiteSpace: 'pre-wrap' }}
         >
           {RSC.contentsEmoji}思い出：
+          <br />
           <br />
           {sectionData.contents}
         </Typography>

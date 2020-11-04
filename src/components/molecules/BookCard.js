@@ -181,6 +181,7 @@ const BookCard = ({ userName, bookName, bookData }) => {
           >
             {RSC.contentsEmoji}イントロダクション：
             <br />
+            <br />
             {bookData.bookIntroduction}
           </Typography>
           <br />
