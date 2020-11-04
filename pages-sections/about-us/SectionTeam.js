@@ -52,7 +52,7 @@ export default function SectionTeam() {
             <CardBody plain>
               <h4 className={classes.cardTitle}>Yoshida Hiroshi</h4>
               <h4 className={classes.cardTitle}>吉田洋</h4>
-              <h6 className={classes.textMuted}>フロントエンドエンジニア</h6>
+              <h6 className={classes.textMuted}>エンジニア</h6>
               <p className={classes.cardDescription}>
                 14年間、インフラ系開発を経験。
                 個人が直接触って楽しめるプロダクトを創りたいという思いが強くなり

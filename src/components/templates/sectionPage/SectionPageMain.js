@@ -144,7 +144,7 @@ const SectionPageMain = ({
                 />
               </div>
               <div className={classes.name}>
-                <h3 className={classes.title}>{sectionData.title}</h3>
+                <h3 className={classes.title}>{RSC.sectionEmoji}{sectionData.title}</h3>
                 <p>
                   {/* @{userData.userName}/{bookData.bookName}/
                   {sectionData.sectionId} */}

@@ -1,3 +1,5 @@
+/* react */
+import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 /* next */
 import Link from 'src/components/atoms/Link';
@@ -29,6 +31,12 @@ import { SectionList } from 'src/components/molecules/SectionList';
 import { AuthContext } from 'pages/_app';
 
 /* MyApp */
+import {
+  getBookDataListFromUserData,
+  getUserDataList,
+  getBookDataList,
+  getSectionDataList,
+} from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import { AppMain } from 'src/components/organisms/AppMain';
 import { AppHead } from 'src/components/organisms/AppHead';
@@ -45,13 +53,37 @@ const useStyles = makeStyles(profilePageStyle);
  * @return {*}
  */
 const TopPageMain = ({
-  userDataList,
-  bookDataList,
-  sectionDataList,
+  // userDataList,
+  // bookDataList,
+  // sectionDataList,
   // futureDataList,
 }) => {
   // console.log('TopPageMain');
   // console.log({ bookDataList });
+  const [userDataListClientFetch, setUserDataListClientFetch] = useState([]);
+  const [bookDataListClientFetch, setBookDataListClientFetch] = useState([]);
+  const [sectionDataListClientFetch, setSectionDataListClientFetch] = useState(
+    [],
+  );
+
+  // 子の情報取得
+  useEffect(() => {
+    async function fetchData() {
+      // 全ユーザデータリストを取得
+      const userDataListClientFetch = await getUserDataList();
+      // 全ブックデータリストを取得
+      const bookDataListClientFetch = await getBookDataList();
+      // 全セクションデータリストを取得
+      const sectionDataListClientFetch = await getSectionDataList();
+
+      setUserDataListClientFetch(userDataListClientFetch);
+      setBookDataListClientFetch(bookDataListClientFetch);
+      setSectionDataListClientFetch(sectionDataListClientFetch);
+      console.log('ここは何度も通らない');
+    }
+    fetchData();
+  }, []);
+
   const classes = useStyles();
 
   const imageClasses = classNames(
@@ -98,7 +130,8 @@ const TopPageMain = ({
                 <h3 className={classes.title}>{RSC.appTitle}</h3>
                 {/* コンセプト */}
                 <h6>{RSC.appConcept}</h6>
-              </div>'
+              </div>
+              '
             </div>
           </GridItem>
         </GridContainer>
@@ -130,7 +163,8 @@ const TopPageMain = ({
                         ユーザ一覧
                       </h4>
                       <GridContainer justify="center">
-                        <UserList userDataList={userDataList} />
+                        {/* <UserList userDataList={userDataList} /> */}
+                        <UserList userDataList={userDataListClientFetch} />
                       </GridContainer>
                     </GridItem>
                   </GridContainer>
@@ -147,7 +181,8 @@ const TopPageMain = ({
                         手記一覧
                       </h4>
                       <GridContainer justify="center">
-                        <BookList bookDataList={bookDataList} />
+                        {/* <BookList bookDataList={bookDataList} /> */}
+                        <BookList bookDataList={bookDataListClientFetch} />
                       </GridContainer>
                     </GridItem>
                   </GridContainer>
@@ -164,7 +199,10 @@ const TopPageMain = ({
                         セクション一覧
                       </h4>
                       <GridContainer justify="center">
-                        <SectionList sectionDataList={sectionDataList} />
+                        {/* <SectionList sectionDataList={sectionDataList} /> */}
+                        <SectionList
+                          sectionDataList={sectionDataListClientFetch}
+                        />
                       </GridContainer>
                     </GridItem>
                   </GridContainer>

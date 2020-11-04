@@ -144,7 +144,7 @@ const UserCard = ({ userName, userData }) => {
           title={`${RSC.userEmoji}${userData.userDisplayName}`}
           subheader={`@${userData.userName}`}
         />
-        <Divider />
+        {/* <Divider /> */}
         {/* <CardBody> */}
         {/* <h4 className={classes.cardTitle}>
             {RSC.userEmoji}
@@ -157,17 +157,18 @@ const UserCard = ({ userName, userData }) => {
             component="p"
             style={{ whiteSpace: 'pre-wrap' }}
           >
-            {RSC.contentsEmoji}
+            {RSC.contentsEmoji}プロフィール：
             {userData.userIntroduction}
           </Typography>
           <br />
           <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.bookEmoji}
-            {bookDataList.length}冊
+            {RSC.bookEmoji}手記数：
+            {bookDataList?`${bookDataList.length}`:`0`}
           </Typography>
+          <br/>
           <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.sectionEmoji}
-            {sectionDataList.length}セクション
+            {RSC.sectionEmoji}セクション数：
+            {sectionDataList?`${sectionDataList.length}`:`0`}
           </Typography>
         </CardContent>
         {/* </CardBody> */}
@@ -180,9 +181,9 @@ const UserCard = ({ userName, userData }) => {
             <ShareIcon />
           </IconButton>
           <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.createEmoji}
+            {RSC.createEmoji}作成：
             {secToSlashDateTokyo(userData.createdAt.seconds)} <br />
-            {RSC.updateEmoji}
+            {RSC.updateEmoji}更新：
             {secToSlashDateTokyo(userData.createdAt.seconds)}
           </Typography>
           <IconButton

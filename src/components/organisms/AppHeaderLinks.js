@@ -147,7 +147,11 @@ export default function AppHeaderLinks(props) {
             noLiPadding
             navDropdown
             hoverColor={dropdownHoverColor}
-            buttonText={`ユーザ（${userData.userIconEmoji}）`}
+            buttonText={
+              userData.userDisplayName
+                ? `${userData.userDisplayName}`
+                : `登録済ユーザ`
+            }
             buttonProps={{
               className: classes.navLink,
               color: 'transparent',
@@ -181,7 +185,7 @@ export default function AppHeaderLinks(props) {
             noLiPadding
             navDropdown
             hoverColor={dropdownHoverColor}
-            buttonText="ゲスト"
+            buttonText="ゲストユーザ"
             buttonProps={{
               className: classes.navLink,
               color: 'transparent',
@@ -204,7 +208,7 @@ export default function AppHeaderLinks(props) {
                 style={{ textDecoration: 'none' }}
               >
                 <LockOpenIcon className={classes.dropdownIcons} />
-                <ListItemText primary="サインアップ" />
+                <ListItemText primary="ユーザ登録" />
               </ListItem>,
             ]}
           />

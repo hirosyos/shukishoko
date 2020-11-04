@@ -1,5 +1,5 @@
 /* react */
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 /* next */
 import { useRouter } from 'next/router';
 /* classNames */
@@ -24,6 +24,7 @@ import buttonStyle from 'assets/jss/nextjs-material-kit-pro/components/buttonSty
 /* MyApp */
 import { getDefaultImg } from 'src/common/common';
 import {
+  getSectionDataListFromBookData,
   convertFromTimestampToDatetime,
   secToSlashDateTimeTokyo,
   secToSlashDateTokyo,
@@ -58,8 +59,13 @@ const BookPageMain = ({
   userData,
   bookName,
   bookData,
-  sectionDataList,
+  // sectionDataList,
 }) => {
+  const [
+    sectionDataListClientFetch,
+    setSectionDataListClientFetch,
+  ] = useState([]);
+
   // 認証情報取得
   const { user: authUser, userData: authUserData } = useContext(AuthContext);
 
@@ -93,6 +99,22 @@ const BookPageMain = ({
 
     return <div>指定された手記は存在しません...</div>;
   }
+
+  // 子のsection情報取得
+  useEffect(() => {
+    async function fetchData() {
+      // ブック配下のセクションデータリストを取得
+      const sectionDataListClientFetch = await getSectionDataListFromBookData(
+        userData,
+        bookData,
+      );
+      setSectionDataListClientFetch(sectionDataListClientFetch);
+      console.log('ここは何度も通らない sectionDataListClientFetch');
+    }
+    if (userData) {
+      fetchData();
+    }
+  }, []);
 
   const classes = useStyles();
   const btnClasses = useButtonStyles();
@@ -168,9 +190,7 @@ const BookPageMain = ({
                   {RSC.bookEmoji}
                   {bookData.bookDisplayName}
                 </h3>
-                <p>
-                  @{bookData.bookName}
-                </p>
+                <p>@{bookData.bookName}</p>
               </div>
             </div>
           </GridItem>
@@ -238,8 +258,8 @@ const BookPageMain = ({
 
         <div className={classes.profileTabs}>
           <NavPills
-            // 初期フォーカスはセクションとする
-            active={2}
+            // 初期フォーカスは手記とする
+            active={1}
             alignCenter
             color="primary"
             tabs={[
@@ -292,7 +312,10 @@ const BookPageMain = ({
                         手記で記したセクション
                       </h4>
                       <GridContainer justify="center">
-                        <SectionList sectionDataList={sectionDataList} />
+                        {/* <SectionList sectionDataList={sectionDataList} /> */}
+                        <SectionList
+                          sectionDataList={sectionDataListClientFetch}
+                        />
                       </GridContainer>
                     </GridItem>
                   </GridContainer>
@@ -309,7 +332,9 @@ const BookPageMain = ({
                         手記で繋いだ未来
                       </h4>
                       <GridContainer justify="center">
-                        {/* <SectionList sectionDataList={sectionDataList} /> */}
+                        {/* <SectionList
+                          sectionDataList={sectionDataListClientFetch}
+                        /> */}
                       </GridContainer>
                     </GridItem>
                   </GridContainer>

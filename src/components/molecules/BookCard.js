@@ -169,28 +169,37 @@ const BookCard = ({ userName, bookName, bookData }) => {
           title={`📘${bookData.bookDisplayName}`}
           subheader={`@${bookData.bookName}`}
         />
-        <Divider />
+        {/* <Divider /> */}
         {/* <CardBody> */}
         {/* <h4 className={classes.cardTitle}>📘{bookData.bookDisplayName}</h4> */}
         <CardContent className={classes.cardContent}>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.autherEmoji}
-            {bookData.authorDisplayName}
-          </Typography>
-          <br />
-          <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.birthdayEmoji}
-            {secToSlashDateTokyo(bookData.authorBirthday.seconds)}
-          </Typography>
-          <br />
           <Typography
             variant="body2"
             color="textSecondary"
             component="p"
             style={{ whiteSpace: 'pre-wrap' }}
           >
-            {RSC.contentsEmoji}
+            {RSC.contentsEmoji}イントロダクション：
+            <br />
             {bookData.bookIntroduction}
+          </Typography>
+          <br />
+          <Typography variant="body2" color="textSecondary" component="p">
+            {RSC.autherEmoji}主人公：
+            {bookData.authorDisplayName}
+          </Typography>
+          <br />
+          <Typography variant="body2" color="textSecondary" component="p">
+            {RSC.birthdayEmoji}誕生日：
+            {secToSlashDateTokyo(bookData.authorBirthday.seconds)}
+          </Typography>
+          <br />
+
+          <Typography variant="body2" color="textSecondary" component="p">
+            {RSC.sectionEmoji}
+            {/* {sectionDataList.length} セクション */}
+            セクション数：
+            {sectionDataList ? `${sectionDataList.length}` : `0`}
           </Typography>
           <br />
           <Link
@@ -198,15 +207,10 @@ const BookCard = ({ userName, bookName, bookData }) => {
             style={{ textDecoration: 'none', color: 'black' }}
           >
             <Typography variant="body2" color="textSecondary" component="p">
-              {RSC.userEmoji}
-              {userData.userDisplayName} の書庫
+              {RSC.userEmoji}管理ユーザ：
+              {userData.userDisplayName}
             </Typography>
           </Link>
-          <br />
-          <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.sectionEmoji}
-            {sectionDataList.length} セクション
-          </Typography>
         </CardContent>
         {/* </CardBody> */}
 
@@ -218,9 +222,9 @@ const BookCard = ({ userName, bookName, bookData }) => {
             <ShareIcon />
           </IconButton>
           <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.createEmoji}
+            {RSC.createEmoji}作成：
             {secToSlashDateTokyo(bookData.createdAt.seconds)} <br />
-            {RSC.updateEmoji}
+            {RSC.updateEmoji}更新：
             {secToSlashDateTokyo(bookData.createdAt.seconds)}
           </Typography>
           <IconButton

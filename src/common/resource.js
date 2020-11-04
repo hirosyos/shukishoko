@@ -35,6 +35,7 @@ export const RSC = {
   contentsEmoji: '💬',
   birthdayEmoji: '🎂',
   autherEmoji: '👤',
+  emoDetailEmoji:'💕',
   img: {
     logoSquare: '/public/logo_shukishoko_square.svg',
     logoCircle: '/public/logo_shukishoko_circle.svg',

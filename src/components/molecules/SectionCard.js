@@ -174,7 +174,7 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
         title={`${RSC.sectionEmoji}${sectionData.title}`}
         subheader={`${secToSlashDateTokyo(sectionData.date.seconds)} の思い出`}
       />
-      <Divider />
+      {/* <Divider /> */}
       {/* <CardBody> */}
       {/* <h4 className={classes.cardTitle}>📖{sectionData.title}</h4> */}
       <CardContent className={classes.cardContent}>
@@ -184,12 +184,13 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           component="p"
           style={{ whiteSpace: 'pre-wrap' }}
         >
-          {RSC.contentsEmoji}
+          {RSC.contentsEmoji}思い出：
+          <br />
           {sectionData.contents}
         </Typography>
         <br />
         <Typography variant="body2" color="textSecondary" component="p">
-          喜怒哀楽：{sectionData.emo}
+          {RSC.emoDetailEmoji}感情詳細：{sectionData.emo}
         </Typography>
         <br />
         <Link
@@ -197,7 +198,7 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           style={{ textDecoration: 'none', color: 'black' }}
         >
           <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.bookEmoji}
+            {RSC.bookEmoji}手記：
             {bookData.bookDisplayName}
           </Typography>
         </Link>
@@ -207,8 +208,8 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           style={{ textDecoration: 'none', color: 'black' }}
         >
           <Typography variant="body2" color="textSecondary" component="p">
-            {RSC.userEmoji}
-            {userData.userDisplayName} の書庫
+            {RSC.userEmoji}管理ユーザ：
+            {userData.userDisplayName}
           </Typography>
         </Link>
       </CardContent>
@@ -222,9 +223,9 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
           <ShareIcon />
         </IconButton>
         <Typography variant="body2" color="textSecondary" component="p">
-          {RSC.createEmoji}
+          {RSC.createEmoji}作成：
           {secToSlashDateTokyo(sectionData.createdAt.seconds)} <br />
-          {RSC.updateEmoji}
+          {RSC.updateEmoji}更新：
           {secToSlashDateTokyo(sectionData.createdAt.seconds)}
         </Typography>
         <IconButton
