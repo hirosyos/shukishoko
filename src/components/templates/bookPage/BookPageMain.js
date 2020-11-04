@@ -1,5 +1,5 @@
 /* react */
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 /* next */
 import { useRouter } from 'next/router';
 /* classNames */
@@ -23,7 +23,12 @@ import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePa
 import buttonStyle from 'assets/jss/nextjs-material-kit-pro/components/buttonStyle.js';
 /* MyApp */
 import { getDefaultImg } from 'src/common/common';
-import { convertFromTimestampToDatetime } from 'src/common/common';
+import {
+  getSectionDataListFromBookData,
+  convertFromTimestampToDatetime,
+  secToSlashDateTimeTokyo,
+  secToSlashDateTokyo,
+} from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import Link from 'src/components/atoms/Link';
 import { SectionList } from 'src/components/molecules/SectionList';
@@ -54,8 +59,13 @@ const BookPageMain = ({
   userData,
   bookName,
   bookData,
-  sectionDataList,
+  // sectionDataList,
 }) => {
+  const [
+    sectionDataListClientFetch,
+    setSectionDataListClientFetch,
+  ] = useState([]);
+
   // 認証情報取得
   const { user: authUser, userData: authUserData } = useContext(AuthContext);
 
@@ -89,6 +99,22 @@ const BookPageMain = ({
 
     return <div>指定された手記は存在しません...</div>;
   }
+
+  // 子のsection情報取得
+  useEffect(() => {
+    async function fetchData() {
+      // ブック配下のセクションデータリストを取得
+      const sectionDataListClientFetch = await getSectionDataListFromBookData(
+        userData,
+        bookData,
+      );
+      setSectionDataListClientFetch(sectionDataListClientFetch);
+      console.log('ここは何度も通らない sectionDataListClientFetch');
+    }
+    if (userData) {
+      fetchData();
+    }
+  }, []);
 
   const classes = useStyles();
   const btnClasses = useButtonStyles();
@@ -160,10 +186,11 @@ const BookPageMain = ({
                 />
               </div>
               <div className={classes.name}>
-                <h3 className={classes.title}>{bookData.bookDisplayName}</h3>
-                <p>
-                  @{userData.userName}/{bookData.bookName}
-                </p>
+                <h3 className={classes.title}>
+                  {RSC.bookEmoji}
+                  {bookData.bookDisplayName}
+                </h3>
+                <p>@{bookData.bookName}</p>
               </div>
             </div>
           </GridItem>
@@ -171,24 +198,20 @@ const BookPageMain = ({
         {/*****************/}
         {/* 手記情報表示    */}
         {/*****************/}
-        <div className={classNames(classes.description, classes.textCenter)}>
+        {/* <div className={classNames(classes.description, classes.textCenter)}>
           <p>公開設定：{bookData.isPublic}</p>
           <p>ユーザ名：{userData.userDisplayName}</p>
           <p>主人公：{bookData.authorDisplayName}</p>
           <p>
             主人公の誕生日：
-            {convertFromTimestampToDatetime(bookData.authorBirthday.seconds)}
+            {secToSlashDateTokyo(bookData.authorBirthday.seconds)}
           </p>
           <p>主人公の現在の年齢：{bookData.authorNowAge}</p>
-          <p>
-            作成日：{convertFromTimestampToDatetime(bookData.createdAt.seconds)}
-          </p>
-          <p>
-            更新日：{convertFromTimestampToDatetime(bookData.updatedAt.seconds)}
-          </p>
+          <p>作成日：{secToSlashDateTimeTokyo(bookData.createdAt.seconds)}</p>
+          <p>更新日：{secToSlashDateTimeTokyo(bookData.updatedAt.seconds)}</p>
           <hr />
           <p>{bookData.bookIntroduction}</p>
-        </div>
+        </div> */}
 
         {/* 自分のページの場合のみ表示する */}
         {authUserData.uid === userData.uid && (
@@ -235,8 +258,8 @@ const BookPageMain = ({
 
         <div className={classes.profileTabs}>
           <NavPills
-            // 初期フォーカスはセクションとする
-            active={2}
+            // 初期フォーカスは手記とする
+            active={1}
             alignCenter
             color="primary"
             tabs={[
@@ -289,7 +312,10 @@ const BookPageMain = ({
                         手記で記したセクション
                       </h4>
                       <GridContainer justify="center">
-                        <SectionList sectionDataList={sectionDataList} />
+                        {/* <SectionList sectionDataList={sectionDataList} /> */}
+                        <SectionList
+                          sectionDataList={sectionDataListClientFetch}
+                        />
                       </GridContainer>
                     </GridItem>
                   </GridContainer>
@@ -306,7 +332,9 @@ const BookPageMain = ({
                         手記で繋いだ未来
                       </h4>
                       <GridContainer justify="center">
-                        {/* <SectionList sectionDataList={sectionDataList} /> */}
+                        {/* <SectionList
+                          sectionDataList={sectionDataListClientFetch}
+                        /> */}
                       </GridContainer>
                     </GridItem>
                   </GridContainer>

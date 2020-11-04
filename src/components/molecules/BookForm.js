@@ -148,7 +148,14 @@ export const BookForm = ({ classes, userData, bookData }) => {
   useEffect(() => {
     if (movePage) {
       // リダイレクトにすることで強制的にページ再読み込みを行うことでデータ最新化
-      location.href = `/users/${userData.userName}`;
+      // location.href = `/users/${userData.userName}`;
+      // router.push(`/users/${userData.userName}/${bookName}`);
+      // router.push(`/users/${userData.userName}/${bookName}`);
+      setTimeout(function () {
+        // console.log('更新を待つ');
+        location.href = `/users/${userData.userName}/${bookName}`;
+        // router.push(`/users/${userData.userName}/${bookName}`);
+      }, 1000);
     }
   }, [movePage]);
 
@@ -219,13 +226,12 @@ export const BookForm = ({ classes, userData, bookData }) => {
     if (
       bookName === '' ||
       bookDisplayName === '' ||
-      bookIconEmoji === '' ||
       authorDisplayName === '' ||
       authorBirthday === ''
     ) {
-      alert(
-        '手記管理名称、手記表示名称、手記アイコン絵文字、主人公の名前、主人公の誕生日は必須です',
-      );
+      // alert(
+      //   '手記管理名称、手記表示名称、手記アイコン絵文字、主人公の名前、主人公の誕生日は必須です',
+      // );
       setParamOk(false);
       return false;
     }
@@ -312,9 +318,10 @@ export const BookForm = ({ classes, userData, bookData }) => {
     // const response = await fetch(`http://localhost:3000/users/${userData.userName}/`);
 
     // ユーザページをバックグラウンド更新
-    const response = await fetch(`/users/${userData.userName}/`);
+    const response = await fetch(`/users/${userData.userName}/${bookName}`);
 
     setPostOk(true);
+    setMovePage(true);
   };
 
   // スタイル読み出し
@@ -323,7 +330,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
   return (
     <>
       <form className={classes.form}>
-        <h3>手記設定(必須)</h3>
+        <h3>手記設定</h3>
         {/************************/}
         {/* 手記公開設定           */}
         {/************************/}
@@ -352,7 +359,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
         {/* 手記管理名称          */}
         {/***********************/}
         <CustomInput
-          labelText="管理名称(アルファベットのみ)"
+          labelText="手記アルファベット(必須)"
           id="bookName"
           formControlProps={{
             fullWidth: true,
@@ -373,7 +380,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
         {/* 手記表示名称           */}
         {/************************/}
         <CustomInput
-          labelText="表示名称(画面に表示されるタイトル)"
+          labelText="手記タイトル(必須)"
           id="bookDisplayName"
           formControlProps={{
             fullWidth: true,
@@ -390,98 +397,13 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setBookDisplayName(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 手記アイコン絵文字      */}
-        {/************************/}
-        <CustomInput
-          labelText="アイコン絵文字🙆"
-          id="bookIconEmoji"
-          formControlProps={{
-            fullWidth: true,
-          }}
-          inputProps={{
-            type: 'text',
-            endAdornment: (
-              <InputAdornment position="start">
-                <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
-              </InputAdornment>
-            ),
-            autoComplete: 'off',
-            value: bookIconEmoji,
-            onChange: (e) => setBookIconEmoji(e.target.value),
-          }}
-        />
-        {/************************/}
-        {/* 手記アイコン画像URL     */}
-        {/************************/}
-        <CustomInput
-          labelText="アイコン画像URL"
-          id="bookIconImageUrl"
-          formControlProps={{
-            fullWidth: true,
-          }}
-          inputProps={{
-            type: 'url',
-            endAdornment: (
-              <InputAdornment position="start">
-                <HttpIcon className={classes.inputAdornmentIcon} />
-              </InputAdornment>
-            ),
-            autoComplete: 'off',
-            value: bookIconImageUrl,
-            onChange: (e) => setBookIconImageUrl(e.target.value),
-          }}
-        />
-        {/************************/}
-        {/* 手記カバー画像URL      */}
-        {/************************/}
-        <CustomInput
-          labelText="カバー画像URL"
-          id="bookCoverImageUrl"
-          formControlProps={{
-            fullWidth: true,
-          }}
-          inputProps={{
-            type: 'url',
-            endAdornment: (
-              <InputAdornment position="start">
-                <HttpIcon className={classes.inputAdornmentIcon} />
-              </InputAdornment>
-            ),
-            autoComplete: 'off',
-            value: bookCoverImageUrl,
-            onChange: (e) => setBookCoverImageUrl(e.target.value),
-          }}
-        />
-        {/************************/}
-        {/* イントロダクション      */}
-        {/************************/}
-        <CustomInput
-          labelText="イントロダクション"
-          id="bookIntroduction"
-          formControlProps={{
-            fullWidth: true,
-          }}
-          inputProps={{
-            type: 'text',
-            multiline: true,
-            rows: 8,
-            endAdornment: (
-              <InputAdornment position="start">
-                <CheckIcon className={classes.inputAdornmentIcon} />
-              </InputAdornment>
-            ),
-            autoComplete: 'off',
-            value: bookIntroduction,
-            onChange: (e) => setBookIntroduction(e.target.value),
-          }}
-        />
-        <h3>登場人物設定(必須)</h3>
+
+        <h3>登場人物設定</h3>
         {/************************/}
         {/* 主人公名称           */}
         {/************************/}
         <CustomInput
-          labelText="主人公の名前(ユーザ名とは別)"
+          labelText="手記の主人公(必須)"
           id="authorDisplayName"
           formControlProps={{
             fullWidth: true,
@@ -502,7 +424,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
         {/* 主人公の誕生日         */}
         {/************************/}
         <CustomInput
-          labelText="主人公の誕生日(ユーザとは別)"
+          labelText="主人公の誕生日(必須)"
           id="authorBirthday"
           formControlProps={{
             fullWidth: true,
@@ -519,11 +441,95 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setAuthorBirthday(e.target.value),
           }}
         />
-        <h3>時代設定(未実装)</h3>
+        <h3>オプション</h3>
+        {/************************/}
+        {/* 手記アイコン絵文字      */}
+        {/************************/}
+        <CustomInput
+          labelText="アイコン絵文字🙆(オプション)"
+          id="bookIconEmoji"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            type: 'text',
+            endAdornment: (
+              <InputAdornment position="start">
+                <EmojiEmotionsIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: bookIconEmoji,
+            onChange: (e) => setBookIconEmoji(e.target.value),
+          }}
+        />
+        {/************************/}
+        {/* 手記アイコン画像URL     */}
+        {/************************/}
+        <CustomInput
+          labelText="アイコン画像URL(オプション)"
+          id="bookIconImageUrl"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            type: 'url',
+            endAdornment: (
+              <InputAdornment position="start">
+                <HttpIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: bookIconImageUrl,
+            onChange: (e) => setBookIconImageUrl(e.target.value),
+          }}
+        />
+        {/************************/}
+        {/* 手記カバー画像URL      */}
+        {/************************/}
+        <CustomInput
+          labelText="カバー画像URL(オプション)"
+          id="bookCoverImageUrl"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            type: 'url',
+            endAdornment: (
+              <InputAdornment position="start">
+                <HttpIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: bookCoverImageUrl,
+            onChange: (e) => setBookCoverImageUrl(e.target.value),
+          }}
+        />
+        {/************************/}
+        {/* イントロダクション      */}
+        {/************************/}
+        <CustomInput
+          labelText="イントロダクション(オプション)"
+          id="bookIntroduction"
+          formControlProps={{
+            fullWidth: true,
+          }}
+          inputProps={{
+            type: 'text',
+            multiline: true,
+            rows: 8,
+            endAdornment: (
+              <InputAdornment position="start">
+                <CheckIcon className={classes.inputAdornmentIcon} />
+              </InputAdornment>
+            ),
+            autoComplete: 'off',
+            value: bookIntroduction,
+            onChange: (e) => setBookIntroduction(e.target.value),
+          }}
+        />
+        {/* <h3>時代設定(未実装)</h3>
         <h5>時代 0</h5>
-        {/************************/}
-        {/* 時代名称              */}
-        {/************************/}
         <CustomInput
           labelText="時代名称(未実装)"
           id="chapterName_0"
@@ -542,9 +548,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterName_0(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代開始日        */}
-        {/************************/}
         <CustomInput
           labelText="時代開始日(未実装)"
           id="chapterStarttDate_0"
@@ -563,9 +566,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterStartDate_0(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代終了日             */}
-        {/************************/}
         <CustomInput
           labelText="時代終了日(未実装)"
           id="chapterEndtDate_0"
@@ -587,9 +587,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
         />
         <h5>時代 1</h5>
-        {/************************/}
-        {/* 時代名称              */}
-        {/************************/}
         <CustomInput
           labelText="時代名称(未実装)"
           id="chapterName_1"
@@ -608,9 +605,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterName_1(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代開始日             */}
-        {/************************/}
         <CustomInput
           labelText="時代開始日(未実装)"
           id="chapterStarttDate_1"
@@ -629,9 +623,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterStartDate_1(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代終了日             */}
-        {/************************/}
         <CustomInput
           labelText="時代終了日(未実装)"
           id="chapterEndtDate_1"
@@ -653,9 +644,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
         />
         <h5>時代 2</h5>
-        {/************************/}
-        {/* 時代名称              */}
-        {/************************/}
         <CustomInput
           labelText="時代名称(未実装)"
           id="chapterName_2"
@@ -674,9 +662,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterName_2(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代開始日             */}
-        {/************************/}
         <CustomInput
           labelText="時代開始日(未実装)"
           id="chapterStarttDate_2"
@@ -695,9 +680,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterStartDate_2(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代終了日             */}
-        {/************************/}
         <CustomInput
           labelText="時代終了日(未実装)"
           id="chapterEndtDate_2"
@@ -719,9 +701,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
         />
         <h5>時代 3</h5>
-        {/************************/}
-        {/* 時代名称              */}
-        {/************************/}
         <CustomInput
           labelText="時代名称(未実装)"
           id="chapterName_3"
@@ -740,9 +719,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterName_3(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代開始日             */}
-        {/************************/}
         <CustomInput
           labelText="時代開始日(未実装)"
           id="chapterStarttDate_3"
@@ -761,9 +737,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterStartDate_3(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代終了日             */}
-        {/************************/}
         <CustomInput
           labelText="時代終了日(未実装)"
           id="chapterEndtDate_3"
@@ -785,9 +758,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
           }}
         />
         <h5>時代 4</h5>
-        {/************************/}
-        {/* 時代名称              */}
-        {/************************/}
         <CustomInput
           labelText="時代名称(未実装)"
           id="chapterName_4"
@@ -806,9 +776,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterName_4(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代開始日             */}
-        {/************************/}
         <CustomInput
           labelText="時代開始日(未実装)"
           id="chapterStarttDate_4"
@@ -827,9 +794,6 @@ export const BookForm = ({ classes, userData, bookData }) => {
             onChange: (e) => setChapterStartDate_4(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 時代終了日             */}
-        {/************************/}
         <CustomInput
           labelText="時代終了日(未実装)"
           id="chapterEndtDate_4"
@@ -849,7 +813,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
             value: chapterEndDate_4,
             onChange: (e) => setChapterEndtDate_4(e.target.value),
           }}
-        />
+        /> */}
       </form>
       {/***********************/}
       {/* 実行ボタン            */}
@@ -871,7 +835,7 @@ export const BookForm = ({ classes, userData, bookData }) => {
       {!paramOk && (
         <SimpleModal
           modalTitle={`必須項目が足りません`}
-          modalText="手記管理名称、手記表示名称、手記アイコン絵文字、主人公の名前、主人公の誕生日は必須です"
+          modalText="手記アルファベット、手記タイトル、主人公名、主人公の誕生日は必須です"
           closeBtnTxt=""
           yesBtnTxt="OK"
           noBtnTxt=""
@@ -879,16 +843,16 @@ export const BookForm = ({ classes, userData, bookData }) => {
         />
       )}
       {/*編集終了*/}
-      {postOk && (
+      {/* {postOk && (
         <SimpleModal
           modalTitle={`編集完了`}
-          modalText="ユーザページへ移動しますか"
+          modalText="ブックページへ移動しますか"
           closeBtnTxt=""
           yesBtnTxt="移動する"
           noBtnTxt="ページに残る"
           callBack={callBackSetMovePage}
         />
-      )}
+      )} */}
     </>
   );
 };

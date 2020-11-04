@@ -25,11 +25,15 @@ import ShareIcon from '@material-ui/icons/Share';
 /* nextjs-materialui-kit */
 import { cardTitle } from 'assets/jss/nextjs-material-kit-pro.js';
 import CardBody from 'components/Card/CardBody.js';
+import CardFooter from 'components/Card/CardFooter.js';
 /* MyApp */
+import { RSC } from 'src/common/resource';
 import {
   getDefaultImg,
   getUserDataFromUserName,
   getBookDataFromBookName,
+  secToSlashDateTimeTokyo,
+  secToSlashDateTokyo,
   convertFromTimestampToDatetime,
 } from 'src/common/common';
 import Link from 'src/components/atoms/Link';
@@ -60,6 +64,9 @@ const useStyles = makeStyles((style) => ({
   },
   avatar: {
     backgroundColor: red[500],
+  },
+  cardContent:{
+    marginLeft:'0.5rem'
   },
 }));
 
@@ -116,7 +123,7 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
       <CardHeader
         avatar={
           <AvatarGroup max={4}>
-            <Avatar
+            {/* <Avatar
               aria-label="🙆"
               src={
                 userData.userIconImageUrl
@@ -130,7 +137,7 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
               className={classes.avatar}
             ></Avatar>
             <Avatar
-              aria-label="📓"
+              aria-label="📖"
               src={
                 bookData.bookIconImageUrl
                   ? bookData.bookIconImageUrl
@@ -141,9 +148,9 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
                     })
               }
               className={classes.avatar}
-            ></Avatar>
+            ></Avatar> */}
             <Avatar
-              aria-label="§"
+              aria-label=""
               src={
                 sectionData.sectionIconImageUrl
                   ? sectionData.sectionIconImageUrl
@@ -164,26 +171,49 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={`§『${sectionData.title}』in 手記 『${bookData.bookDisplayName}』 by ${userData.userDisplayName}@${userData.userName}`}
-        subheader={`更新日 ${convertFromTimestampToDatetime(
-          sectionData.updatedAt.seconds,
-        )}`}
+        title={`${RSC.sectionEmoji}${sectionData.title}`}
+        subheader={`${secToSlashDateTokyo(sectionData.date.seconds)} の思い出`}
       />
-      <Divider />
-      <CardBody>
-        <h4 className={classes.cardTitle}>
-          §『{sectionData.title}』in 手記 『{bookData.bookDisplayName}』 by{' '}
-          {userData.userDisplayName}@{userData.userName}
-        </h4>
-        <CardContent>
+      {/* <Divider /> */}
+      {/* <CardBody> */}
+      {/* <h4 className={classes.cardTitle}>📖{sectionData.title}</h4> */}
+      <CardContent className={classes.cardContent}>
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          style={{ whiteSpace: 'pre-wrap' }}
+        >
+          {RSC.contentsEmoji}思い出：
+          <br />
+          {sectionData.contents}
+        </Typography>
+        <br />
+        <Typography variant="body2" color="textSecondary" component="p">
+          {RSC.emoDetailEmoji}感情詳細：{sectionData.emo}
+        </Typography>
+        <br />
+        <Link
+          href={`/users/${userData.userName}`}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <Typography variant="body2" color="textSecondary" component="p">
-            コンテンツ：{sectionData.contents}
+            {RSC.bookEmoji}手記：
+            {bookData.bookDisplayName}
           </Typography>
+        </Link>
+        <br />
+        <Link
+          href={`/users/${userData.userName}`}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
           <Typography variant="body2" color="textSecondary" component="p">
-            喜怒哀楽：{sectionData.emo}
+            {RSC.userEmoji}管理ユーザ：
+            {userData.userDisplayName}
           </Typography>
-        </CardContent>
-      </CardBody>
+        </Link>
+      </CardContent>
+      {/* </CardBody> */}
 
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
@@ -192,6 +222,12 @@ export const SectionCard = ({ userName, bookName, sectionId, sectionData }) => {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {RSC.createEmoji}作成：
+          {secToSlashDateTokyo(sectionData.createdAt.seconds)} <br />
+          {RSC.updateEmoji}更新：
+          {secToSlashDateTokyo(sectionData.createdAt.seconds)}
+        </Typography>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

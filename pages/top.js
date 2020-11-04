@@ -22,20 +22,20 @@ import { AppHead } from 'src/components/organisms/AppHead';
  */
 // export const getServerSideProps = async ({ params }) => {
 export const getStaticProps = async ({ params }) => {
-  const userDataList = await getUserDataList();
+  // const userDataList = await getUserDataList();
 
-  const bookDataList = await getBookDataList();
+  // const bookDataList = await getBookDataList();
 
-  const sectionDataList = await getSectionDataList();
+  // const sectionDataList = await getSectionDataList();
 
   // const futureDataList = getSectionDataList(false);
 
   return {
     // Next.jsはDate型を返してほしくないようなのでこのような対処をしている
     props: {
-      userDataList: JSON.parse(JSON.stringify(userDataList)),
-      bookDataList: JSON.parse(JSON.stringify(bookDataList)),
-      sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
+      // userDataList: JSON.parse(JSON.stringify(userDataList)),
+      // bookDataList: JSON.parse(JSON.stringify(bookDataList)),
+      // sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
       // futureDataList: JSON.parse(JSON.stringify(futureDataList)),
     },
     revalidate: 1,

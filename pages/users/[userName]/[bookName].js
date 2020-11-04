@@ -74,14 +74,14 @@ export async function getStaticProps({ params }) {
     };
   }
 
-  // ブック配下のセクションデータリストを取得
-  const sectionDataList = await getSectionDataListFromBookData(
-    userData,
-    bookData,
-  );
-  // セクションが一つでもある場合(なくても異常ではない)
-  if (sectionDataList) {
-  }
+  // // ブック配下のセクションデータリストを取得
+  // const sectionDataList = await getSectionDataListFromBookData(
+  //   userData,
+  //   bookData,
+  // );
+  // // セクションが一つでもある場合(なくても異常ではない)
+  // if (sectionDataList) {
+  // }
 
   return {
     // Next.jsはDate型を返してほしくないようなのでJSON変換という暫定処理
@@ -90,7 +90,7 @@ export async function getStaticProps({ params }) {
       userData: JSON.parse(JSON.stringify(userData)),
       bookName,
       bookData: JSON.parse(JSON.stringify(bookData)),
-      sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
+      // sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
     },
     revalidate: 1,
   };

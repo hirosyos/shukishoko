@@ -193,6 +193,8 @@ export function SignupPageMain({ ...rest }) {
         if (mounted.current) {
           setPending(false);
         }
+        // 確認モーダルはスキップする
+        setMoveUserPage(true);
       });
   };
 
@@ -285,7 +287,7 @@ export function SignupPageMain({ ...rest }) {
                         {/* アカウントフォーム     */}
                         {/***********************/}
                         <CustomInput
-                          labelText="アカウント名(半角アルファベットのみ)"
+                          labelText="アカウント名アルファベット"
                           formControlProps={{
                             fullWidth: true,
                             className: classes.customFormControlClasses,
@@ -311,7 +313,7 @@ export function SignupPageMain({ ...rest }) {
                         {/* メールアドレスフォーム  */}
                         {/***********************/}
                         <CustomInput
-                          labelText="アカウント名@example.com を使ってください"
+                          labelText="アカウント名@example.com"
                           formControlProps={{
                             fullWidth: true,
                             className: classes.customFormControlClasses,
@@ -387,20 +389,20 @@ export function SignupPageMain({ ...rest }) {
                             </span>
                           }
                         />
-                        {/***********************/}
-                        {/* サインアップボタン     */}
-                        {/***********************/}
-                        <div className={classes.textCenter}>
-                          <Button
-                            round
-                            color="primary"
-                            type="submit"
-                            onClick={onSubmit}
-                          >
-                            {RSC.signupBtnPrint}
-                          </Button>
-                        </div>
                       </form>
+                      {/***********************/}
+                      {/* サインアップボタン     */}
+                      {/***********************/}
+                      <div className={classes.textCenter}>
+                        <Button
+                          round
+                          color="primary"
+                          type="button"
+                          onClick={onSubmit}
+                        >
+                          {RSC.signupBtnPrint}
+                        </Button>
+                      </div>
                     </GridItem>
                   </GridContainer>
                 </CardBody>
@@ -419,7 +421,7 @@ export function SignupPageMain({ ...rest }) {
           />
         )}
         {/* ログイン済みでログインページに遷移してきた場合 */}
-        {userName && !moveUserPage && (
+        {/* {userName && !moveUserPage && (
           <SimpleModal
             modalTitle={`${userName}さんはログイン済みです`}
             modalText="このままユーザページへ移動しますか？"
@@ -428,7 +430,7 @@ export function SignupPageMain({ ...rest }) {
             noBtnTxt="移動しない"
             callBack={callBackSetMoveUserPage}
           />
-        )}
+        )} */}
       </div>
     </>
   );

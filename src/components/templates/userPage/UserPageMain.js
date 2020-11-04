@@ -1,5 +1,5 @@
 /* react */
-import { useContext } from 'react';
+import { useContext,useState,useEffect } from 'react';
 /* next */
 import { useRouter } from 'next/router';
 /* nodejs library that concatenates classes */
@@ -22,7 +22,11 @@ import NavPills from 'components/NavPills/NavPills.js';
 import Parallax from 'components/Parallax/Parallax.js';
 import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 /* MyApp */
-import { getDefaultImg } from 'src/common/common';
+import {
+  getDefaultImg,
+  getBookDataListFromUserData,
+  getSectionDataListFromUserData,
+} from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import Link from 'src/components/atoms/Link';
 import { BookList } from 'src/components/molecules/BookList';
@@ -49,12 +53,15 @@ const useStyles = makeStyles(profilePageStyle);
 export const UserPageMain = ({
   userName,
   userData,
-  bookDataList,
-  sectionDataList,
+  // bookDataList,
+  // sectionDataList,
   ...rest
 }) => {
   // 認証情報取得
   const { user: authUser, userData: authUserData } = useContext(AuthContext);
+
+  const [bookDataListClientFetch, setBookDataListClientFetch] = useState([]);
+  const [sectionDataListClientFetch, setSectionDataListClientFetch] = useState([]);
 
   const classes = useStyles();
 
@@ -75,6 +82,21 @@ export const UserPageMain = ({
     console.log('異常終了 指定されたユーザは存在しません...\n');
     return <div>指定されたユーザは存在しません...</div>;
   }
+
+  // 子の情報取得
+  useEffect(() => {
+    async function fetchData() {
+      // ユーザデータ配下のブックデータリストを取得
+      const bookDataListClientFetch = await getBookDataListFromUserData(userData);
+      // ユーザデータ配下のセクションデータリストを取得
+      const sectionDataListClientFetch = await getSectionDataListFromUserData(userData);
+
+      setBookDataListClientFetch(bookDataListClientFetch);
+      setSectionDataListClientFetch(sectionDataListClientFetch);
+      console.log('ここは何度も通らない');
+    }
+    fetchData();
+  }, []);
 
   const imageClasses = classNames(
     classes.imgRaised,
@@ -140,7 +162,7 @@ export const UserPageMain = ({
                 />
               </div>
               <div className={classes.name}>
-                <h3 className={classes.title}>{userData.userDisplayName}</h3>
+                <h3 className={classes.title}>📚{userData.userDisplayName}</h3>
                 <p>@{userData.userName}</p>
               </div>
             </div>
@@ -149,9 +171,9 @@ export const UserPageMain = ({
         {/*****************/}
         {/* ユーザ情報表示  */}
         {/*****************/}
-        <div className={classNames(classes.description, classes.textCenter)}>
+        {/* <div className={classNames(classes.description, classes.textCenter)}>
           <p>{userData.userIntroduction}</p>
-        </div>
+        </div> */}
 
         {/* 自分のページの場合のみ表示する */}
         {authUserData.uid === userData.uid && (
@@ -198,8 +220,8 @@ export const UserPageMain = ({
 
         <div className={classes.profileTabs}>
           <NavPills
-            // 初期フォーカスは手記とする
-            active={1}
+            // 初期フォーカスはユーザとする
+            active={0}
             alignCenter
             color="primary"
             tabs={[
@@ -231,7 +253,8 @@ export const UserPageMain = ({
                         ユーザがまとめた手記
                       </h4>
                       <GridContainer justify="center">
-                        <BookList bookDataList={bookDataList} />
+                        {/* <BookList bookDataList={bookDataList} /> */}
+                        <BookList bookDataList={bookDataListClientFetch} />
                       </GridContainer>
                     </GridItem>
                   </GridContainer>
@@ -248,7 +271,8 @@ export const UserPageMain = ({
                         ユーザが記したセクション
                       </h4>
                       <GridContainer justify="center">
-                        <SectionList sectionDataList={sectionDataList} />
+                        {/* <SectionList sectionDataList={sectionDataList} /> */}
+                        <SectionList sectionDataList={sectionDataListClientFetch} />
                       </GridContainer>
                     </GridItem>
                   </GridContainer>

@@ -1,5 +1,7 @@
 /* react */
 import { useState, useEffect } from 'react';
+/* next */
+import { useRouter } from 'next/router';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -38,6 +40,9 @@ const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
 export const UserForm = ({ classes, userData }) => {
   // console.log({userData });
 
+  // ルーティング情報
+  const router = useRouter();
+
   const [userId, setUserId] = useState(userData ? userData.uid : '');
   const [isPublic, setIsPublic] = useState(userData ? userData.isPublic : true);
   const [userName, setUserName] = useState(userData ? userData.userName : '');
@@ -65,11 +70,16 @@ export const UserForm = ({ classes, userData }) => {
   const [postOk, setPostOk] = useState(false);
   const [movePage, setMovePage] = useState(false);
 
-  // ブックページへ移動
+  // ユーザページへ移動
   useEffect(() => {
     if (movePage) {
       // リダイレクトにすることで強制的にページ再読み込みを行うことでデータ最新化
-      location.href = `/users/${userName}`;
+      // location.href = `/users/${userName}`;
+      // router.push(`/users/${userName}`);
+      setTimeout(function () {
+        // console.log('更新を待つ');
+        location.href = `/users/${userName}`;
+      }, 1000);
     }
   }, [movePage]);
 
@@ -130,8 +140,8 @@ export const UserForm = ({ classes, userData }) => {
 
   // 設定ボタンクリック時の処理
   const onClickCallback = async () => {
-    if (userName === '' || userDisplayName === '' || userIconEmoji === '') {
-      alert('ユーザ名、ユーザ表示名、ユーザ絵文字アイコンは必須です');
+    if (userName === '' || userDisplayName === '') {
+      // alert('ユーザ名、ユーザ表示名は必須です');
       setParamOk(false);
       return false;
     }
@@ -175,8 +185,10 @@ export const UserForm = ({ classes, userData }) => {
 
     //ユーザページをバックグラウンド更新
     const response = await fetch(`/users/${userName}`);
+    // const response2 = await fetch(`/users/${userName}`);
 
     setPostOk(true);
+    setMovePage(true);
   };
 
   // スタイル読み出し
@@ -185,7 +197,7 @@ export const UserForm = ({ classes, userData }) => {
   return (
     <>
       <form className={classes.form}>
-        <h3>ユーザ設定</h3>
+        <h3>ユーザ設定(必須)</h3>
         {/************************/}
         {/* ユーザ公開設定          */}
         {/************************/}
@@ -215,7 +227,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザ管理名称        */}
         {/***********************/}
         <CustomInput
-          labelText="*管理名称(URLの一部)"
+          labelText="ユーザアルファベット(必須)"
           id="userName"
           formControlProps={{
             fullWidth: true,
@@ -237,7 +249,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザ表示名称           */}
         {/************************/}
         <CustomInput
-          labelText="*表示名称(画面表示)"
+          labelText="ユーザ名(必須)"
           id="userDisplayName"
           formControlProps={{
             fullWidth: true,
@@ -254,12 +266,12 @@ export const UserForm = ({ classes, userData }) => {
             onChange: (e) => setUserDisplayName(e.target.value),
           }}
         />
-
+        <h3>オプション</h3>
         {/************************/}
         {/* ユーザアイコン絵文字     */}
         {/************************/}
         <CustomInput
-          labelText="アイコン絵文字(未指定は画像URL)"
+          labelText="アイコン絵文字(オプション)"
           id="userIconEmoji"
           formControlProps={{
             fullWidth: true,
@@ -280,7 +292,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザアイコン画像URL   */}
         {/************************/}
         <CustomInput
-          labelText="アイコン画像URL(未指定は自動画像)"
+          labelText="アイコン画像URL(オプション)"
           id="userIconImageUrl"
           formControlProps={{
             fullWidth: true,
@@ -301,7 +313,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザカバー画像URL     */}
         {/************************/}
         <CustomInput
-          labelText="カバー画像URL(未指定は自動画像)"
+          labelText="カバー画像URL(オプション)"
           id="userCoverImageUrl"
           formControlProps={{
             fullWidth: true,
@@ -322,7 +334,7 @@ export const UserForm = ({ classes, userData }) => {
         {/* ユーザ自己紹介文        */}
         {/************************/}
         <CustomInput
-          labelText="プロフィール"
+          labelText="プロフィール(オプション)"
           id="userIntroduction"
           formControlProps={{
             fullWidth: true,
@@ -364,7 +376,7 @@ export const UserForm = ({ classes, userData }) => {
       {!paramOk && (
         <SimpleModal
           modalTitle={`必須項目が足りません`}
-          modalText="ユーザ名、ユーザ表示名、ユーザ絵文字アイコンは必須です"
+          modalText="ユーザアルファベット、ユーザ名は必須です"
           closeBtnTxt=""
           yesBtnTxt="OK"
           noBtnTxt=""
@@ -372,7 +384,7 @@ export const UserForm = ({ classes, userData }) => {
         />
       )}
       {/*編集終了*/}
-      {postOk && (
+      {/* {postOk && (
         <SimpleModal
           modalTitle={`編集完了`}
           modalText="ユーザページへ移動しますか"
@@ -381,7 +393,7 @@ export const UserForm = ({ classes, userData }) => {
           noBtnTxt="ページに残る"
           callBack={callBackSetMovePage}
         />
-      )}
+      )} */}
     </>
   );
 };
