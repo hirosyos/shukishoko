@@ -1,5 +1,5 @@
 /* react */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -21,7 +21,6 @@ import radioSwitchStyle from 'assets/jss/nextjs-material-kit-pro/customCheckboxR
 import { VALIDUSERS } from 'src/common/common';
 import firebase from 'src/common/firebase';
 import SimpleModal from 'src/components/atoms/SimpleModal';
-
 
 // スタイル設定
 const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
@@ -63,6 +62,17 @@ export const UserForm = ({ classes, userData }) => {
 
   const [paramOk, setParamOk] = useState(true);
 
+  const [postOk, setPostOk] = useState(false);
+  const [movePage, setMovePage] = useState(false);
+
+  // ブックページへ移動
+  useEffect(() => {
+    if (movePage) {
+      // リダイレクトにすることで強制的にページ再読み込みを行うことでデータ最新化
+      location.href = `/users/${userName}`;
+    }
+  }, [movePage]);
+
   /**
    * paramOkを操作するコールバック関数
    *
@@ -84,13 +94,37 @@ export const UserForm = ({ classes, userData }) => {
     }
   };
 
+  /**
+   * movePageを操作するコールバック関数
+   *
+   * @param {*} props
+   */
+  const callBackSetMovePage = (props) => {
+    switch (props) {
+      case 'close':
+        setMovePage(false);
+        setPostOk(false);
+        break;
+      case 'yes':
+        setMovePage(true);
+        setPostOk(false);
+        break;
+      case 'no':
+        setMovePage(false);
+        setPostOk(false);
+        break;
+      default:
+        console.log('パラメータ異常');
+    }
+  };
+
   // Firestoreにデータを送信する関数
   const postDataToFirestore = async (userCollectionName, userId, postData) => {
     const addedData = await firebase
       .firestore()
       .collection(userCollectionName)
       .doc(userId)
-      .set(postData,{merge:true});
+      .set(postData, { merge: true });
     return addedData;
   };
 
@@ -123,8 +157,8 @@ export const UserForm = ({ classes, userData }) => {
       userCoverImageUrl,
       userIntroduction,
     };
-    if(!userData){
-      postData.createdAt= firebase.firestore.FieldValue.serverTimestamp()
+    if (!userData) {
+      postData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
     }
 
     // console.log({ postData });
@@ -138,6 +172,11 @@ export const UserForm = ({ classes, userData }) => {
     // setUserIconImageUrl('');
     // setUserCoverImageUrl('');
     // setPricePlan('');
+
+    //ユーザページをバックグラウンド更新
+    const response = await fetch(`/users/${userName}`);
+
+    setPostOk(true);
   };
 
   // スタイル読み出し
@@ -330,6 +369,17 @@ export const UserForm = ({ classes, userData }) => {
           yesBtnTxt="OK"
           noBtnTxt=""
           callBack={callBackSetParamOk}
+        />
+      )}
+      {/*編集終了*/}
+      {postOk && (
+        <SimpleModal
+          modalTitle={`編集完了`}
+          modalText="ユーザページへ移動しますか"
+          closeBtnTxt=""
+          yesBtnTxt="移動する"
+          noBtnTxt="ページに残る"
+          callBack={callBackSetMovePage}
         />
       )}
     </>

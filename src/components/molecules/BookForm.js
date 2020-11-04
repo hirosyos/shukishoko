@@ -1,5 +1,5 @@
 /* react */
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 /* next */
 import { useRouter } from 'next/router';
 // @material-ui/core components
@@ -33,7 +33,6 @@ import {
   secToISO8601DateTimeTokyo,
 } from 'src/common/common';
 import SimpleModal from 'src/components/atoms/SimpleModal';
-
 
 // スタイル設定
 const useRadioSwitchStyles = makeStyles(radioSwitchStyle);
@@ -140,20 +139,18 @@ export const BookForm = ({ classes, userData, bookData }) => {
   const [paramOk, setParamOk] = useState(true);
 
   const [postOk, setPostOk] = useState(false);
-  const [moveBookPage, setMoveBookPage] = useState(false);
+  const [movePage, setMovePage] = useState(false);
 
   // ルーティング設定
   const router = useRouter();
 
-  // bookPageへ移動
+  // ユーザページへ移動
   useEffect(() => {
-    if (moveBookPage) {
-      // router.push(`/users/${userData.userName}/${bookName}`);
-      // router.push(`/users/${userData.userName}`);
+    if (movePage) {
+      // リダイレクトにすることで強制的にページ再読み込みを行うことでデータ最新化
       location.href = `/users/${userData.userName}`;
-      // router.replace(`/users/${userData.userName}`);
     }
-  }, [moveBookPage]);
+  }, [movePage]);
 
   /**
    * paramOkを操作するコールバック関数
@@ -177,20 +174,20 @@ export const BookForm = ({ classes, userData, bookData }) => {
   };
 
   /**
-   * moveBookPageを操作するコールバック関数
+   * movePageを操作するコールバック関数
    *
    * @param {*} props
    */
-  const callBackSetMoveBookPage = (props) => {
+  const callBackSetMovePage = (props) => {
     switch (props) {
       case 'close':
-        setMoveBookPage(false);
+        setMovePage(false);
         break;
       case 'yes':
-        setMoveBookPage(true);
+        setMovePage(true);
         break;
       case 'no':
-        setMoveBookPage(false);
+        setMovePage(false);
         break;
       default:
         console.log('パラメータ異常');
@@ -313,11 +310,9 @@ export const BookForm = ({ classes, userData, bookData }) => {
     // setChapterEndtDate_4(dateTimeLocal);
 
     // const response = await fetch(`http://localhost:3000/users/${userData.userName}/`);
-    const response = await fetch(
-      `/users/${userData.userName}/`,
-    );
 
-
+    // ユーザページをバックグラウンド更新
+    const response = await fetch(`/users/${userData.userName}/`);
 
     setPostOk(true);
   };
@@ -887,11 +882,11 @@ export const BookForm = ({ classes, userData, bookData }) => {
       {postOk && (
         <SimpleModal
           modalTitle={`編集完了`}
-          modalText="編集した手記ページへ移動しますか"
+          modalText="ユーザページへ移動しますか"
           closeBtnTxt=""
           yesBtnTxt="移動する"
           noBtnTxt="ページに残る"
-          callBack={callBackSetMoveBookPage}
+          callBack={callBackSetMovePage}
         />
       )}
     </>
