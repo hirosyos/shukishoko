@@ -61,10 +61,9 @@ const BookPageMain = ({
   bookData,
   // sectionDataList,
 }) => {
-  const [
-    sectionDataListClientFetch,
-    setSectionDataListClientFetch,
-  ] = useState([]);
+  const [sectionDataListClientFetch, setSectionDataListClientFetch] = useState(
+    [],
+  );
 
   // 認証情報取得
   const { user: authUser, userData: authUserData } = useContext(AuthContext);
@@ -87,7 +86,7 @@ const BookPageMain = ({
     return <div>指定されたユーザは存在しません...</div>;
   }
 
-  // ユーザネームがない段階では何もしない;
+  // ブックネームがない段階では何もしない;
   if (!bookName) {
     console.log('異常終了 そんな手記はありません\n');
 
@@ -132,8 +131,11 @@ const BookPageMain = ({
       {/* ヘッダ設定         */}
       {/********************/}
       <AppHead
-        pageTitle={`§ 主人公『${bookData.authorDisplayName}』を綴った 手記『${bookData.bookDisplayName}』 `}
-        description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんの手記書庫より〜`}
+        // pageTitle={`§ 主人公『${bookData.authorDisplayName}』を綴った 手記『${bookData.bookDisplayName}』 `}
+        pageTitle={`${RSC.bookEmoji}${bookData.bookDisplayName} ${RSC.autherEmoji}${bookData.authorDisplayName} ${RSC.appTitleSimple}`}
+        // description={`~${RSC.appTitle} ${userData.userDisplayName}@${userData.userName}さんの手記書庫より〜`}
+        description={`${RSC.contentsEmoji}${bookData.bookIntroduction}`}
+        // description={`aaaaaa`}
         image={
           bookData.bookCoverImageUrl
             ? bookData.bookCoverImageUrl

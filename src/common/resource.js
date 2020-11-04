@@ -2,6 +2,7 @@ export const RSC = {
   domain: 'http://shukishoko.com',
 
   appTitle: '§手記書庫-ShukiShoko',
+  appTitleSimple: '§手記書庫',
   appConcept: '思い出を未来へ繋ぐ',
 
   appTabUser: 'ユーザ',
@@ -35,7 +36,8 @@ export const RSC = {
   contentsEmoji: '💬',
   birthdayEmoji: '🎂',
   autherEmoji: '👤',
-  emoDetailEmoji:'💕',
+  emoDetailEmoji: '💕',
+  dateEmoji: '📅',
   img: {
     logoSquare: '/public/logo_shukishoko_square.svg',
     logoCircle: '/public/logo_shukishoko_circle.svg',

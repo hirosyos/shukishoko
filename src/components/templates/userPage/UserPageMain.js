@@ -110,8 +110,9 @@ export const UserPageMain = ({
       {/* ヘッダ設定         */}
       {/********************/}
       <AppHead
-        pageTitle={`§ ${userData.userDisplayName}@${userData.userName}さんの手記書庫`}
-        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        pageTitle={`${RSC.userEmoji}${userData.userDisplayName} ${RSC.appTitleSimple}`}
+        // description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
+        description={`${RSC.contentsEmoji}${userData.userIntroduction}`}
         image={
           userData.userCoverImageUrl
             ? userData.userCoverImageUrl
@@ -272,7 +273,9 @@ export const UserPageMain = ({
                       </h4>
                       <GridContainer justify="center">
                         {/* <SectionList sectionDataList={sectionDataList} /> */}
-                        <SectionList sectionDataList={sectionDataListClientFetch} />
+                        <SectionList
+                          sectionDataList={sectionDataListClientFetch}
+                        />
                       </GridContainer>
                     </GridItem>
                   </GridContainer>
