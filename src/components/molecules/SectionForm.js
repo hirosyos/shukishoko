@@ -1,5 +1,7 @@
 /* react */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+/* next */
+import { useRouter } from 'next/router';
 // @material-ui/core components
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -103,9 +105,23 @@ export const SectionForm = ({
 
   const [paramOk, setParamOk] = useState(true);
 
+  const [postOk, setPostOk] = useState(false);
+  const [movePage, setMovePage] = useState(false);
+
   // const handleMultiple = (event) => {
   //   setMultipleSelect(event.target.value);
   // };
+
+  // ルーティング設定
+  // const router = useRouter();
+
+  // ブックページへ移動
+  useEffect(() => {
+    if (movePage) {
+      // リダイレクトにすることで強制的にページ再読み込みを行うことでデータ最新化
+      location.href = `/users/${userName}/${bookName}`;
+    }
+  }, [movePage]);
 
   /**
    * paramOkを操作するコールバック関数
@@ -122,6 +138,30 @@ export const SectionForm = ({
         break;
       case 'no':
         setParamOk(true);
+        break;
+      default:
+        console.log('パラメータ異常');
+    }
+  };
+
+  /**
+   * movePageを操作するコールバック関数
+   *
+   * @param {*} props
+   */
+  const callBackSetMovePage = (props) => {
+    switch (props) {
+      case 'close':
+        setMovePage(false);
+        setPostOk(false);
+        break;
+      case 'yes':
+        setMovePage(true);
+        setPostOk(false);
+        break;
+      case 'no':
+        setMovePage(false);
+        setPostOk(false);
         break;
       default:
         console.log('パラメータ異常');
@@ -234,6 +274,13 @@ export const SectionForm = ({
     // setUrlWeb('');
     // setEmoIcon([]);
     // setEmo('');
+
+    //ブックページをバックグラウンド更新
+    const response = await fetch(`/users/${userName}/${bookName}`);
+    //ユーザページをバックグラウンド更新
+    const response2 = await fetch(`/users/${userName}`);
+
+    setPostOk(true);
   };
 
   // スタイル読み出し
@@ -641,35 +688,45 @@ export const SectionForm = ({
             onChange: (e) => setUrlWeb(e.target.value),
           }}
         />
-
-        {/***********************/}
-        {/* 実行ボタン            */}
-        {/***********************/}
-        <GridContainer justify="center">
-          <div className={classes.textCenter}>
-            <Button
-              simple
-              color="primary"
-              size="lg"
-              type="button"
-              onClick={onClickCallback}
-            >
-              実行する
-            </Button>
-          </div>
-        </GridContainer>
-        {/*必須パラメータが足りない場合*/}
-        {!paramOk && (
-          <SimpleModal
-            modalTitle={`必須項目が足りません`}
-            modalText="日付、タイトル、コンテンツ、感情アイコンは必須です"
-            closeBtnTxt=""
-            yesBtnTxt="OK"
-            noBtnTxt=""
-            callBack={callBackSetParamOk}
-          />
-        )}
       </form>
+      {/***********************/}
+      {/* 実行ボタン            */}
+      {/***********************/}
+      <GridContainer justify="center">
+        <div className={classes.textCenter}>
+          <Button
+            simple
+            color="primary"
+            size="lg"
+            type="button"
+            onClick={onClickCallback}
+          >
+            実行する
+          </Button>
+        </div>
+      </GridContainer>
+      {/*必須パラメータが足りない場合*/}
+      {!paramOk && (
+        <SimpleModal
+          modalTitle={`必須項目が足りません`}
+          modalText="日付、タイトル、コンテンツ、感情アイコンは必須です"
+          closeBtnTxt=""
+          yesBtnTxt="OK"
+          noBtnTxt=""
+          callBack={callBackSetParamOk}
+        />
+      )}
+      {/*編集終了*/}
+      {postOk && (
+        <SimpleModal
+          modalTitle={`編集完了`}
+          modalText="手記ページへ移動しますか"
+          closeBtnTxt=""
+          yesBtnTxt="移動する"
+          noBtnTxt="ページに残る"
+          callBack={callBackSetMovePage}
+        />
+      )}
     </>
   );
 };
