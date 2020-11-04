@@ -160,6 +160,8 @@ export default function LoginPageMain() {
         if (mounted.current) {
           setPending(false);
         }
+        // モーダル経由せずページ遷移
+        setMoveUserPage(true);
       });
   };
 
@@ -278,22 +280,22 @@ export default function LoginPageMain() {
                       }}
                     />
                   </CardBody>
-                  {/***********************/}
-                  {/* ログインボタン         */}
-                  {/***********************/}
-                  <div className={classes.textCenter}>
-                    <Button
-                      simple
-                      disableFocusRipple={false}
-                      color="primary"
-                      size="lg"
-                      type="submit"
-                      onClick={onSubmit}
-                    >
-                      {RSC.loginBtnPrint}
-                    </Button>
-                  </div>
                 </form>
+                {/***********************/}
+                {/* ログインボタン         */}
+                {/***********************/}
+                <div className={classes.textCenter}>
+                  <Button
+                    simple
+                    disableFocusRipple={false}
+                    color="primary"
+                    size="lg"
+                    type="button"
+                    onClick={onSubmit}
+                  >
+                    {RSC.loginBtnPrint}
+                  </Button>
+                </div>
               </Card>
             </GridItem>
           </GridContainer>
@@ -310,7 +312,7 @@ export default function LoginPageMain() {
           />
         )}
         {/* ログイン済みでログインページに遷移してきた場合 */}
-        {userName && !moveUserPage && (
+        {/* {userName && !moveUserPage && (
           <SimpleModal
             modalTitle={`${userName}さんはログイン済みです`}
             modalText="このままユーザページへ移動しますか？"
@@ -319,7 +321,7 @@ export default function LoginPageMain() {
             noBtnTxt="移動しない"
             callBack={callBackSetMoveUserPage}
           />
-        )}
+        )} */}
       </div>
     </>
   );

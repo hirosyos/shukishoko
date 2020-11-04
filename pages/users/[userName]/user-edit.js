@@ -12,7 +12,7 @@ import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import signupPageStyle from 'assets/jss/nextjs-material-kit-pro/pages/signupPageStyle.js';
 /* MyApp */
-import { getUserDataFromUserName } from 'src/common/common';
+import { getUserDataFromUserName, getDefaultImg } from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import SimpleModal from 'src/components/atoms/SimpleModal';
 import { UserForm } from 'src/components/molecules/UserForm';
@@ -176,10 +176,24 @@ export default function UserEditPage({ userName, userData }) {
                   <h2 className={classes.cardTitle}>ユーザ編集</h2>
                   <GridContainer justify="center">
                     <GridItem align="center">
-                      <Avatar aria-label="recipe" className={classes.avatar}>
+                      {/* <Avatar aria-label="recipe" className={classes.avatar}>
                         {userData.userIconEmoji ? userData.userIconEmoji : '🙆'}
-                      </Avatar>
+                      </Avatar> */}
+                      <Avatar
+                        aria-label="user"
+                        className={classes.avatar}
+                        src={
+                          userData.userIconImageUrl
+                            ? userData.userIconImageUrl
+                            : getDefaultImg({
+                                pageType: 'user',
+                                imgType: 'avatar',
+                                seed: userData.uid,
+                              })
+                        }
+                      ></Avatar>
                       <h3 className={classes.title}>
+                        {RSC.userEmoji}
                         {userData.userDisplayName}
                       </h3>
                       <p>@{userData.userName}</p>

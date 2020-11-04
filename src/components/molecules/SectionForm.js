@@ -59,6 +59,9 @@ export const SectionForm = ({
 }) => {
   // console.log({ userData, bookData, bookId });
 
+  // ルーティング情報
+  const router = useRouter();
+
   const customSelectStylesClasses = useCustomSelectStyles();
 
   // 年月日時刻は初期値入れといたほうがデザインが崩れないようだ
@@ -107,6 +110,9 @@ export const SectionForm = ({
 
   const [postOk, setPostOk] = useState(false);
   const [movePage, setMovePage] = useState(false);
+  const [sectionPageId, setSectionPageId] = useState(
+    sectionData ? sectionData.sectionId : '',
+  );
 
   // const handleMultiple = (event) => {
   //   setMultipleSelect(event.target.value);
@@ -119,7 +125,13 @@ export const SectionForm = ({
   useEffect(() => {
     if (movePage) {
       // リダイレクトにすることで強制的にページ再読み込みを行うことでデータ最新化
-      location.href = `/users/${userName}/${bookName}`;
+      // location.href = `/users/${userName}/${bookName}`;
+      router.push(`/users/${userName}/${bookName}/${sectionPageId}`);
+
+      setTimeout(function () {
+        // console.log('更新を待つ');
+        location.href = `/users/${userName}/${bookName}/${sectionPageId}`;
+      }, 1000);
     }
   }, [movePage]);
 
@@ -192,8 +204,8 @@ export const SectionForm = ({
 
   // 設定ボタンクリック時の処理
   const onClickCallback = async () => {
-    if (date === '' || title === '' || contents === '' || emoIcon === '') {
-      alert('日付、タイトル、コンテンツ、感情アイコンは必須です');
+    if (date === '' || title === '' || contents === '') {
+      // alert('日付、セクション名、コンテンツは必須です');
       setParamOk(false);
       return false;
     }
@@ -212,6 +224,7 @@ export const SectionForm = ({
     } else {
       sectionDocId = sectionData.sectionId;
     }
+    setSectionPageId(sectionDocId);
 
     const postData = {
       isPublic,
@@ -276,11 +289,14 @@ export const SectionForm = ({
     // setEmo('');
 
     //ブックページをバックグラウンド更新
-    const response = await fetch(`/users/${userName}/${bookName}`);
+    const response = await fetch(
+      `/users/${userName}/${bookName}/${sectionPageId}`,
+    );
     //ユーザページをバックグラウンド更新
-    const response2 = await fetch(`/users/${userName}`);
+    // const response2 = await fetch(`/users/${userName}`);
 
     setPostOk(true);
+    setMovePage(true);
   };
 
   // スタイル読み出し
@@ -289,7 +305,7 @@ export const SectionForm = ({
   return (
     <>
       <form className={classes.form}>
-        <h3>手記設定(必須)</h3>
+        <h3>手記設定</h3>
 
         {/************************/}
         {/* 手記公開設定           */}
@@ -345,7 +361,7 @@ export const SectionForm = ({
         {/* 日付                  */}
         {/************************/}
         <CustomInput
-          labelText="日付"
+          labelText="日付(必須)"
           id="date"
           formControlProps={{
             fullWidth: true,
@@ -365,10 +381,10 @@ export const SectionForm = ({
         />
 
         {/************************/}
-        {/* タイトル              */}
+        {/* セクション名           */}
         {/************************/}
         <CustomInput
-          labelText="タイトル"
+          labelText="セクション名(必須)"
           id="title"
           formControlProps={{
             fullWidth: true,
@@ -390,7 +406,7 @@ export const SectionForm = ({
         {/* コンテンツ            */}
         {/************************/}
         <CustomInput
-          labelText="コンテンツ"
+          labelText="コンテンツ(必須)"
           id="contents"
           formControlProps={{
             fullWidth: true,
@@ -409,12 +425,12 @@ export const SectionForm = ({
             onChange: (e) => setContents(e.target.value),
           }}
         />
-
+        <h3>オプション</h3>
         {/*************************/}
         {/* セクションアイコン画像URL */}
         {/**********************(**/}
         <CustomInput
-          labelText="アイコン画像URL"
+          labelText="アイコン画像URL(オプション)"
           id="sectionIconImageUrl"
           formControlProps={{
             fullWidth: true,
@@ -436,7 +452,7 @@ export const SectionForm = ({
         {/* セクションカバー画像URL  */}
         {/************************/}
         <CustomInput
-          labelText="カバー画像URL"
+          labelText="カバー画像URL(オプション)"
           id="sectionCoverImageUrl"
           formControlProps={{
             fullWidth: true,
@@ -465,7 +481,7 @@ export const SectionForm = ({
             htmlFor="multiple-select"
             className={customSelectStylesClasses.selectLabel}
           >
-            感情選択
+            感情選択(オプション)
           </InputLabel>
           <Select
             multiple
@@ -536,7 +552,7 @@ export const SectionForm = ({
         {/* 感情  補足             */}
         {/************************/}
         <CustomInput
-          labelText="感情"
+          labelText="感情詳細(オプション)"
           id="emo"
           formControlProps={{
             fullWidth: true,
@@ -554,10 +570,7 @@ export const SectionForm = ({
             onChange: (e) => setEmo(e.target.value),
           }}
         />
-        <h3>タグ(未実装)</h3>
-        {/************************/}
-        {/* タグ 0               */}
-        {/************************/}
+        {/* <h3>タグ(未実装)</h3>
         <CustomInput
           labelText="タグ 0"
           id="tag_0"
@@ -577,9 +590,6 @@ export const SectionForm = ({
             onChange: (e) => setTag_0(e.target.value),
           }}
         />
-        {/************************/}
-        {/* タグ 1               */}
-        {/************************/}
         <CustomInput
           labelText="タグ 1"
           id="tag_1"
@@ -599,9 +609,6 @@ export const SectionForm = ({
             onChange: (e) => setTag_1(e.target.value),
           }}
         />
-        {/************************/}
-        {/* タグ 2               */}
-        {/************************/}
         <CustomInput
           labelText="タグ 2"
           id="tag_2"
@@ -622,9 +629,6 @@ export const SectionForm = ({
           }}
         />
         <h3>関連URL(未実装)</h3>
-        {/************************/}
-        {/* 関連動画URL           */}
-        {/************************/}
         <CustomInput
           labelText="関連動画URL(未実装)"
           id="urlVideo"
@@ -644,9 +648,6 @@ export const SectionForm = ({
             onChange: (e) => setUrlVideo(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 関連画像URL           */}
-        {/************************/}
         <CustomInput
           labelText="関連画像URL(未実装)"
           id="urlImg"
@@ -666,9 +667,6 @@ export const SectionForm = ({
             onChange: (e) => setUrlImg(e.target.value),
           }}
         />
-        {/************************/}
-        {/* 関連サイトURL           */}
-        {/************************/}
         <CustomInput
           labelText="関連サイトURL(未実装)"
           id="urlWeb"
@@ -687,7 +685,7 @@ export const SectionForm = ({
             value: urlWeb,
             onChange: (e) => setUrlWeb(e.target.value),
           }}
-        />
+        /> */}
       </form>
       {/***********************/}
       {/* 実行ボタン            */}
@@ -717,7 +715,7 @@ export const SectionForm = ({
         />
       )}
       {/*編集終了*/}
-      {postOk && (
+      {/* {postOk && (
         <SimpleModal
           modalTitle={`編集完了`}
           modalText="手記ページへ移動しますか"
@@ -726,7 +724,7 @@ export const SectionForm = ({
           noBtnTxt="ページに残る"
           callBack={callBackSetMovePage}
         />
-      )}
+      )} */}
     </>
   );
 };

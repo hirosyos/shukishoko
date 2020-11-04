@@ -132,21 +132,21 @@ export default function LogoutPageMain() {
                   </CardHeader>
 
                   <CardBody signup></CardBody>
-                  {/***********************/}
-                  {/* ログアウトボタン       */}
-                  {/***********************/}
-                  <div className={classes.textCenter}>
-                    <Button
-                      simple
-                      color="primary"
-                      size="lg"
-                      type="submit"
-                      onClick={onSubmit}
-                    >
-                      ログアウトする
-                    </Button>
-                  </div>
                 </form>
+                {/***********************/}
+                {/* ログアウトボタン       */}
+                {/***********************/}
+                <div className={classes.textCenter}>
+                  <Button
+                    simple
+                    color="primary"
+                    size="lg"
+                    type="button"
+                    onClick={onSubmit}
+                  >
+                    ログアウトする
+                  </Button>
+                </div>
               </Card>
             </GridItem>
           </GridContainer>

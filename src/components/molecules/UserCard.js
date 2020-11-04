@@ -1,5 +1,5 @@
 /* react */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 /* clsx */
 import clsx from 'clsx';
 /* material-ui core */
@@ -25,7 +25,14 @@ import ShareIcon from '@material-ui/icons/Share';
 import { cardTitle } from 'assets/jss/nextjs-material-kit-pro.js';
 import CardBody from 'components/Card/CardBody.js';
 /* MyApp */
-import { convertFromTimestampToDatetime } from 'src/common/common';
+import { RSC } from 'src/common/resource';
+import {
+  getBookDataListFromUserData,
+  getSectionDataListFromUserData,
+  convertFromTimestampToDatetime,
+  secToSlashDateTimeTokyo,
+  secToSlashDateTokyo,
+} from 'src/common/common';
 import { getDefaultImg } from 'src/common/common';
 import Link from 'src/components/atoms/Link';
 
@@ -52,6 +59,12 @@ const useStyles = makeStyles((style) => ({
   avatar: {
     backgroundColor: red[500],
   },
+  cardContent: {
+    marginLeft: '0.5rem',
+  },
+  // textfield: {
+  //   whiteSpace: pre - wrap,
+  // },
 }));
 
 /**
@@ -64,10 +77,28 @@ const UserCard = ({ userName, userData }) => {
   //スタイル設定
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const [bookDataList, setBookDataList] = useState([]);
+  const [sectionDataList, setSectionDataList] = useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  // 子の情報取得
+  useEffect(() => {
+    async function fetchData() {
+      // ユーザデータ配下のブックデータリストを取得
+      const bookDataList = await getBookDataListFromUserData(userData);
+      // ユーザデータ配下のセクションデータリストを取得
+      const sectionDataList = await getSectionDataListFromUserData(userData);
+
+      setBookDataList(bookDataList);
+      setSectionDataList(sectionDataList);
+      console.log('ここは何度も通らない');
+    }
+    fetchData();
+  }, []);
+
 
   return (
     <>
@@ -110,30 +141,37 @@ const UserCard = ({ userName, userData }) => {
               <MoreVertIcon />
             </IconButton>
           }
-          title={`${userData.userDisplayName}@${userData.userName}`}
-          subheader={`更新日 ${convertFromTimestampToDatetime(
-            userData.updatedAt.seconds,
-          )}`}
+          title={`${RSC.userEmoji}${userData.userDisplayName}`}
+          subheader={`@${userData.userName}`}
         />
-        <Divider />
-        <CardBody>
-          <h4 className={classes.cardTitle}>
-            {userData.userDisplayName}@{userData.userName}
-          </h4>
-          <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-              about:<br/>
-              {userData.userIntroduction}
-            </Typography>
-            <br />
-            <Typography variant="body2" color="textSecondary" component="p">
-              書いた手記:
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              書いたセクションの数:
-            </Typography>
-          </CardContent>
-        </CardBody>
+        {/* <Divider /> */}
+        {/* <CardBody> */}
+        {/* <h4 className={classes.cardTitle}>
+            {RSC.userEmoji}
+            {userData.userDisplayName}
+          </h4> */}
+        <CardContent className={classes.cardContent}>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            style={{ whiteSpace: 'pre-wrap' }}
+          >
+            {RSC.contentsEmoji}プロフィール：
+            {userData.userIntroduction}
+          </Typography>
+          <br />
+          <Typography variant="body2" color="textSecondary" component="p">
+            {RSC.bookEmoji}手記数：
+            {bookDataList?`${bookDataList.length}`:`0`}
+          </Typography>
+          <br/>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {RSC.sectionEmoji}セクション数：
+            {sectionDataList?`${sectionDataList.length}`:`0`}
+          </Typography>
+        </CardContent>
+        {/* </CardBody> */}
 
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
@@ -142,6 +180,12 @@ const UserCard = ({ userName, userData }) => {
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {RSC.createEmoji}作成：
+            {secToSlashDateTokyo(userData.createdAt.seconds)} <br />
+            {RSC.updateEmoji}更新：
+            {secToSlashDateTokyo(userData.createdAt.seconds)}
+          </Typography>
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,

@@ -58,19 +58,19 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 
-  // ユーザデータ配下のブックデータリストを取得
-  const bookDataList = await getBookDataListFromUserData(userData);
+  // // ユーザデータ配下のブックデータリストを取得
+  // const bookDataList = await getBookDataListFromUserData(userData);
 
-  // ユーザデータ配下のセクションデータリストを取得
-  const sectionDataList = await getSectionDataListFromUserData(userData);
+  // // ユーザデータ配下のセクションデータリストを取得
+  // const sectionDataList = await getSectionDataListFromUserData(userData);
 
   return {
     // Next.jsはDate型を返してほしくないようなのでこのような対処をしている
     props: {
       userName,
       userData: JSON.parse(JSON.stringify(userData)),
-      bookDataList: JSON.parse(JSON.stringify(bookDataList)),
-      sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
+      // bookDataList: JSON.parse(JSON.stringify(bookDataList)),
+      // sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
     },
     revalidate: 1,
   };
@@ -86,8 +86,8 @@ export const getStaticProps = async ({ params }) => {
 export default function UserNamePage({
   userName,
   userData,
-  bookDataList,
-  sectionDataList,
+  // bookDataList,
+  // sectionDataList,
 }) {
   return (
     <>
@@ -95,8 +95,8 @@ export default function UserNamePage({
         <UserPageMain
           userName={userName}
           userData={userData}
-          bookDataList={bookDataList}
-          sectionDataList={sectionDataList}
+          // bookDataList={bookDataList}
+          // sectionDataList={sectionDataList}
         />
       </AppLayout>
     </>
