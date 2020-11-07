@@ -61,7 +61,10 @@ const ALGOLIA_APP_ID = 'X59O5GSWAS'; // Required - your Algolia app ID
 const ALGOLIA_SEARCH_KEY = '14c8d4aab25bed6ff71713cf13ed7f15'; // Optional - Only used for unauthenticated search
 
 // const algoliasearch = require('algoliasearch');
-import algoliasearch from 'algoliasearch';
+
+
+//ビルドエラーの原因調査
+// import algoliasearch from 'algoliasearch';
 
 
 
@@ -145,29 +148,29 @@ const SearchPageMain = (
     setUserDataListClientFetch(userDataListSearchResult);
   };
 
-  const onSearch = async (e) => {
-    console.log(e.target.value);
-    // const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY);
-    const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);
-    const index = client.initIndex('shukishoko');
-    // const index = client.initIndex('demo_ecommerce');
-    let tempResults = [];
-    await index
-      // .search({
-      //   query: e.target.value,
-      //   // query: 'Boost'
-      // })
-      .search(
-        e.target.value,
-        // query: 'Boost'
-      )
-      .then(function (responses) {
-        console.log(responses.hits);
-        tempResults = responses.hits;
-      });
-    console.log({tempResults});
-    // this.setState({ searchResultPosts: tempResults });
-  };
+  // const onSearch = async (e) => {
+  //   console.log(e.target.value);
+  //   // const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY);
+  //   const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);
+  //   const index = client.initIndex('shukishoko');
+  //   // const index = client.initIndex('demo_ecommerce');
+  //   let tempResults = [];
+  //   await index
+  //     // .search({
+  //     //   query: e.target.value,
+  //     //   // query: 'Boost'
+  //     // })
+  //     .search(
+  //       e.target.value,
+  //       // query: 'Boost'
+  //     )
+  //     .then(function (responses) {
+  //       console.log(responses.hits);
+  //       tempResults = responses.hits;
+  //     });
+  //   console.log({tempResults});
+  //   // this.setState({ searchResultPosts: tempResults });
+  // };
 
   return (
     <>
