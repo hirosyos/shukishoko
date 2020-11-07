@@ -1,49 +1,67 @@
-import React from 'react';
-import Head from 'next/head';
-import Link from 'src/components/atoms/Link';
-
-import { AppLayout } from 'src/components/organisms/AppLayout';
+/* MyApp */
+import SearchPageMain from 'src/components/templates/searchPage/SearchPageMain';
+import {
+  getBookDataListFromUserData,
+  getUserDataList,
+  getBookDataList,
+  getSectionDataList,
+} from 'src/common/common';
 import { RSC } from 'src/common/resource';
+
+import { makeStyles } from '@material-ui/core/styles';
+import { AppLayout } from 'src/components/organisms/AppLayout';
 import { AppHead } from 'src/components/organisms/AppHead';
 
 /**
- * 検索ページ
+ * 静的パラメータ取得
  *
  * @export
- * @param {*} props
+ * @param {*} { params }
  * @return {*}
  */
-export default function Search(props) {
-  //
-  // デバッグ情報
-  //
-  console.log('\nファイル /pages/serch.js');
-  console.log('関数 Serch');
-  console.log({ props });
+// export const getServerSideProps = async ({ params }) => {
+export const getStaticProps = async ({ params }) => {
+  // const userDataList = await getUserDataList();
 
-  //
-  // デバッグ情報
-  //
-  console.log('正常終了\n');
+  // const bookDataList = await getBookDataList();
 
+  // const sectionDataList = await getSectionDataList();
+
+  // const futureDataList = getSectionDataList(false);
+
+  return {
+    // Next.jsはDate型を返してほしくないようなのでこのような対処をしている
+    props: {
+      // userDataList: JSON.parse(JSON.stringify(userDataList)),
+      // bookDataList: JSON.parse(JSON.stringify(bookDataList)),
+      // sectionDataList: JSON.parse(JSON.stringify(sectionDataList)),
+      // futureDataList: JSON.parse(JSON.stringify(futureDataList)),
+    },
+    revalidate: 1,
+  };
+};
+
+/**
+ * サービストップページ
+ *
+ * @export
+ * @return {*}
+ */
+export default function SearchPage({
+  // userDataList,
+  // bookDataList,
+  // sectionDataList,
+  // futureDataList,
+}) {
   return (
     <>
-      {/*******************/}
-      {/* ヘッダ情報        */}
-      {/*******************/}
-      <AppHead
-        pageTitle={`${RSC.appTitle}`}
-        description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
-        url={`${RSC.domain}/search`}
-      />
       <AppLayout>
-        <div>
-          <main>
-            <h1>Welcome to 検索ページ</h1>
-
-          </main>
-
-        </div>
+        <SearchPageMain
+          // userDataList={userDataList}
+          // bookDataList={bookDataList}
+          // sectionDataList={sectionDataList}
+          // futureDataList={futureDataList}
+        />
       </AppLayout>
     </>
   );

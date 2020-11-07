@@ -19,4 +19,7 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
+export const db = firebase.firestore();
+export const functions = firebase.functions();
+
 export default firebase;
