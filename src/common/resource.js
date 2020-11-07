@@ -1,5 +1,5 @@
 export const RSC = {
-  domain: 'http://shukishoko.com',
+  domain: 'https://shukishoko.com',
 
   appTitle: '§手記書庫-ShukiShoko',
   appTitleSimple: '§手記書庫',
