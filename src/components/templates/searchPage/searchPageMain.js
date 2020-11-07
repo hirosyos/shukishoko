@@ -5,12 +5,17 @@ import classNames from 'classnames';
 import Link from 'src/components/atoms/Link';
 
 /* nextjs-materialui-kit*/
+import Accordion from 'components/Accordion/Accordion.js';
 import GridContainer from 'components/Grid/GridContainer.js';
 import GridItem from 'components/Grid/GridItem.js';
 import NavPills from 'components/NavPills/NavPills.js';
 import Clearfix from 'components/Clearfix/Clearfix.js';
 import Button from 'components/CustomButtons/Button.js';
 import Parallax from 'components/Parallax/Parallax.js';
+import CustomInput from 'components/CustomInput/CustomInput.js';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import InputAdornment from '@material-ui/core/InputAdornment';
 /* materialui */
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -37,15 +42,47 @@ import {
   getUserDataList,
   getBookDataList,
   getSectionDataList,
+  searchUserData,
 } from 'src/common/common';
 import { RSC } from 'src/common/resource';
 import { AppMain } from 'src/components/organisms/AppMain';
 import { AppHead } from 'src/components/organisms/AppHead';
 
 import { UserList } from 'src/components/molecules/UserList';
+import SearchForm from 'src/components/molecules/SearchForm';
 
 import profilePageStyle from 'assets/jss/nextjs-material-kit-pro/pages/profilePageStyle.js';
 const useStyles = makeStyles(profilePageStyle);
+
+
+
+const PROJECT_ID = 'dinamicroute'; // Required - your Firebase project ID
+const ALGOLIA_APP_ID = 'X59O5GSWAS'; // Required - your Algolia app ID
+const ALGOLIA_SEARCH_KEY = '14c8d4aab25bed6ff71713cf13ed7f15'; // Optional - Only used for unauthenticated search
+
+// const algoliasearch = require('algoliasearch');
+import algoliasearch from 'algoliasearch';
+
+
+
+// function unauthenticated_search(query) {
+//   // [START search_index_unsecure]
+//   var client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);
+//   var index = client.initIndex('notes');
+
+//   // Perform an Algolia search:
+//   // https://www.algolia.com/doc/api-reference/api-methods/search/
+//   index
+//     .search({
+//       query,
+//     })
+//     .then(function (responses) {
+//       // Response from Algolia:
+//       // https://www.algolia.com/doc/api-reference/api-methods/search/#response-format
+//       console.log(responses.hits);
+//     });
+//   // [END search_index_unsecure]
+// }
 
 /**
  * トップページメイン
@@ -53,7 +90,7 @@ const useStyles = makeStyles(profilePageStyle);
  * @param {*} { userDataList }
  * @return {*}
  */
-const TopPageMain = (
+const SearchPageMain = (
   {
     // userDataList,
     // bookDataList,
@@ -68,6 +105,8 @@ const TopPageMain = (
   const [sectionDataListClientFetch, setSectionDataListClientFetch] = useState(
     [],
   );
+
+  const [searchWordAll, setSearchWordAll] = useState('');
 
   // 子の情報取得
   useEffect(() => {
@@ -96,6 +135,40 @@ const TopPageMain = (
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
+  // 検索ボタンが押されたときの処理
+  const searchButtonOnClick = async (e) => {
+    e.preventDefault();
+
+    console.log('検索Try');
+
+    const userDataListSearchResult = await searchUserData(searchWordAll);
+    setUserDataListClientFetch(userDataListSearchResult);
+  };
+
+  const onSearch = async (e) => {
+    console.log(e.target.value);
+    // const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY);
+    const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_SEARCH_KEY);
+    const index = client.initIndex('shukishoko');
+    // const index = client.initIndex('demo_ecommerce');
+    let tempResults = [];
+    await index
+      // .search({
+      //   query: e.target.value,
+      //   // query: 'Boost'
+      // })
+      .search(
+        e.target.value,
+        // query: 'Boost'
+      )
+      .then(function (responses) {
+        console.log(responses.hits);
+        tempResults = responses.hits;
+      });
+    console.log({tempResults});
+    // this.setState({ searchResultPosts: tempResults });
+  };
+
   return (
     <>
       {/*******************/}
@@ -104,7 +177,7 @@ const TopPageMain = (
       <AppHead
         pageTitle={`${RSC.appTitle}`}
         description={`${RSC.appTitle}は${RSC.topPageDescription_1}`}
-        url={`${RSC.domain}/top`}
+        url={`${RSC.domain}/search`}
       />
       {/*******************/}
       {/* 背景画像         */}
@@ -135,39 +208,70 @@ const TopPageMain = (
                 <h6>{RSC.appConcept}</h6>
               </div>
             </div>
-            <div className={classes.follow}>
-              <Tooltip
-                id="tooltip-top"
-                title="検索"
-                placement="top"
-                classes={{ tooltip: classes.tooltip }}
-              >
-                <Button
-                  // justIcon
-                  round
-                  color="primary"
-                  className={classes.followButton}
-                  startIcon={<SearchIcon />}
-                  onClick={() => {
-                    alert('clicked');
-                  }}
-                >
-                  検索
-                </Button>
-              </Tooltip>
+            {/*****************/}
+            {/* APP 紹介文     */}
+            {/*****************/}
+            <div
+              className={classNames(classes.description, classes.textCenter)}
+            >
+              {/* ディスクリプション */}
+              <p>
+                {RSC.topPageDescription_1}
+                {RSC.topPageDescription_2}
+              </p>
             </div>
+            {/*****************/}
+            {/* 検索フォーム    */}
+            {/*****************/}
+            <SearchForm
+              onSearch={onSearch}
+              // searchResultPosts={this.state.searchResultPosts}
+            />
+            <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
+              <CustomInput
+                labelText="検索ワード"
+                id="searchWordAll"
+                formControlProps={{
+                  fullWidth: true,
+                }}
+                inputProps={{
+                  type: 'text',
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon className={classes.inputAdornmentIcon} />
+                    </InputAdornment>
+                  ),
+                  autoComplete: 'off',
+                  value: searchWordAll,
+                  onChange: (e) => setSearchWordAll(e.target.value),
+                }}
+              />
+            </form>
+            <Accordion
+              // active={0}
+              collapses={[
+                {
+                  title: '絞り込み検索',
+                  content: 'ユーザ情報を絞り込みます',
+                },
+              ]}
+            />
+            <Button
+              // justIcon
+              round
+              color="primary"
+              // className={classes.followButton}
+              startIcon={<SearchIcon />}
+              // onClick={() => {
+              //   alert(`検索ワード${searchWordAll}`);
+              //   // searchButtonOnClick();
+              // }}
+              onClick={searchButtonOnClick}
+            >
+              検索
+            </Button>
           </GridItem>
         </GridContainer>
-        {/*****************/}
-        {/* APP 紹介文     */}
-        {/*****************/}
-        <div className={classNames(classes.description, classes.textCenter)}>
-          {/* ディスクリプション */}
-          <p>
-            {RSC.topPageDescription_1}
-            {RSC.topPageDescription_2}
-          </p>
-        </div>
 
         <div className={classes.profileTabs}>
           <NavPills
@@ -258,4 +362,4 @@ const TopPageMain = (
   );
 };
 
-export default TopPageMain;
+export default SearchPageMain;

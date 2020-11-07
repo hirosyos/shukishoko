@@ -505,6 +505,41 @@ export const getSectionDataListFromUserData = async (userData) => {
 };
 
 /**
+ * ユーザデータ検索
+ *
+ */
+export const searchUserData = async (
+  allSearch,
+  userNameSearch,
+  userDisplayNameSearch,
+  userIntroductionSearch,
+) => {
+  const querySnapshot = await firebase
+    .firestore()
+    .collection(VALIDUSERS)
+    .where('userName', '==', allSearch)
+    .orderBy('updatedAt', 'desc')
+    .get();
+  // console.log({ querySnapshot });
+  // console.log('querySnapshot.size');
+  // console.log(querySnapshot.size);
+  if (querySnapshot.size === 0) {
+    return null;
+  }
+
+  const userDataList = querySnapshot.docs.map((x) => {
+    // console.log('x.data()');
+    // console.log(x.data());
+    return {
+      userName: x.data().userName,
+      userData: x.data(),
+    };
+  });
+
+  return userDataList;
+};
+
+/**
  * timestamp形式のデータをいい感じの形式に変換する
  *
  * @param {*} timestamp
