@@ -135,7 +135,7 @@ const TopPageMain = (
                 <h6>{RSC.appConcept}</h6>
               </div>
             </div>
-            <div className={classes.follow}>
+            {/* <div className={classes.follow}>
               <Tooltip
                 id="tooltip-top"
                 title="検索"
@@ -155,7 +155,7 @@ const TopPageMain = (
                   検索
                 </Button>
               </Tooltip>
-            </div>
+            </div> */}
           </GridItem>
         </GridContainer>
         {/*****************/}
