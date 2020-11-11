@@ -60,7 +60,7 @@ export default function SectionProduct() {
           <GridItem xs={12} sm={4} md={4}>
             <InfoArea
               title="トップページ"
-              description="現在サービスに登録されているすべての情報が出力されています。ユーザタグでは"
+              description="現在サービスに登録されているすべての情報が出力されています。"
               icon={Chat}
               iconColor="info"
               vertical
@@ -70,6 +70,25 @@ export default function SectionProduct() {
             <InfoArea
               title="ユーザページ"
               description="ユーザが作成した手記やセクション、未来を閲覧することができます。"
+              icon={Chat}
+              iconColor="info"
+              vertical
+            />
+          </GridItem>
+          <GridItem xs={12} sm={4} md={4}>
+            <InfoArea
+              title="ユーザ再編集"
+              description="ユーザページからは、ユーザ設定の変更が可能です。"
+              icon={Chat}
+              iconColor="info"
+              vertical
+            />
+          </GridItem>
+
+          <GridItem xs={12} sm={4} md={4}>
+            <InfoArea
+              title="手記作成"
+              description="ユーザページの手記作成ボタンから手記の作成が可能です。"
               icon={Chat}
               iconColor="info"
               vertical
@@ -89,6 +108,24 @@ export default function SectionProduct() {
           </GridItem>
           <GridItem xs={12} sm={4} md={4}>
             <InfoArea
+              title="手記再編集"
+              description="手記ページからは手記の再編集が可能です"
+              icon={Chat}
+              iconColor="info"
+              vertical
+            />
+          </GridItem>
+          <GridItem xs={12} sm={4} md={4}>
+            <InfoArea
+              title="セクション作成"
+              description="手記ページのセクション作成ボタンからセクションの作成が可能です"
+              icon={Chat}
+              iconColor="info"
+              vertical
+            />
+          </GridItem>
+          <GridItem xs={12} sm={4} md={4}>
+            <InfoArea
               title="セクションページ"
               description="ユーザタブでは、セクションの管理ユーザをたどることができます。
               手記タブでは、セクションの管理手記をたどることができます。
@@ -101,70 +138,16 @@ export default function SectionProduct() {
 
           <GridItem xs={12} sm={4} md={4}>
             <InfoArea
-              title="手記作成"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
-              iconColor="danger"
-              vertical
-            />
-          </GridItem>
-          <GridItem xs={12} sm={4} md={4}>
-            <InfoArea
-              title="セクション作成"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
-              iconColor="danger"
-              vertical
-            />
-          </GridItem>
-          <GridItem xs={12} sm={4} md={4}>
-            <InfoArea
-              title="手記再編集"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
-              iconColor="danger"
-              vertical
-            />
-          </GridItem>
-          <GridItem xs={12} sm={4} md={4}>
-            <InfoArea
               title="セクション再編集"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
-              iconColor="danger"
-              vertical
-            />
-          </GridItem>
-          <GridItem xs={12} sm={4} md={4}>
-            <InfoArea
-              title="ユーザ設定変更"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
-              iconColor="danger"
-              vertical
-            />
-          </GridItem>
-          <GridItem xs={12} sm={4} md={4}>
-            <InfoArea
-              title="手記設定変更"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
-              iconColor="danger"
-              vertical
-            />
-          </GridItem>
-          <GridItem xs={12} sm={4} md={4}>
-            <InfoArea
-              title="セクション設定変更"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
-              icon={Fingerprint}
-              iconColor="danger"
+              description="セクションページからはセクションの再編集が可能です"
+              icon={Chat}
+              iconColor="info"
               vertical
             />
           </GridItem>
         </GridContainer>
       </div>
-      <GridContainer justify="center">
+      {/* <GridContainer justify="center">
         <GridItem xs={12} sm={8} md={8}>
           <h2 className={classes.title}>手記書庫-ShukiShoko 使用技術</h2>
           <h5 className={classes.description}>
@@ -307,7 +290,7 @@ export default function SectionProduct() {
             />
           </GridItem>
         </GridContainer>
-      </div>
+      </div> */}
     </div>
   );
 }
